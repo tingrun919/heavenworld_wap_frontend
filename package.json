@@ -1,12 +1,11 @@
 {
   "name": "heavenworld_wap_frontend",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "A Vue.js frontend project on mintUI",
   "author": "tingrun919 <344197917@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
+    "dev": "webpack-dev-server --content-base ./ --open --inline --hot --compress --config build/webpack.dev.config.js",
     "build": "node build/build.js"
   },
   "dependencies": {
