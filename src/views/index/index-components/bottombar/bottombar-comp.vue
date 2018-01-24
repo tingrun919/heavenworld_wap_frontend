@@ -25,8 +25,12 @@
 	export default {
 		data() {
 			return {
-				selected:'panoramic'
+				selected:'',
 			}
+		},
+		mounted(){
+			this.selected = this.$route.name
+			this.$emit("handleBottombar",this.selected)
 		},
 		methods:{
 			handleBottombar(bottombar){
