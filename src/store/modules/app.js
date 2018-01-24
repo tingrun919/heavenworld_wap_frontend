@@ -1,6 +1,6 @@
 const app = {
 	state: {
-		currentPageName: '',
+		currentPageName: '推荐',
 	},
 	mutations: {
 		setCurrentPageName(state, name) {
