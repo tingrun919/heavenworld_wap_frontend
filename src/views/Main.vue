@@ -7,7 +7,7 @@
 			<header-child-Comp :isDefauleHeader="isDefauleHeader"></header-child-Comp>
 		</div>
 		<div class="index-tabbar">
-			<navbar-Child-Comp></navbar-Child-Comp>
+			<navbar-Child-Comp @handleNavbar="getNavbar" :currentModel="currentModel" :isDefauleHeader="isDefauleHeader"></navbar-Child-Comp>
 		</div>
 		<div class="index-content">
 			<keep-alive>
@@ -33,19 +33,33 @@
 		data() {
 			return {
 				isDefauleHeader:true,
+				currentModel:'',
 			}
 		},
 		methods: {
 			getChild(routerlink) {
 				if(routerlink == 'information' || routerlink == 'panoramic'){
 					this.isDefauleHeader = true;
+					if(routerlink == 'information'){
+						this.currentModel = 'information'
+					}else{
+						this.currentModel = 'panoramic'
+					}
 				}else{
 					this.isDefauleHeader = false;
+					if(routerlink == 'find'){
+						this.currentModel = 'find'
+					}else{
+						this.currentModel = 'mine'
+					}
 				}
 				this.$router.push({
 					name: routerlink
 				});
 			},
+			getNavbar(routerlink){
+				console.log(routerlink,'routerlink')
+			}
 		}
 	}
 </script>
