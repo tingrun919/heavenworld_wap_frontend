@@ -37,10 +37,16 @@
 		},
 		created() {
 			for (let i = 0; i < 2; i++) {
-				this.items.push(++this.itemIndex)
+				this.items.push(this.tabType)
 			}
 		},
 		watch: {
+			tabType() {
+				this.items = []
+				for (let i = 0; i < 2; i++) {
+					this.items.push(this.tabType)
+				}
+			},
 			scrollbarObj: {
 				handler() {
 					this.rebuildScroll()
@@ -81,6 +87,9 @@
 					threshold: parseInt(this.pullUpLoadThreshold),
 					txt: { more: this.pullUpLoadMoreTxt, noMore: this.pullUpLoadNoMoreTxt }
 				} : false
+			},
+			tabType: function () {
+				return this.$store.state.app.currentPageName;
 			}
 		},
 		methods: {
@@ -110,8 +119,8 @@
 					if (Math.random() > 0.5) {
 						// 如果有新数据
 						let newPage = []
-						for (let i = 0; i < 10; i++) {
-							newPage.push( ++this.itemIndex)
+						for (let i = 0; i < 3; i++) {
+							newPage.push(this.$store.state.app.currentPageName)
 						}
 						this.items = this.items.concat(newPage)
 					} else {
@@ -121,7 +130,9 @@
 				}, 1500)
 			},
 			clickItem() {
-				this.$router.back()
+				this.$router.push({
+                        name: 'panoramic_view'
+                    });
 			},
 		}
 	}

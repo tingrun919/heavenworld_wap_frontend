@@ -77,7 +77,7 @@
 		methods: {
 			test(index,name){
 				this.currentClick = index;
-				this.$emit("handleNavbar",index)
+				this.$emit("handleNavbar",name)
 				this.$store.commit('setCurrentPageName', name);
 			}
 		}

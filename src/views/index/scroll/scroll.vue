@@ -1,10 +1,32 @@
+<style lang="less">
+	@import './scroll.less';
+</style>
 <template>
 	<div ref="wrapper" class="list-wrapper">
 		<div class="scroll-content">
 			<div ref="listWrapper">
 				<slot>
 					<ul class="list-content">
-						<li @click="clickItem($event,item)" class="list-item" v-for="item in data">{{item}}</li>
+						<!-- <li @click="clickItem($event,item)" class="list-item" v-for="item in data">{{item}}</li> -->
+						<li @click="clickItem($event,item)" class="list-item" v-for="item in data">
+							<!-- <div class="mine-custom-info"> -->
+							<div class="scroll-content-img">
+								<img src="../../../../static/vtour/panos/hongkong.tiles/thumb.jpg" width="100" height="100">
+								<div class="scroll-content-info">
+									<p>{{item}}普陀山</p>
+									<div class="scroll-content-info-span">
+										<span>海南省·三亚市</span>
+									</div>
+									<div class="scroll-content-info-span">
+										<span>888人祈福</span>
+									</div>
+								</div>
+							</div>
+							<div class="scroll-content-right">
+								<span>全景</span>
+							</div>
+							<!-- </div> -->
+						</li>
 					</ul>
 				</slot>
 			</div>
@@ -116,12 +138,12 @@
 		},
 		computed: {
 			pullUpTxt() {
-				const moreTxt = this.pullUpLoad && this.pullUpLoad.txt && this.pullUpLoad.txt.more 
-				const noMoreTxt = this.pullUpLoad && this.pullUpLoad.txt && this.pullUpLoad.txt.noMore 
+				const moreTxt = this.pullUpLoad && this.pullUpLoad.txt && this.pullUpLoad.txt.more
+				const noMoreTxt = this.pullUpLoad && this.pullUpLoad.txt && this.pullUpLoad.txt.noMore
 				return this.pullUpDirty ? moreTxt : noMoreTxt
 			},
 			refreshTxt() {
-				return this.pullDownRefresh && this.pullDownRefresh.txt 
+				return this.pullDownRefresh && this.pullDownRefresh.txt
 			}
 		},
 		created() {
