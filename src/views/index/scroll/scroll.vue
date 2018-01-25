@@ -1,4 +1,4 @@
-<style lang="less">
+<style scoped lang="less">
 	@import './scroll.less';
 </style>
 <template>
@@ -9,23 +9,8 @@
 					<ul class="list-content">
 						<!-- <li @click="clickItem($event,item)" class="list-item" v-for="item in data">{{item}}</li> -->
 						<li @click="clickItem($event,item)" class="list-item" v-for="item in data">
-							<!-- <div class="mine-custom-info"> -->
-							<div class="scroll-content-img">
-								<img src="../../../../static/vtour/panos/hongkong.tiles/thumb.jpg" width="100" height="100">
-								<div class="scroll-content-info">
-									<p>{{item}}普陀山</p>
-									<div class="scroll-content-info-span">
-										<span>海南省·三亚市</span>
-									</div>
-									<div class="scroll-content-info-span">
-										<span>888人祈福</span>
-									</div>
-								</div>
-							</div>
-							<div class="scroll-content-right">
-								<span>全景</span>
-							</div>
-							<!-- </div> -->
+							<scroll-For-Panoramic :item='item' v-if="currentRoute == 'panoramic'"></scroll-For-Panoramic>
+							<scroll-For-Information :item='item' v-if="currentRoute == 'information'"></scroll-For-Information>
 						</li>
 					</ul>
 				</slot>
@@ -63,6 +48,8 @@
 	import BScroll from 'better-scroll'
 	import Loading from './loading.vue'
 	import Bubble from './bubble.vue'
+	import scrollForPanoramic from './scroll-components/scroll-panoramic/scroll-for-panoramic.vue'
+	import scrollForInformation from './scroll-components/scroll-information/scroll-for-information.vue'
 	import { getRect } from './common/dom'
 	const COMPONENT_NAME = 'scroll'
 	const DIRECTION_H = 'horizontal'
@@ -123,7 +110,7 @@
 			mouseWheel: {
 				type: Boolean,
 				default: false
-			}
+			},
 		},
 		data() {
 			return {
@@ -133,7 +120,7 @@
 				isPullUpLoad: false,
 				pullUpDirty: true,
 				pullDownStyle: '',
-				bubbleY: 0
+				bubbleY: 0,
 			}
 		},
 		computed: {
@@ -143,7 +130,10 @@
 				return this.pullUpDirty ? moreTxt : noMoreTxt
 			},
 			refreshTxt() {
-				return this.pullDownRefresh && this.pullDownRefresh.txt
+				return this.pullDownRefresh && this.pullDownRefresh.txt || '刷新成功'
+			},
+			currentRoute() {
+				return this.$route.name
 			}
 		},
 		created() {
@@ -281,7 +271,9 @@
 		},
 		components: {
 			Loading,
-			Bubble
+			Bubble,
+			scrollForPanoramic,
+			scrollForInformation,
 		}
 	}
 </script>
