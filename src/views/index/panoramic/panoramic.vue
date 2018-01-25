@@ -1,4 +1,4 @@
-<style>
+<style scoped lang="less">
 	@import './panoramic.less';
 </style>
 <template>
@@ -23,8 +23,8 @@
 				pullDownRefreshStop: 40,
 				pullUpLoad: true,
 				pullUpLoadThreshold: 0,
-				pullUpLoadMoreTxt: '正在加载',
-				pullUpLoadNoMoreTxt: '没有更多',
+				pullUpLoadMoreTxt: '加载更多',
+				pullUpLoadNoMoreTxt: '没有更多数据了',
 				startY: 0,
 				scrollToX: 0,
 				scrollToY: -200,
@@ -36,16 +36,11 @@
 			}
 		},
 		created() {
-			for (let i = 0; i < 2; i++) {
-				this.items.push(this.tabType)
-			}
+			this.items = this.tabType
 		},
 		watch: {
 			tabType() {
-				this.items = []
-				for (let i = 0; i < 2; i++) {
-					this.items.push(this.tabType)
-				}
+				this.items = this.tabType
 			},
 			scrollbarObj: {
 				handler() {
@@ -71,7 +66,7 @@
 		},
 		computed: {
 			viewHeight: function () {
-				return (window.innerHeight - 140) + 'px'
+				return (window.innerHeight - 135) + 'px'
 			},
 			scrollbarObj: function () {
 				return this.scrollbar ? { fade: this.scrollbarFade } : false
@@ -89,7 +84,15 @@
 				} : false
 			},
 			tabType: function () {
-				return this.$store.state.app.currentPageName;
+				var resultList = []
+				for (var i = 1; i < 4; i++) {
+					var item = {
+						isPic: i,
+						bavbar: this.$store.state.app.currentPageName,
+					}
+					resultList.push(item);
+				}
+				return resultList;
 			}
 		},
 		methods: {
@@ -100,9 +103,17 @@
 					if (this._isDestroyed) {
 						return
 					}
-					if (Math.random() > 0.5) {
+					var random = Math.random();
+					console.log(random, 'random data')
+					if (random > 0.5) {
 						// 如果有新数据
-						this.items.unshift(new Date())
+						for (let i = 0; i < 3; i++) {
+							var item = {
+								isPic: i,
+								bavbar: this.$store.state.app.currentPageName,
+							}
+							this.items.unshift(item);
+						}
 					} else {
 						// 如果没有新数据
 						this.$refs.scroll.forceUpdate()
@@ -116,13 +127,11 @@
 					if (this._isDestroyed) {
 						return
 					}
-					if (Math.random() > 0.5) {
+					var random = Math.random();
+					console.log(random, 'random data')
+					if (random > 0.5) {
 						// 如果有新数据
-						let newPage = []
-						for (let i = 0; i < 3; i++) {
-							newPage.push(this.$store.state.app.currentPageName)
-						}
-						this.items = this.items.concat(newPage)
+						this.items = this.items.concat(this.tabType)
 					} else {
 						// 如果没有新数据
 						this.$refs.scroll.forceUpdate()
@@ -131,8 +140,8 @@
 			},
 			clickItem() {
 				this.$router.push({
-                        name: 'panoramic_view'
-                    });
+					name: 'panoramic_view'
+				});
 			},
 		}
 	}
