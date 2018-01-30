@@ -23,6 +23,15 @@ export const otherRouter = [
         children: [
             { path: 'index', title: '全景', name: 'panoramic_view', component: () => import('@/views/index/panoramic/panoramicDetail.vue') }
         ]
+	},
+	{
+        path: '/informationView',
+        name: 'informationView',
+        title: '资讯详情',
+        component: Other,
+        children: [
+            { path: 'index', title: '资讯详情', name: 'information_view', component: () => import('@/views/information/information-detail/information-detail.vue') }
+        ]
     },
 ];
 

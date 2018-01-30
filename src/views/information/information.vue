@@ -140,7 +140,7 @@
 			},
 			clickItem() {
 				this.$router.push({
-					name: 'panoramic_view'
+					name: 'information_view'
 				});
 			},
 		}

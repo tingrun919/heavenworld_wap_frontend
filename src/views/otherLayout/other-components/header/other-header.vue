@@ -6,6 +6,7 @@
 		<router-link to="/" slot="left">
 			<mt-button icon="back"></mt-button>
 		</router-link>
+		<mt-button icon="more" slot="right" style="transform: rotate(-90deg);"></mt-button>
 	</mt-header>
 </template>
 <script>
