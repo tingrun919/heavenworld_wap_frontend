@@ -5,7 +5,7 @@
   "author": "tingrun919 <344197917@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --open --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --open --inline --progress --config build/webpack.dev.conf.js  --host 192.168.10.72",
     "build": "node build/build.js"
   },
   "dependencies": {

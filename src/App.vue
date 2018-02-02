@@ -6,7 +6,18 @@
 
 <script>
 	export default {
-		name: 'App'
+		name: 'App',
+		data(){
+			return{
+				show:false,
+			}
+		},
+		mounted() {
+			document.addEventListener('click', (e) => {
+				console.log(e.target,'this is target')
+				if (!this.$el.contains(e.target)) this.show = false
+			})
+		},
 	}
 </script>
 

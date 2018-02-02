@@ -14,6 +14,10 @@ import App from './App'
 import store from './store'
 import {router} from './router/index';
 
+
+import Bridge from '../config/bridge.js'
+Vue.prototype.$bridge = Bridge
+
 Vue.config.productionTip = false
 
 Vue.use(MintUI)
