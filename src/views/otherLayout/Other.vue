@@ -4,29 +4,35 @@
 <template>
 	<div class="other-main">
 		<div class="other-header">
-			<header-child-Comp :title="title"></header-child-Comp>
+			<header-child-Comp :title="title" :isblessing="isBlessing"></header-child-Comp>
 		</div>
 		<div class="other-content">
 			<keep-alive>
 				<router-view></router-view>
 			</keep-alive>
 		</div>
-		<div class="other-navbar" v-if="is_information">
-			<other-Bottom></other-Bottom>
+		<div class="other-navbar">
+			<other-Bottom v-if="currentRouteName == 'information_view'"></other-Bottom>
+			<other-Panoramic v-if="currentRouteName == 'panoramic_view'"></other-Panoramic>
+			<other-Blessing v-if="currentRouteName == 'blessing_view'"></other-Blessing>
 		</div>
 	</div>
 </template>
 <script>
 	import otherBottom from './other-components/bottom/other-bottom.vue';
+	import otherPanoramic from './other-components/bottom/other-panoramic.vue';
+	import otherBlessing from './other-components/bottom/other-blessing.vue';
 	import headerChildComp from './other-components/header/other-header.vue';
 	export default {
 		components: {
 			headerChildComp,
 			otherBottom,
+			otherPanoramic,
+			otherBlessing,
 		},
 		computed: {
 			title() {
-				var title = ''
+				var title = '';
 				switch (this.$route.name) {
 					case 'information_view':
 						title = '文章标题'
@@ -34,29 +40,50 @@
 					case 'panoramic_view':
 						title = '全景'
 						break;
+					case 'blessing_view':
+						title = '';
+						break;
 				}
 				return title;
 			},
-			is_information() {
-				var title;
+			currentRouteName() {
+				var title = '';
 				switch (this.$route.name) {
 					case 'information_view':
-						title = true;
+						title = 'information_view';
 						break;
 					case 'panoramic_view':
-						title = false;
+						title = 'panoramic_view';
+						break;
+					case 'blessing_view':
+						title = 'blessing_view';
 						break;
 				}
 				return title;
+			},
+			isBlessing() {
+				if(this.$route.name == 'blessing_view'){
+					this.isblessing = false
+				}
+				return this.isblessing
 			}
 		},
 		data() {
 			return {
-
+				show:true,
+				isblessing:true,
 			}
 		},
 		methods: {
 
-		}
+		},
+		// mounted() {
+		// 	document.addEventListener('click', (e) => {
+		// 		if (!this.$el.contains(e.target)){
+		// 			this.show = false
+		// 			console.log(this.show,'2222222223')
+		// 		} 
+		// 	})
+		// },
 	}
 </script>

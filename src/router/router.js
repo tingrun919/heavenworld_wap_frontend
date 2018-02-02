@@ -21,7 +21,7 @@ export const otherRouter = [
         title: '全景',
         component: Other,
         children: [
-            { path: 'index', title: '全景', name: 'panoramic_view', component: () => import('@/views/index/panoramic/panoramicDetail.vue') }
+            { path: 'index', title: '全景', name: 'panoramic_view', component: () => import('../views/index/panoramic/panoramic-components/panoramic-detail.vue') }
         ]
 	},
 	{
@@ -31,6 +31,15 @@ export const otherRouter = [
         component: Other,
         children: [
             { path: 'index', title: '资讯详情', name: 'information_view', component: () => import('@/views/information/information-detail/information-detail.vue') }
+        ]
+	},
+	{
+        path: '/blessingView',
+        name: 'blessingView',
+        title: '福主页',
+        component: Other,
+        children: [
+            { path: 'index', title: '福主页', name: 'blessing_view', component: () => import('@/views/index/panoramic/panoramic-components/blessing-home.vue') }
         ]
     },
 ];

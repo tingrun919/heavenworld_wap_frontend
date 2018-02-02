@@ -2,7 +2,6 @@
 	<div id="wrapper">
 		<div id="pano"></div>
 	</div>
-	</div>
 </template>
 
 <script>
@@ -24,7 +23,6 @@
 			},
 
 		},
-
 	}
 </script>
 
