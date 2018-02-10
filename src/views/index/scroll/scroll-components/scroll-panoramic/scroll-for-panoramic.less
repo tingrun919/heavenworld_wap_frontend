@@ -1,16 +1,23 @@
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-02-07 16:26:16 
+ * @Last Modified by:   tarn.tianrun 
+ * @Last Modified time: 2018-02-07 16:26:16 
+ */
+
 .scroll-content-img{
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-wrap: nowrap;
+    align-items: flex-end;
     justify-content: flex-start;
 	padding: 10px;
 	img{
-		vertical-align: middle;
+		flex: none;
 	}
 }
 .scroll-content-right{
-	position: relative;
-	margin-top: 75px;
+	flex: 1;
+	text-align: right;
 	span{
 		background-color: #B5B5B5;
 		color: #ffffff;
@@ -19,15 +26,13 @@
 	}
 }
 .scroll-content-info{
-	width: 64%;
+	flex: 1;
 	margin-left: 10px;
-	overflow: hidden;
 	text-align: left;
 	:last-child{
 		margin-top: 20px;
 	}
 	p{
-		margin-bottom: 5px;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		overflow: hidden;

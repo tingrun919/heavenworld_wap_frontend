@@ -64,7 +64,8 @@
 }
 .blessing-map{
 	border: 1px solid #ddd;
-	padding: 10px 20px;
+	display: flex;
+	padding: 10px;
 	margin: 0 1px 10px 1px;
 	background-color: #fff;
 	font-size: 12px;
@@ -72,13 +73,13 @@
 	img{
 		vertical-align: middle;
 	}
-	:last-child{
-		float: right;
+	:first-child{
+		padding-right: 10px;
 	}
 	span{
-		padding-left: 10px;
+		flex: 1;
+		.blessing-text-style;
 	}
-	.blessing-text-style;
 }
 .blessing-person{
 	// border: 1px solid #ff2d4b;
@@ -124,7 +125,7 @@
 }
 .list-wrapper{
 	background-color: initial !important;
-	height: 90% !important;
+	height: 92% !important;
 }
 .user-info{
 	text-align: left;

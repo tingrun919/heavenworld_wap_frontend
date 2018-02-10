@@ -4,12 +4,12 @@
 	<template>
 		<div style="position:fixed;bottom:0;width:100%;z-index:2000;">
 			<mt-tabbar v-model="selected">
-				<mt-tab-item id="blessing" @click.native="handleBottombar('blessing')">
+				<mt-tab-item id="blessing" @click.native="toIndex">
 					<img slot="icon" src="../../../../assets/panoramic-img/panoramic-blessing-no.png">
 					<!-- <img slot="icon" v-if="selected === 'blessing'" src="../../../../assets/panoramic-img/panoramic-blessing.png">  -->
 					全景
 				</mt-tab-item>
-				<mt-tab-item id="index" @click.native="toIndex">
+				<mt-tab-item id="index" @click.native="handleBottombar('index')">
 					<img slot="icon" src="../../../../assets/panoramic-img/panoramic-home-no.png">
 					<!-- <img slot="icon" v-if="selected === 'index'" src="../../../../assets/panoramic-img/panoramic-home.png">  -->
 					福商城
@@ -50,7 +50,7 @@
 				},
 				toIndex() {
 					this.$router.push({
-						name: 'blessing_view'
+						name: 'panoramicView'
 					});
 				}
 			}

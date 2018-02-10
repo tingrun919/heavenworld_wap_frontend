@@ -1,3 +1,10 @@
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-02-07 16:26:40 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-02-07 16:39:58
+ */
+
 <style scoped lang="less">
 	@import './blessing-home.less';
 </style>
@@ -45,11 +52,10 @@
 				<div class="blessing-subtitle">
 					<span>场景名称——xxx省xxx市(限制一行一行一行一行一行一行一行一行一行一行一行一行一行一行一行一行一行一行一行一行一行)</span>
 				</div>
-
 			</div>
 			<div class="blessing-map">
 				<img src="../../../../assets/panoramic-img/panoramic-blessing-map.png" width="18" height="18">
-				<span>地理位置 XXX省XXX市XXX区县XXXXX街道XX号</span>
+				<span>地理位置 XXX省XXX市XXX区县XXXXX街道XX号111111111</span>
 				<img src="../../../../assets/panoramic-img/panoramic-blessing-back.png" style="transform: rotate(180deg);" width="20" height="20">
 			</div>
 			<div class="blessing-person">
@@ -200,15 +206,15 @@
 			},
 			aaa() {
 				this.$router.push({
-					name: 'panoramic_view'
+					name: 'panoramicView',
 				});
 			}
 		},
 		created() {
 			// android/ios 调用js 刷新界面
-			this.$bridge.registerHandler("JSECHO", (data) => {
-				this.msgObj = data
-			})
+			// this.$bridge.registerHandler("JSECHO", (data) => {
+			// 	this.msgObj = data
+			// })
 
 			// js 调用 android/ios 获取用户信息
 			// this.$bridge.callHandler('ShowName', {}, function (data) {
