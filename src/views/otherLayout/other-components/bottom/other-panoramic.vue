@@ -1,27 +1,29 @@
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-02-07 10:36:22 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-02-07 15:16:33
+ */
 <style scoped lang="less">
 	@import "./other-panoramic.less";
 </style>
 <template>
 	<div>
 		<mt-tabbar v-model="selected">
-			<mt-tab-item id="blessing" @click.native="handleBottombar('blessing')">
+			<mt-tab-item id="blessing" @click.native="handleBlessingBottom('blessing')">
 				<img slot="icon" src="../../../../assets/panoramic-img/panoramic-blessing-no.png">
-				<!-- <img slot="icon" v-if="selected === 'blessing'" src="../../../../assets/panoramic-img/panoramic-blessing.png">  -->
 				祈福
 			</mt-tab-item>
 			<mt-tab-item id="index" @click.native="toIndex">
 				<img slot="icon" src="../../../../assets/panoramic-img/panoramic-home-no.png">
-				<!-- <img slot="icon" v-if="selected === 'index'" src="../../../../assets/panoramic-img/panoramic-home.png">  -->
 				主页
 			</mt-tab-item>
-			<mt-tab-item id="scenes" @click.native="handleBottombar('scenes')">
+			<mt-tab-item id="scenes" @click.native="handleBlessingBottom('scenes')">
 				<img slot="icon" src="../../../../assets/panoramic-img/panoramic-scenes-no.png">
-				<!-- <img slot="icon" v-if="selected === 'scenes'" src="../../../../assets/panoramic-img/panoramic-scenes.png">  -->
 				场景
 			</mt-tab-item>
 			<mt-tab-item id="more" @click.native="showMore">
 				<img slot="icon" src="../../../../assets/panoramic-img/panoramic-more-no.png">
-				<!-- <img slot="icon" v-if="selected === 'more'" src="../../../../assets/panoramic-img/panoramic-more.png">  -->
 				更多
 			</mt-tab-item>
 		</mt-tabbar>
@@ -44,11 +46,11 @@
 		},
 		mounted() {
 			// this.selected = this.$route.name
-			// this.$emit("handleBottombar",this.selected)
+			// this.$emit("handleBlessingBottom",this.selected)
 		},
 		methods: {
-			handleBottombar(bottombar) {
-				// this.$emit("handleBottombar",bottombar) rgba(250,250,250,0.8)
+			handleBlessingBottom(bottombar) {
+				this.$emit("handleBlessing",bottombar)
 			},
 			showMore() {
 				this.show = !this.show

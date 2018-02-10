@@ -1,3 +1,10 @@
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-02-07 16:26:48 
+ * @Last Modified by:   tarn.tianrun 
+ * @Last Modified time: 2018-02-07 16:26:48 
+ */
+
 import Main from '@/views/Main.vue';
 import Other from '@/views/otherLayout/Other.vue';
 
@@ -14,16 +21,26 @@ export const appRouter = {
     ]
 };
 
+export const preview = {
+    path: '/panoramicView',
+    name: 'panoramicView',
+	// component: () => import('@/views/index/panoramic/panoramic-components/panoramic-detail.vue')
+	// component: () => import('@/views/test.vue')
+	component: resolve => { require(['@/views/index/panoramic/panoramic-components/panoramic-detail.vue'], resolve)},
+	// component: resolve => { require(['@/views/test.vue'], resolve)},
+
+};
+
 export const otherRouter = [
-    {
-        path: '/panoramicView',
-        name: 'panoramicView',
-        title: '全景',
-        component: Other,
-        children: [
-            { path: 'index', title: '全景', name: 'panoramic_view', component: () => import('../views/index/panoramic/panoramic-components/panoramic-detail.vue') }
-        ]
-	},
+    // {
+    //     path: '/preview',
+    //     name: 'preview',
+    //     title: '全景',
+    //     component: Other,
+    //     children: [
+    //         { path: 'index', title: '全景', name: 'panoramic_view', component: () => import('../views/index/panoramic/panoramic-components/panoramic-detail.vue') }
+    //     ]
+	// },
 	{
         path: '/informationView',
         name: 'informationView',
@@ -46,5 +63,6 @@ export const otherRouter = [
 
 export const routers = [
 	appRouter,
+	preview,
 	...otherRouter
 ];
