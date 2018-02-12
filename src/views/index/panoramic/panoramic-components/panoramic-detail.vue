@@ -132,7 +132,7 @@
 				path: '',
 				icon: '',
 				duration: '',
-				playAudioAnimation:false,
+				playAudioAnimation: false,
 				chioseImg: 1,
 				dataSwipe: [
 					{
@@ -179,7 +179,7 @@
 					this.icon = data.icon
 					this.duration = data.duration
 					this.showOtherVideo = true
-				}else if(data.type == 'voice'){
+				} else if (data.type == 'voice') {
 					this.path = data.path
 					this.duration = data.duration
 					this.showOtherAudio = true
@@ -237,12 +237,15 @@
 				this.$refs.videoTag.pause()
 				this.showVideos = false;
 			},
-			playAudio(){
-				if(this.$refs.audioTag.paused){
+			playAudio() {
+				if (this.$refs.audioTag.paused) {
 					this.playAudioAnimation = true
 					this.$refs.audioTag.load()
 					this.$refs.audioTag.play()
-				}else{
+					setTimeout(() => {
+						this.playAudioAnimation = false
+					}, this.duration * 1000);
+				} else {
 					this.playAudioAnimation = false
 					this.$refs.audioTag.pause()
 				}
