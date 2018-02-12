@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:40 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-02-07 16:39:58
+ * @Last Modified time: 2018-02-11 11:43:31
  */
 
 <style scoped lang="less">
@@ -54,9 +54,9 @@
 				</div>
 			</div>
 			<div class="blessing-map">
-				<img src="../../../../assets/panoramic-img/panoramic-blessing-map.png" width="18" height="18">
+				<img src="../../../../assets/panoramic-img/panoramic-blessing-map.png" width="15" height="15">
 				<span>地理位置 XXX省XXX市XXX区县XXXXX街道XX号111111111</span>
-				<img src="../../../../assets/panoramic-img/panoramic-blessing-back.png" style="transform: rotate(180deg);" width="20" height="20">
+				<img src="../../../../assets/panoramic-img/panoramic-goto.png" width="15" height="15">
 			</div>
 			<div class="blessing-person">
 				<div class="blessing-person-content">
