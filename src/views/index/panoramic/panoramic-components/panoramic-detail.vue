@@ -26,7 +26,7 @@
 			<div class="blessing-display" v-if="handleBlessingAction">
 				<div class="blessing-btn">
 					<div>
-						<img src="../../../../assets/panoramic-img/panoramic-cancel.png" @click="getPanoramicAction('blessing')" width="30" height="30">
+						<img src="../../../../assets/panoramic-img/panoramic-blessing-close1.png" @click="getPanoramicAction('blessing')" width="30" height="30">
 					</div>
 					<div>
 						<img src="../../../../assets/panoramic-img/panoramic-blessing-confirm.png" @click="getPanoramicAction('blessing')" width="30"

@@ -1,8 +1,8 @@
 /*
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:48 
- * @Last Modified by:   tarn.tianrun 
- * @Last Modified time: 2018-02-07 16:26:48 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-02-22 11:06:44
  */
 
 import Main from '@/views/Main.vue';
@@ -24,11 +24,16 @@ export const appRouter = {
 export const preview = {
     path: '/panoramicView',
     name: 'panoramicView',
-	// component: () => import('@/views/index/panoramic/panoramic-components/panoramic-detail.vue')
-	// component: () => import('@/views/test.vue')
 	component: resolve => { require(['@/views/index/panoramic/panoramic-components/panoramic-detail.vue'], resolve)},
-	// component: resolve => { require(['@/views/test.vue'], resolve)},
-
+};
+export const finddynamic = {
+    path: '/findDynamic',
+	name: 'findDynamic',
+	component: Other,
+	children: [
+		{ path: 'index', title: '动态', name: 'find_dynamic', component: () => import('@/views/find/dynamic/dynamic.vue') }
+	]
+	// component: resolve => { require(['@/views/find/dynamic/dynamic.vue'], resolve)},
 };
 
 export const otherRouter = [
@@ -58,11 +63,12 @@ export const otherRouter = [
         children: [
             { path: 'index', title: '福主页', name: 'blessing_view', component: () => import('@/views/index/panoramic/panoramic-components/blessing-home.vue') }
         ]
-    },
+	},
 ];
 
 export const routers = [
 	appRouter,
 	preview,
+	finddynamic,
 	...otherRouter
 ];
