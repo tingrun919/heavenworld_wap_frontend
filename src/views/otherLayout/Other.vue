@@ -43,6 +43,9 @@
 					case 'blessing_view':
 						title = '';
 						break;
+					case 'find_dynamic':
+						title = '动态';
+						break;
 				}
 				return title;
 			},

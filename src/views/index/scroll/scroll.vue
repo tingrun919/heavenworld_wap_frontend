@@ -11,6 +11,7 @@
 						<li @click="clickItem($event,item)" class="list-item" v-for="item in data">
 							<scroll-For-Panoramic :item='item' v-if="currentRoute == 'panoramic'"></scroll-For-Panoramic>
 							<scroll-For-Information :item='item' v-if="currentRoute == 'information'"></scroll-For-Information>
+							<scroll-For-Dynamic :item='item' v-if="currentRoute == 'find_dynamic'"></scroll-For-Dynamic>
 						</li>
 					</ul>
 				</slot>
@@ -50,6 +51,7 @@
 	import Bubble from './bubble.vue'
 	import scrollForPanoramic from './scroll-components/scroll-panoramic/scroll-for-panoramic.vue'
 	import scrollForInformation from './scroll-components/scroll-information/scroll-for-information.vue'
+	import scrollForDynamic from './scroll-components/scroll-dynamic/scroll-for-dynamic.vue'
 	import { getRect } from './common/dom'
 	const COMPONENT_NAME = 'scroll'
 	const DIRECTION_H = 'horizontal'
@@ -274,6 +276,7 @@
 			Bubble,
 			scrollForPanoramic,
 			scrollForInformation,
+			scrollForDynamic
 		}
 	}
 </script>
