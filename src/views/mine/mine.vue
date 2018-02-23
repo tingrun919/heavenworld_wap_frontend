@@ -17,7 +17,7 @@
 				<img src="../../assets/mine-icon/mine-custom.png" width="50" height="50">
 			</div>
 		</div>
-		<mt-cell title="关注" is-link style="margin-top: 10px;">
+		<mt-cell title="关注" is-link style="margin-top: 10px;" to="/follow/index">
 			<img slot="icon" src="../../assets/mine-icon/mine-follow.png" width="24" height="24">
 		</mt-cell>
 		<mt-cell title="我的话题" is-link style="margin-top: 10px;">

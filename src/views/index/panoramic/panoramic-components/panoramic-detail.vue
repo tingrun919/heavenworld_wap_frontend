@@ -7,7 +7,7 @@
 			<img src="../../../../assets/panoramic-img/panoramic-blessing-close.png" @click="closeVideo" width="20" height="20">
 		</div>
 		<div class="other-header">
-			<header-child-Comp :title="title" :isblessing="true"></header-child-Comp>
+			<header-child-Comp :title="title" :isblessing="true" :isShowRight="true"></header-child-Comp>
 		</div>
 		<div class="other-content">
 			<div id="wrapper">
