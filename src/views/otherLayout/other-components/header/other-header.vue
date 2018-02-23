@@ -1,8 +1,8 @@
 /*
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:44 
- * @Last Modified by:   tarn.tianrun 
- * @Last Modified time: 2018-02-07 16:26:44 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-02-23 15:11:54
  */
 
 <style scoped lang="less">
@@ -12,7 +12,7 @@
 	<div v-if="isblessing">
 		<mt-header :title="title">
 			<mt-button icon="back" slot="left" @click="test2"></mt-button>
-			<mt-button icon="more" slot="right" style="transform: rotate(-90deg);" @click="test"></mt-button>
+			<mt-button icon="more" v-if="isShowRight" slot="right" style="transform: rotate(-90deg);" @click="test"></mt-button>
 		</mt-header>
 		<transition name="fade">
 			<drop-Down v-if="show"></drop-Down>
@@ -29,7 +29,7 @@
 			}
 		},
 		mounted() {
-
+			console.log(this.isblessing)
 		},
 		components: {
 			dropDown
@@ -37,6 +37,7 @@
 		props: {
 			title: String,
 			isblessing: Boolean,
+			isShowRight: Boolean,
 		},
 		methods: {
 			test() {
@@ -47,9 +48,10 @@
 				if (this.$store.state.app.currentPageFromIos) {
 					this.$bridge.callHandler('callBack', { 'key': 'closeNavbar' }, (data) => { })
 				} else {
-					this.$router.push({
-						name: 'otherRouter'
-					});
+					// this.$router.push({
+						// name: 'otherRouter'
+					// });
+					this.$router.go(-1)
 				}
 			}
 		}

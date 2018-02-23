@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:48 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-02-22 11:06:44
+ * @Last Modified time: 2018-02-22 18:15:44
  */
 
 import Main from '@/views/Main.vue';
@@ -26,26 +26,8 @@ export const preview = {
     name: 'panoramicView',
 	component: resolve => { require(['@/views/index/panoramic/panoramic-components/panoramic-detail.vue'], resolve)},
 };
-export const finddynamic = {
-    path: '/findDynamic',
-	name: 'findDynamic',
-	component: Other,
-	children: [
-		{ path: 'index', title: '动态', name: 'find_dynamic', component: () => import('@/views/find/dynamic/dynamic.vue') }
-	]
-	// component: resolve => { require(['@/views/find/dynamic/dynamic.vue'], resolve)},
-};
 
 export const otherRouter = [
-    // {
-    //     path: '/preview',
-    //     name: 'preview',
-    //     title: '全景',
-    //     component: Other,
-    //     children: [
-    //         { path: 'index', title: '全景', name: 'panoramic_view', component: () => import('../views/index/panoramic/panoramic-components/panoramic-detail.vue') }
-    //     ]
-	// },
 	{
         path: '/informationView',
         name: 'informationView',
@@ -64,11 +46,28 @@ export const otherRouter = [
             { path: 'index', title: '福主页', name: 'blessing_view', component: () => import('@/views/index/panoramic/panoramic-components/blessing-home.vue') }
         ]
 	},
+	{
+		path: '/findDynamic',
+		name: 'findDynamic',
+		title: '动态',
+		component: Other,
+		children: [
+			{ path: 'index', title: '动态', name: 'find_dynamic', component: () => import('@/views/find/dynamic/dynamic.vue') }
+		]
+	},
+	{
+		path: '/follow',
+		name: 'follow',
+		title: '关注',
+		component: Other,
+		children: [
+			{ path: 'index', title: '关注', name: 'follow_view', component: () => import('@/views/mine/follow/follow.vue') }
+		]
+	},
 ];
 
 export const routers = [
 	appRouter,
 	preview,
-	finddynamic,
 	...otherRouter
 ];

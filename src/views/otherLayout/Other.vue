@@ -1,10 +1,17 @@
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-02-22 18:16:22 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-02-23 10:23:29
+ */
+
 <style scoped lang="less">
 	@import './other.less';
 </style>
 <template>
 	<div class="other-main">
 		<div class="other-header">
-			<header-child-Comp :title="title" :isblessing="isBlessing"></header-child-Comp>
+			<header-child-Comp :title="title" :isblessing="isBlessing" :isShowRight="isShowRightTag"></header-child-Comp>
 		</div>
 		<div class="other-content">
 			<keep-alive>
@@ -46,6 +53,9 @@
 					case 'find_dynamic':
 						title = '动态';
 						break;
+					case 'follow_view':
+						title = '关注';
+						break;
 				}
 				return title;
 			},
@@ -68,13 +78,26 @@
 				if(this.$route.name == 'blessing_view'){
 					this.isblessing = false
 				}
+				if(this.$route.name == 'follow_view'){
+					this.isblessing = true
+				}
 				return this.isblessing
+			},
+			isShowRightTag(){
+				if(this.$route.name == 'find_dynamic'){
+					this.isshowright = false
+				}
+				if(this.$route.name == 'follow_view'){
+					this.isshowright = false
+				}
+				return this.isshowright
 			}
 		},
 		data() {
 			return {
 				show:true,
 				isblessing:true,
+				isshowright:true,
 			}
 		},
 		methods: {
