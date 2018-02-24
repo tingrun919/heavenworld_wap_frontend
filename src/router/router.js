@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:48 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-02-22 18:15:44
+ * @Last Modified time: 2018-02-23 15:36:28
  */
 
 import Main from '@/views/Main.vue';
@@ -62,6 +62,15 @@ export const otherRouter = [
 		component: Other,
 		children: [
 			{ path: 'index', title: '关注', name: 'follow_view', component: () => import('@/views/mine/follow/follow.vue') }
+		]
+	},
+	{
+		path: '/topic',
+		name: 'topic',
+		title: '关注',
+		component: Other,
+		children: [
+			{ path: 'index', title: '话题', name: 'topic_view', component: () => import('../views/find/topic/topic.vue') }
 		]
 	},
 ];
