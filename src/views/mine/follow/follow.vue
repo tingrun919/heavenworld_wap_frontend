@@ -1,5 +1,9 @@
-/* * @Author: tarn.tianrun * @Date: 2018-02-22 18:13:23 * @Last Modified by: tarn.tianrun * @Last Modified time: 2018-02-23
-15:08:12 */
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-02-23 15:50:10 
+ * @Last Modified by:   tarn.tianrun 
+ * @Last Modified time: 2018-02-23 15:50:10 
+ */
 <style lang="less">
 	@import './follow.less';
 </style>
