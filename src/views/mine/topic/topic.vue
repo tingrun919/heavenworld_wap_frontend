@@ -1,3 +1,10 @@
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-02-24 10:39:27 
+ * @Last Modified by:   tarn.tianrun 
+ * @Last Modified time: 2018-02-24 10:39:27 
+ */
+
 <style scoped lang="less">
 	@import './topic.less';
 </style>

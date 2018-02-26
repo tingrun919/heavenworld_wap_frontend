@@ -23,7 +23,7 @@
 		<mt-cell title="我的话题" is-link style="margin-top: 10px;" to="/topic/index">
 			<img slot="icon" src="../../assets/mine-icon/mine-topic.png" width="24" height="24">
 		</mt-cell>
-		<mt-cell title="收藏" is-link>
+		<mt-cell title="收藏" is-link to="/collection/index">
 			<img slot="icon" src="../../assets/mine-icon/mine-collection.png" width="24" height="24">
 		</mt-cell>
 		<mt-cell title="福报分" is-link>

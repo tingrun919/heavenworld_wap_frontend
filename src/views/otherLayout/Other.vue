@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-22 18:16:22 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-02-23 15:57:42
+ * @Last Modified time: 2018-02-24 10:35:34
  */
 
 <style scoped lang="less">
@@ -59,6 +59,9 @@
 					case 'topic_view':
 						title = '我的话题';
 						break;
+					case 'collection_view':
+						title = '收藏';
+						break;
 				}
 				return title;
 			},
@@ -94,6 +97,9 @@
 					this.isshowright = false
 				}
 				if(this.$route.name == 'topic_view'){
+					this.isshowright = false
+				}
+				if(this.$route.name == 'collection_view'){
 					this.isshowright = false
 				}
 				return this.isshowright
