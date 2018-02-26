@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:48 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-02-26 15:00:40
+ * @Last Modified time: 2018-02-26 16:45:12
  */
 
 import Main from '@/views/Main.vue';
@@ -107,6 +107,17 @@ export const otherRouter = [
 		component: Other,
 		children: [
 			{ path: 'view', title: '明细', name: 'detail_view', component: () => import('@/views/mine/detail/detail.vue') }
+		]
+	},
+	{
+		path: '/wallet',
+		name: 'wallet',
+		title: '钱包',
+		component: Other,
+		children: [
+			{ path: 'index', title: '钱包', name: 'wallet_view', component: () => import('@/views/mine/wallet/wallet.vue') },
+			{ path: 'withdraw', title: '提现', name: 'withdraw_view', component: () => import('@/views/mine/wallet/withdraw.vue') },
+			{ path: 'recharge', title: '充值', name: 'recharge_view', component: () => import('@/views/mine/wallet/recharge.vue') }
 		]
 	},
 ];
