@@ -26,7 +26,7 @@
 		<mt-cell title="收藏" is-link to="/collection/index">
 			<img slot="icon" src="../../assets/mine-icon/mine-collection.png" width="24" height="24">
 		</mt-cell>
-		<mt-cell title="福报分" is-link>
+		<mt-cell title="福报分" is-link to="/score/index">
 			<img slot="icon" src="../../assets/mine-icon/mine-score.png" width="24" height="24">
 		</mt-cell>
 		<mt-cell title="钱包" is-link>

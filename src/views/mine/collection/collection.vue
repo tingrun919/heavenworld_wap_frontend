@@ -1,3 +1,10 @@
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-02-26 10:38:56 
+ * @Last Modified by:   tarn.tianrun 
+ * @Last Modified time: 2018-02-26 10:38:56 
+ */
+
 <style scoped lang="less">
 	@import './collection.less';
 	@import '../../index/scroll/scroll-components/scroll-information/scroll-for-information.less';
@@ -214,7 +221,7 @@
 		},
 		data() {
 			return {
-				active: 'tab-container4',
+				active: 'tab-container1',
 				freeScroll: true,
 				mouseWheel: true,
 				scrollbar: {
