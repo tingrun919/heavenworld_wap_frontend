@@ -1,17 +1,16 @@
 /*
  * @Author: tarn.tianrun 
- * @Date: 2018-02-22 18:16:22 
- * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-02-24 10:35:34
+ * @Date: 2018-02-26 15:06:41 
+ * @Last Modified by:   tarn.tianrun 
+ * @Last Modified time: 2018-02-26 15:06:41 
  */
-
 <style scoped lang="less">
 	@import './other.less';
 </style>
 <template>
 	<div class="other-main">
 		<div class="other-header">
-			<header-child-Comp :title="title" :isblessing="isBlessing" :isShowRight="isShowRightTag"></header-child-Comp>
+			<header-child-Comp :title="title" :isblessing="isBlessing" :isShowRight="isShowRightTag" :isShowRightDetail="isShowRightDetails"></header-child-Comp>
 		</div>
 		<div class="other-content">
 			<keep-alive>
@@ -62,6 +61,15 @@
 					case 'collection_view':
 						title = '收藏';
 						break;
+					case 'score_view':
+						title = '福报分';
+						break;
+					case 'scoreBalance_view':
+						title = '福报分转余额';
+						break;
+					case 'detail_view':
+						title = '明细';
+						break;
 				}
 				return title;
 			},
@@ -81,35 +89,33 @@
 				return title;
 			},
 			isBlessing() {
-				if(this.$route.name == 'blessing_view'){
+				if (this.$route.name == 'blessing_view') {
 					this.isblessing = false
 				}
-				if(this.$route.name == 'follow_view'){
+				if (this.$route.name == 'follow_view') {
 					this.isblessing = true
 				}
 				return this.isblessing
 			},
-			isShowRightTag(){
-				if(this.$route.name == 'find_dynamic'){
-					this.isshowright = false
-				}
-				if(this.$route.name == 'follow_view'){
-					this.isshowright = false
-				}
-				if(this.$route.name == 'topic_view'){
-					this.isshowright = false
-				}
-				if(this.$route.name == 'collection_view'){
-					this.isshowright = false
-				}
+			isShowRightTag() {
+
 				return this.isshowright
+			},
+			isShowRightDetails() {
+				if(this.$route.name == 'score_view'){
+					this.isshowrightdetail = true
+				}else{
+					this.isshowrightdetail = false
+				}
+				return this.isshowrightdetail
 			}
 		},
 		data() {
 			return {
-				show:true,
-				isblessing:true,
-				isshowright:true,
+				show: true,
+				isblessing: true,
+				isshowright: false,
+				isshowrightdetail: false,
 			}
 		},
 		methods: {

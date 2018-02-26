@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:44 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-02-23 15:11:54
+ * @Last Modified time: 2018-02-26 14:58:37
  */
 
 <style scoped lang="less">
@@ -13,6 +13,7 @@
 		<mt-header :title="title">
 			<mt-button icon="back" slot="left" @click="test2"></mt-button>
 			<mt-button icon="more" v-if="isShowRight" slot="right" style="transform: rotate(-90deg);" @click="test"></mt-button>
+			<mt-button v-if="isShowRightDetail" slot="right" @click="toDetail">查看明细</mt-button>
 		</mt-header>
 		<transition name="fade">
 			<drop-Down v-if="show"></drop-Down>
@@ -38,6 +39,7 @@
 			title: String,
 			isblessing: Boolean,
 			isShowRight: Boolean,
+			isShowRightDetail:Boolean,
 		},
 		methods: {
 			test() {
@@ -53,6 +55,11 @@
 					// });
 					this.$router.go(-1)
 				}
+			},
+			toDetail(){
+				this.$router.push({
+						name: 'detail_view'
+					});
 			}
 		}
 	}

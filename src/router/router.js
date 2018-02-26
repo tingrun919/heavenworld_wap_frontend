@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:48 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-02-24 10:34:42
+ * @Last Modified time: 2018-02-26 15:00:40
  */
 
 import Main from '@/views/Main.vue';
@@ -80,6 +80,33 @@ export const otherRouter = [
 		component: Other,
 		children: [
 			{ path: 'index', title: '收藏', name: 'collection_view', component: () => import('@/views/mine/collection/collection.vue') }
+		]
+	},
+	{
+		path: '/score',
+		name: 'score',
+		title: '福报分',
+		component: Other,
+		children: [
+			{ path: 'index', title: '福报分', name: 'score_view', component: () => import('@/views/mine/score/score.vue') }
+		]
+	},
+	{
+		path: '/scoreBalance',
+		name: 'scoreBalance',
+		title: '转余额',
+		component: Other,
+		children: [
+			{ path: 'view', title: '转余额', name: 'scoreBalance_view', component: () => import('@/views/mine/score/balance/balance.vue') }
+		]
+	},
+	{
+		path: '/detail',
+		name: 'detail',
+		title: '明细',
+		component: Other,
+		children: [
+			{ path: 'view', title: '明细', name: 'detail_view', component: () => import('@/views/mine/detail/detail.vue') }
 		]
 	},
 ];
