@@ -1,8 +1,8 @@
 /*
  * @Author: tarn.tianrun 
  * @Date: 2018-02-26 15:06:41 
- * @Last Modified by:   tarn.tianrun 
- * @Last Modified time: 2018-02-26 15:06:41 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-02-26 17:00:45
  */
 <style scoped lang="less">
 	@import './other.less';
@@ -69,6 +69,15 @@
 						break;
 					case 'detail_view':
 						title = '明细';
+						break;
+					case 'wallet_view':
+						title = '钱包';
+						break;
+					case 'withdraw_view':
+						title = '提现';
+						break;
+					case 'recharge_view':
+						title = '充值';
 						break;
 				}
 				return title;
