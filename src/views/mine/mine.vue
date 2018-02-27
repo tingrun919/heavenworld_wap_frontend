@@ -38,7 +38,7 @@
 		<mt-cell title="上传全景教程" is-link>
 			<img slot="icon" src="../../assets/mine-icon/mine-panoramic.png" width="24" height="24">
 		</mt-cell>
-		<mt-cell title="设置" is-link style="margin-top: 10px;">
+		<mt-cell title="设置" is-link style="margin-top: 10px;" to="/setting/index">
 			<img slot="icon" src="../../assets/mine-icon/mine-setting.png" width="24" height="24">
 		</mt-cell>
 	</div>
