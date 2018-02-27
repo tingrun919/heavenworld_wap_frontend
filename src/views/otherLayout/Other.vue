@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-26 15:06:41 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-02-26 17:00:45
+ * @Last Modified time: 2018-02-27 10:20:13
  */
 <style scoped lang="less">
 	@import './other.less';
@@ -78,6 +78,9 @@
 						break;
 					case 'recharge_view':
 						title = '充值';
+						break;
+					case 'setting_view':
+						title = '设置';
 						break;
 				}
 				return title;
