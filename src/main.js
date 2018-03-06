@@ -21,7 +21,7 @@ Vue.prototype.$bridge = Bridge
 // import VueVideoPlayer from 'vue-video-player'
 // import 'video.js/dist/video-js.css'
 
-
+import $ from 'jquery'
 Vue.config.productionTip = false
 
 Vue.use(MintUI)

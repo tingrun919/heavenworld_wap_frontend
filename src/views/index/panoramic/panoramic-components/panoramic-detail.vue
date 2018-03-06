@@ -26,15 +26,17 @@
 			<div class="blessing-display" v-if="handleBlessingAction">
 				<div class="blessing-btn">
 					<div>
-						<img src="../../../../assets/panoramic-img/panoramic-blessing-close1.png" @click="getPanoramicAction('blessing')" width="30" height="30">
+						<img src="../../../../assets/panoramic-img/panoramic-blessing-close1.png" @click="handleCancelComment" width="30"
+						 height="30">
 					</div>
 					<div>
-						<img src="../../../../assets/panoramic-img/panoramic-blessing-confirm.png" @click="getPanoramicAction('blessing')" width="30"
+						<img src="../../../../assets/panoramic-img/panoramic-blessing-confirm.png" @click="handleComment" width="30"
 						 height="30">
 					</div>
 				</div>
 				<div class="blessing-text" v-bind:style="{backgroundImage: 'url(' + dataSwipe[chioseImg].img + ')'}">
-					<div contenteditable class="blessing-text-enter" @focus="handleEdit"></div>
+					<div contenteditable class="blessing-text-enter"></div>
+					<!-- @focus="handleEdit" -->
 					<div class="blessing-other">
 						<div class="blessing-other-info" :style="{width:viewWidth}" v-show="showOtherAudio" @click="playAudio">
 							<img src="../../../../assets/panoramic-img/panoramic-blessing-radio.png" width="20" height="20">
@@ -94,6 +96,7 @@
 		<div class="other-navbar" v-if="!handleBlessingAction">
 			<other-Panoramic @handleBlessing="getPanoramicAction"></other-Panoramic>
 		</div>
+		<input type="hidden" id="comment-athv">
 	</div>
 </template>
 
@@ -110,8 +113,11 @@
 	import img7 from '../../../../assets/view/timg7.jpeg'
 	import { Toast } from 'mint-ui';
 
+	import panoramicService from './panoramic-detail-service.js'
+
 	export default {
 		name: 'vtour',
+		mixins: [panoramicService],
 		data() {
 			return {
 				show: false,
@@ -134,6 +140,7 @@
 				duration: '',
 				playAudioAnimation: false,
 				chioseImg: 1,
+				ath: '',
 				dataSwipe: [
 					{
 						id: 1, name: '祈福模版', img: img1
@@ -190,6 +197,7 @@
 		},
 		beforeMount() {
 			// console.log(this.$route.query.preid, '11111')
+			// this.getCommentList()
 		},
 		methods: {
 			getPanoramicAction(param) {
@@ -198,11 +206,12 @@
 					this.handleBlessingAction = !this.handleBlessingAction
 					this.showRedenvelope = false;
 					this.showModel = false;
+					panoramic.show_comment();
 				}
 			},
-			handleEdit() {
-				panoramic.show_comment();
-			},
+			// handleEdit() {
+			// 	panoramic.show_comment();
+			// },
 			changeModel() {
 				this.showModel = !this.showModel
 				this.showRedenvelope = false;
@@ -249,6 +258,25 @@
 					this.playAudioAnimation = false
 					this.$refs.audioTag.pause()
 				}
+			},
+			handleComment() {
+				var krpano = document.getElementById('krpanoSWFObject');
+				var ath = $("#comment-athv").attr("data-ath")
+				var atv = $("#comment-athv").attr("data-atv")
+				var sname = krpano.get("scene[get(xml.scene)].name");
+
+				this.handleAddcomment(ath, atv, sname).then(() => {
+					this.handleBlessingAction = !this.handleBlessingAction
+					this.showRedenvelope = false;
+					this.showModel = false;
+					panoramic.cancel_comment();
+					this.getCommentList(sname)
+				})
+
+			},
+			handleCancelComment(){
+				this.getPanoramicAction('blessing')
+				panoramic.cancel_comment();
 			}
 		},
 		components: {
