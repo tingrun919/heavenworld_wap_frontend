@@ -1,6 +1,8 @@
 <style lang="less">
 	@import './mine.less';
 </style>
+			<!-- "set(hotspot[spot1].atv,get(view.vlookat));" + -->
+
 <template>
 	<div class="mine-content">
 		<div class="mine-custom-info">

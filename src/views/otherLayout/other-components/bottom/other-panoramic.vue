@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 10:36:22 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-02-07 15:16:33
+ * @Last Modified time: 2018-03-06 16:44:14
  */
 <style scoped lang="less">
 	@import "./other-panoramic.less";
@@ -18,8 +18,8 @@
 				<img slot="icon" src="../../../../assets/panoramic-img/panoramic-home-no.png">
 				主页
 			</mt-tab-item>
-			<mt-tab-item id="scenes" @click.native="handleBlessingBottom('scenes')">
-				<img slot="icon" src="../../../../assets/panoramic-img/panoramic-scenes-no.png">
+			<mt-tab-item id="scenes" @click.native="testaaa">
+				<img slot="icon" src="../../../../assets/panoramic-img/panoramic-scenes-no.png" v-bind:class="{ isscenes : showScenes }">
 				场景
 			</mt-tab-item>
 			<mt-tab-item id="more" @click.native="showMore">
@@ -41,7 +41,8 @@
 		data() {
 			return {
 				selected: 'blessing',
-				show: false
+				show: false,
+				showScenes:true,
 			}
 		},
 		mounted() {
@@ -59,6 +60,11 @@
 				this.$router.push({
 					name: 'blessing_view'
 				});
+			},
+			testaaa(){
+				this.showScenes = !this.showScenes
+				var krpano = document.getElementById('krpanoSWFObject');
+				krpano.call("if(layer[sltbg].y == 80, tween(layer[sltbg].y, -170); , tween(layer[sltbg].y, 80); ); ");
 			}
 		}
 	}
