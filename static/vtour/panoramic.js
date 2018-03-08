@@ -2,11 +2,12 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 14:41:07 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-06 18:08:38
+ * @Last Modified time: 2018-03-07 11:48:39
  */
 //祈福列表
 export function show_comment_list(data) {
 	var krpano = document.getElementById('krpanoSWFObject');
+	// if(autorotate.enabled,autorotate.stop(),autorotate.start());
 	for (var i = 0; i < data.length; i++) {
 		var commname = "userComm_" + data[i].prayId;
 		krpano.call(//显示可拖动的评论热点
@@ -23,6 +24,7 @@ export function show_comment_list(data) {
 //新增祈福
 export function show_comment() {
 	var krpano = document.getElementById('krpanoSWFObject');
+	// krpano.call("if(autorotate.enabled,autorotate.stop(),autorotate.start());");
 	var windowX = window.innerWidth / 2 - 30;
 	var windowY = window.innerHeight / 2;
 	var sphereXY = krpano.screentosphere(windowX, windowY - 66);

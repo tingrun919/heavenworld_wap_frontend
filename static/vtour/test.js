@@ -31,3 +31,6 @@ function getComment() {
 	});
 	//ajax开始=======================================end
 }
+function pausesound(){
+	console.log(11112312312312312321)
+}
