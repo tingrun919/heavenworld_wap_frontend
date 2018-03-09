@@ -10,9 +10,9 @@
                 <layer style="slts" sid="4" title="市民中心南侧" url="http://thumb-qiniu.720static.com/@/resource/prod/01eia8c79i9/a1928jsk9tw/7208842/imgs/thumb.jpg?imageView2/0/w/160/h/160" name="scene_hongkong4"/></layer>
         </layer>
     </layer>
-    <autorotate enabled="true"
-        		waittime="4.0"
-        		speed="12.0"
+    <autorotate enabled="false"
+        		waittime="5.0"
+        		speed="3.0"
     	   	 	horizon="0.0"
 	        	tofov="120.0"
 	/>
@@ -59,16 +59,16 @@
 		loadscene(get(startscene), null, MERGE);
 		if(startactions !== null, startactions() );
 		if(autorotate.enabled,bombtimer(0));
-        playsound(bgsnd, 'http://media-qiniu2.720static.com/@/a1928jsk9tw/1/9c38ba4e238c46fc502bda63f4c6dfab.mp3', 0);"
+        <!-- playsound(bgsnd, 'http://media-qiniu2.720static.com/@/a1928jsk9tw/1/9c38ba4e238c46fc502bda63f4c6dfab.mp3', 0);" -->
     </action>
     <action name="bombtimer"> 
               set(autorotate.enabled,true); 
               set(bt,%1); 
               add(bt,1); 
-              delayedcall(1,bombtimer(get(bt))); 
+              <!-- delayedcall(1,bombtimer(get(bt)));  -->
               copy(bt_1,autorotate.speed); 
               Math.abs(bt_1);
-              div(bt_2,720,bt_1); 
+              div(bt_2,360,bt_1); 
               add(bt_2,autorotate.waittime); 
               if(bt GE bt_2, set(bt,0); nextscene();); 
 	</action>

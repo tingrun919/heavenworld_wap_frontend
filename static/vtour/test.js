@@ -1,14 +1,13 @@
+//更新祈福位置
 function update_comm_ele(p1, p2) {
 	$("#comment-athv").attr("data-ath", p1).attr("data-atv", p2)
-	console.log(p1, 'p1')
-	console.log(p2, 'p2')
 }
+//获取某scene下的所有祈福
 function getComment() {
 	var krpano = document.getElementById('krpanoSWFObject');
 	//取得当前scene
 	var s = krpano.get("scene[get(xml.scene)].name");
 	//ajax开始=======================================
-	console.log(s,'snams')
 	$.ajax({
 		type: "get",
 		url: 'http://192.168.10.196:8080/banaworld_show/nopano/selListPray',
@@ -24,13 +23,13 @@ function getComment() {
 					"set(hotspot[" + commname + "].ath," + data[i].prayLongitude + ");" +
 					"set(hotspot[" + commname + "].atv," + data[i].prayDimension + ");" +
 					"set(hotspot[" + commname + "].scale,.2);" +
-					"set(hotspot[" + commname + "].onclick,js(update_comm_ele(get(ath),get(atv))));"
+					"set(hotspot[" + commname + "].onclick,js(blessing_detail()));"
 				);
 			}
 		}
 	});
 	//ajax开始=======================================end
 }
-function pausesound(){
-	console.log(11112312312312312321)
+function blessing_detail(){
+	console.log("11112312312312312321")
 }

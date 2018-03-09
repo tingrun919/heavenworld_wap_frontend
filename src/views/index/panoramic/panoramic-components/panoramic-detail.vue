@@ -16,36 +16,34 @@
 		</div>
 		<div class="v-video" v-show="showVideos">
 			<video playsinline webkit-playsinline ref="videoTag" controls="controls" :poster="icon" autoplay="autoplay" :width="viewWidthVideo">
-				<source :src="path" type="video/mp4" />
+				<source :src="videoPath" type="video/mp4" />
 			</video>
 		</div>
 		<div class="v-video">
-			<audio :src="path" ref="audioTag"></audio>
+			<audio :src="audioPath" ref="audioTag"></audio>
 		</div>
 		<transition name="slide-fade">
 			<div class="blessing-display" v-if="handleBlessingAction">
 				<div class="blessing-btn">
 					<div>
-						<img src="../../../../assets/panoramic-img/panoramic-blessing-close1.png" @click="handleCancelComment" width="30"
-						 height="30">
+						<img src="../../../../assets/panoramic-img/panoramic-blessing-close1.png" @click="handleCancelComment" width="30" height="30">
 					</div>
 					<div>
-						<img src="../../../../assets/panoramic-img/panoramic-blessing-confirm.png" @click="handleComment" width="30"
-						 height="30">
+						<img src="../../../../assets/panoramic-img/panoramic-blessing-confirm.png" @click="handleComment" width="30" height="30">
 					</div>
 				</div>
 				<div class="blessing-text" v-bind:style="{backgroundImage: 'url(' + dataSwipe[chioseImg].img + ')'}">
-					<div contenteditable class="blessing-text-enter"></div>
+					<div contenteditable ref="divContent" class="blessing-text-enter"></div>
 					<!-- @focus="handleEdit" -->
 					<div class="blessing-other">
 						<div class="blessing-other-info" :style="{width:viewWidth}" v-show="showOtherAudio" @click="playAudio">
 							<img src="../../../../assets/panoramic-img/panoramic-blessing-radio.png" width="20" height="20">
-							<span>{{duration}}秒</span>
+							<span>{{audioDuration}}秒</span>
 							<div class="bg" v-bind:class="{ voicePlay : playAudioAnimation }"></div>
 						</div>
 						<div class="blessing-other-info" :style="{width:viewWidth}" v-show="showOtherVideo" @click="playVideo">
 							<img src="../../../../assets/panoramic-img/panoramic-blessing-video.png" width="20" height="20">
-							<span>{{duration}}秒</span>
+							<span>{{videoDuration}}秒</span>
 						</div>
 						<div class="red blessing-other-info" :style="{width:viewWidth}" v-show="showOtherRed">
 							<img src="../../../../assets/panoramic-img/panoramic-blessing-gift.png" width="20" height="20">
@@ -54,7 +52,7 @@
 					</div>
 				</div>
 				<div class="blessing-action">
-					<div><img src="../../../../assets/panoramic-img/panoramic-action-edit.png" @click="playVideo" width="45" height="45"></div>
+					<div><img src="../../../../assets/panoramic-img/panoramic-action-edit.png" @click="handleFocus" width="45" height="45"></div>
 					<div><img src="../../../../assets/panoramic-img/panoramic-action-more.png" @click="changeModel" width="45" height="45"></div>
 					<div><img src="../../../../assets/panoramic-img/panoramic-action-redprice.png" @click="changeRedenvelope" width="45" height="45"></div>
 					<div><img src="../../../../assets/panoramic-img/panoramic-action-voice.png" @click="changeAudio" width="45" height="45"></div>
@@ -74,19 +72,28 @@
 					<div class="blessing-red-envelope" v-if="showRedenvelope">
 						<div class="red-info">
 							<div class="red-info-main">
-								<span>红包个数</span>
-								<span>红包金额</span>
+								<span class="red-info-main-span">红包个数</span>
+								<div class="red-change">
+									<span>红包金额</span>
+									<span @click="changeRed">{{redinfo}}</span>
+								</div>
 							</div>
 							<div class="red-info-submain">
-								<mt-field></mt-field>
-								<mt-field></mt-field>
+								<mt-field v-model="redQuantity" type="number"></mt-field>
+								<mt-field v-model="redNumber" type="number"></mt-field>
 							</div>
+							<transition name="slide-fade">
+								<div class="red-password" v-if="showRedPassword">
+									<span class="">口令:</span>
+									<mt-field v-model="redCheck"></mt-field>
+								</div>
+							</transition>
 							<div class="red-info-balance">
 								<img src="../../../../assets/panoramic-img/panoramic-balance.png" width="25" height="25">
 								<span>账户余额:222.24</span>
 							</div>
 							<div class="red-info-btn">
-								<mt-button type="danger">塞进红包</mt-button>
+								<mt-button type="danger" @click="confirmRed">塞进红包</mt-button>
 							</div>
 						</div>
 					</div>
@@ -129,18 +136,26 @@
 				showOtherVideo: false,
 				showOtherRed: false,
 				showVideos: false,
+				showRedPassword: false,
 				swiperOption: {
 					initialSlide: 0,
 					slidesPerView: 3.3,
 					spaceBetween: 5,
 					freeMode: true,
 				},
-				path: '',
+				audioPath: '',
+				videoPath: '',
 				icon: '',
-				duration: '',
+				audioDuration: '',
+				videoDuration: '',
 				playAudioAnimation: false,
 				chioseImg: 1,
 				ath: '',
+				redinfo: '手气红包',
+				content:'',
+				redQuantity:'',
+				redNumber:'',
+				redCheck:'',
 				dataSwipe: [
 					{
 						id: 1, name: '祈福模版', img: img1
@@ -182,13 +197,13 @@
 			}
 			this.$bridge.registerHandler("resultData", (data) => {
 				if (data.type == 'video') {
-					this.path = data.path
+					this.videoPath = data.path
 					this.icon = data.icon
-					this.duration = data.duration
+					this.videoDuration = data.duration
 					this.showOtherVideo = true
 				} else if (data.type == 'voice') {
-					this.path = data.path
-					this.duration = data.duration
+					this.audioPath = data.path
+					this.audioDuration = data.duration
 					this.showOtherAudio = true
 				}
 				// this.showVideos = true;
@@ -212,6 +227,15 @@
 			// handleEdit() {
 			// 	panoramic.show_comment();
 			// },
+			changeRed() {
+				if (this.redinfo == '手气红包') {
+					this.redinfo = "口令红包"
+					this.showRedPassword = true
+				} else {
+					this.redinfo = '手气红包'
+					this.showRedPassword = false
+				}
+			},
 			changeModel() {
 				this.showModel = !this.showModel
 				this.showRedenvelope = false;
@@ -253,7 +277,7 @@
 					this.$refs.audioTag.play()
 					setTimeout(() => {
 						this.playAudioAnimation = false
-					}, this.duration * 1000);
+					}, this.audioDuration * 1000);
 				} else {
 					this.playAudioAnimation = false
 					this.$refs.audioTag.pause()
@@ -274,9 +298,24 @@
 				})
 
 			},
-			handleCancelComment(){
+			handleCancelComment() {
+				//隐藏祈福功能
 				this.getPanoramicAction('blessing')
+				//删除小圆点
 				panoramic.cancel_comment();
+				//取消红包-语音-视频的按钮
+				this.showOtherAudio = false
+				this.showOtherRed = false
+				this.showOtherVideo = false
+				//重置已经上传的语音视频的信息
+
+			},
+			handleFocus() {
+				this.$refs.divContent.focus();
+			},
+			confirmRed() {
+				this.changeRedenvelope();
+				this.showOtherRed = true;
 			}
 		},
 		components: {

@@ -2,12 +2,11 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 14:41:07 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-07 11:48:39
+ * @Last Modified time: 2018-03-09 10:26:18
  */
 //祈福列表
 export function show_comment_list(data) {
 	var krpano = document.getElementById('krpanoSWFObject');
-	// if(autorotate.enabled,autorotate.stop(),autorotate.start());
 	for (var i = 0; i < data.length; i++) {
 		var commname = "userComm_" + data[i].prayId;
 		krpano.call(//显示可拖动的评论热点
@@ -16,7 +15,7 @@ export function show_comment_list(data) {
 			"set(hotspot[" + commname + "].ath," + data[i].prayLongitude + ");" +
 			"set(hotspot[" + commname + "].atv," + data[i].prayDimension + ");" +
 			"set(hotspot[" + commname + "].scale,.2);" +
-			"set(hotspot[" + commname + "].onclick,js(update_comm_ele(get(ath),get(atv))));"
+			"set(hotspot[" + commname + "].onclick,js(blessing_detail()));"
 		);
 	}
 }
@@ -24,7 +23,7 @@ export function show_comment_list(data) {
 //新增祈福
 export function show_comment() {
 	var krpano = document.getElementById('krpanoSWFObject');
-	// krpano.call("if(autorotate.enabled,autorotate.stop(),autorotate.start());");
+	krpano.set("autorotate.enabled",false);
 	var windowX = window.innerWidth / 2 - 30;
 	var windowY = window.innerHeight / 2;
 	var sphereXY = krpano.screentosphere(windowX, windowY - 66);
@@ -63,6 +62,7 @@ export function show_comment() {
 //删除祈福
 export function cancel_comment() {
 	var krpano = document.getElementById('krpanoSWFObject');
+	krpano.set("autorotate.enabled",true);
 	krpano.call("removehotspot(commname);removeplugin(commname_avatar);set(layer[skin_layer].visible,true);");
 }
 
