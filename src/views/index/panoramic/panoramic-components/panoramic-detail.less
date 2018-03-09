@@ -1,3 +1,10 @@
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-03-08 15:57:45 
+ * @Last Modified by:   tarn.tianrun 
+ * @Last Modified time: 2018-03-08 15:57:45 
+ */
+
 .blessing-display{
 	left: 0;
 	right: 0;
@@ -97,14 +104,52 @@
 }
 .red-info-main{
 	display: flex;
-	span{
+	.red-info-main-span{
 		margin: 5px;
+		color: red;
+		font-size: 17px;
+		letter-spacing: 1px;
+		font-weight: 400;
 		flex: 1;
 		text-align: left;
 	}
 }
 .red-info-submain{
 	display: flex;
+	a{
+		margin: 5px;
+		flex: 1;
+		border: 1px solid red;
+	}
+}
+.red-change{
+	flex: 1;
+	display: flex;
+	align-items: center;
+	span{
+		flex: 1px;
+		margin: 5px;
+		font-size: 17px;
+		font-weight: 400;
+		letter-spacing: 1px;
+		text-align: left;
+		color: red;
+	}
+	:last-child{
+		text-align: right;
+		padding-right: 12px;
+		color: #999999;
+		letter-spacing: .5px;
+		font-size: 12px;
+		background-image: url('../../../../assets/panoramic-img/panoramic-change-red.png');
+		background-repeat: no-repeat;
+		background-position: right;
+		background-size: 10px;
+	}
+}
+.red-password{
+	display: flex;
+	align-items: center;
 	a{
 		margin: 5px;
 		flex: 1;
