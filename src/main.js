@@ -9,6 +9,7 @@ import 'mint-ui/lib/style.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 
+import VueLazyload from 'vue-lazyload'
 
 import App from './App'
 import store from './store'
@@ -27,6 +28,12 @@ Vue.config.productionTip = false
 Vue.use(MintUI)
 Vue.use(VueAwesomeSwiper)
 Vue.use(Vuex)
+Vue.use(VueLazyload, {
+	preLoad: 1.4,
+	error: '../src/assets/picture.png',
+	loading: '../src/assets/picture.png',
+	attempt: 1
+  })
 // Vue.use(VueMaterial)
 // Vue.use(VueVideoPlayer)
 /* eslint-disable no-new */

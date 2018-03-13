@@ -9,6 +9,7 @@ const app = {
 	state: {
 		currentPageName: '推荐',
 		currentPageFromIos: false,
+		currentPageFromAndroid: false,
 	},
 	mutations: {
 		setCurrentPageName(state, name) {
@@ -16,6 +17,9 @@ const app = {
 		},
 		setCurrentPageFromIos(state, name) {
 			state.currentPageFromIos = name;
+		},
+		setCurrentPageFromAndroid(state, name) {
+			state.currentPageFromAndroid = name;
 		},
 	}
 };

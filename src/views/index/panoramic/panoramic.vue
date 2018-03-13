@@ -10,7 +10,9 @@
 </template>
 <script>
 	import Scroll from '../scroll/scroll.vue'
+	import panoramicService from './service/panoramic-service.js'
 	export default {
+		mixins: [panoramicService],
 		components: {
 			Scroll,
 		},
@@ -36,12 +38,15 @@
 			}
 		},
 		created() {
-			this.items = this.tabType
+			// this.items = this.tabType
+		},
+		beforeMount(){
+			this.getPanoramicList()
 		},
 		watch: {
-			tabType() {
-				this.items = this.tabType
-			},
+			// tabType() {
+			// 	this.items = this.tabType
+			// },
 			scrollbarObj: {
 				handler() {
 					this.rebuildScroll()
@@ -83,17 +88,17 @@
 					txt: { more: this.pullUpLoadMoreTxt, noMore: this.pullUpLoadNoMoreTxt }
 				} : false
 			},
-			tabType: function () {
-				var resultList = []
-				for (var i = 1; i < 4; i++) {
-					var item = {
-						isPic: i,
-						bavbar: this.$store.state.app.currentPageName,
-					}
-					resultList.push(item);
-				}
-				return resultList;
-			}
+			// tabType: function () {
+			// 	var resultList = []
+			// 	for (var i = 1; i < 4; i++) {
+			// 		var item = {
+			// 			isPic: i,
+			// 			bavbar: this.$store.state.app.currentPageName,
+			// 		}
+			// 		resultList.push(item);
+			// 	}
+			// 	return resultList;
+			// }
 		},
 		methods: {
 			onPullingDown() {
@@ -138,9 +143,10 @@
 					}
 				}, 1500)
 			},
-			clickItem() {
+			clickItem(param) {
 				this.$router.push({
-					name: 'panoramicView'
+					name: 'panoramicView',
+					params: { id: param.panoId }
 				});
 			},
 		}
