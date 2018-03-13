@@ -316,6 +316,21 @@
 			confirmRed() {
 				this.changeRedenvelope();
 				this.showOtherRed = true;
+			},
+			blessingAction() {
+				var prayId = $("#blessingDetail").attr("data-prayid");
+				this.$router.push({ path: `/blessingdetail/${prayId}`, query: { panoramic: this.$route.params.id } })
+			},
+			handleResultAudio(path, duration) {
+				this.audioPath = path
+				this.audioDuration = duration
+				this.showOtherAudio = true
+			},
+			handleResultVideo(path, duration, icon) {
+				this.videoPath = path
+				this.icon = icon
+				this.videoDuration = duration
+				this.showOtherVideo = true
 			}
 		},
 		components: {
