@@ -10,7 +10,7 @@
 			<header-child-Comp :title="title" :isblessing="true" :isShowRight="true"></header-child-Comp>
 		</div>
 		<div class="other-content">
-			<div id="wrapper">
+			<div id="wrapper" :style="{height:viewHeightPanoramic}">
 				<div id="pano"></div>
 			</div>
 		</div>
@@ -101,9 +101,11 @@
 			</div>
 		</transition>
 		<div class="other-navbar" v-if="!handleBlessingAction">
-			<other-Panoramic @handleBlessing="getPanoramicAction"></other-Panoramic>
+			<other-Panoramic @handleBlessing="getPanoramicAction" :panoramicinfo="panoramicInfo"></other-Panoramic>
 		</div>
-		<input type="hidden" id="comment-athv">
+		<input type="hidden" id="comment-athv" />
+		<input type="hidden" id="blessingDetail" ref="blessingDetail" data-prayid="" />
+		<mt-button @click="blessingAction" style="display:none;" id="blessingBtn"></mt-button>
 	</div>
 </template>
 
@@ -120,7 +122,7 @@
 	import img7 from '../../../../assets/view/timg7.jpeg'
 	import { Toast } from 'mint-ui';
 
-	import panoramicService from './panoramic-detail-service.js'
+	import panoramicService from './scrvice/panoramic-detail-service.js'
 
 	export default {
 		name: 'vtour',
@@ -152,10 +154,10 @@
 				chioseImg: 1,
 				ath: '',
 				redinfo: '手气红包',
-				content:'',
-				redQuantity:'',
-				redNumber:'',
-				redCheck:'',
+				content: '',
+				redQuantity: '',
+				redNumber: '',
+				redCheck: '',
 				dataSwipe: [
 					{
 						id: 1, name: '祈福模版', img: img1
@@ -173,11 +175,15 @@
 						id: 7, name: '祈福模版', img: img7
 					}
 				],
+				panoramicInfo: [],
 			}
 		},
 		computed: {
 			viewHeight: function () {
 				return (window.innerHeight / 3) + 'px'
+			},
+			viewHeightPanoramic: function () {
+				return (window.innerHeight - 40) + 'px'
 			},
 			viewWidth: function () {
 				return (window.innerWidth / 3 - 30) + 'px'
@@ -185,15 +191,21 @@
 			viewWidthVideo: function () {
 				return (window.innerWidth) + 'px'
 			},
-			// player() {
-			// 	return this.$refs.videoPlayer.player
-			// },
+		},
+		beforeMount() {
+			this.getSinglePanoramic(this.$route.params.id)
 		},
 		mounted() {
-			console.log('this is current player instance object', this.player)
 			let from = this.$route.query.from
-			if (from !== undefined) {
+			if (from == 'ios') {
 				this.$store.commit('setCurrentPageFromIos', true);
+				this.$store.commit('setCurrentPageFromAndroid', false);
+			} else if (from == 'android') {
+				this.$store.commit('setCurrentPageFromAndroid', true);
+				this.$store.commit('setCurrentPageFromIos', false);
+			} else {
+				this.$store.commit('setCurrentPageFromAndroid', false);
+				this.$store.commit('setCurrentPageFromIos', false);
 			}
 			this.$bridge.registerHandler("resultData", (data) => {
 				if (data.type == 'video') {
@@ -210,9 +222,9 @@
 			})
 			embedpano({ swf: "../../../../static/vtour/tour.swf", xml: "../../../../static/vtour/tour.xml", target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true });
 		},
-		beforeMount() {
-			// console.log(this.$route.query.preid, '11111')
-			// this.getCommentList()
+		created() {
+			window.handleResultAudio = this.handleResultAudio;
+			window.handleResultVideo = this.handleResultVideo;
 		},
 		methods: {
 			getPanoramicAction(param) {
@@ -250,6 +262,8 @@
 			changeAudio() {
 				if (this.$store.state.app.currentPageFromIos) {
 					this.$bridge.callHandler('showAudit', {}, (data) => { })
+				} else if (this.$store.state.app.currentPageFromAndroid) {
+					android.showVoice();
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}
@@ -257,6 +271,8 @@
 			changeVideo() {
 				if (this.$store.state.app.currentPageFromIos) {
 					this.$bridge.callHandler('showVideo', {}, (data) => { })
+				} else if (this.$store.state.app.currentPageFromAndroid) {
+					android.showVideo();
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}
@@ -284,17 +300,18 @@
 				}
 			},
 			handleComment() {
+				var id = this.$route.params.id
 				var krpano = document.getElementById('krpanoSWFObject');
 				var ath = $("#comment-athv").attr("data-ath")
 				var atv = $("#comment-athv").attr("data-atv")
 				var sname = krpano.get("scene[get(xml.scene)].name");
 
-				this.handleAddcomment(ath, atv, sname).then(() => {
+				this.handleAddcomment(id, ath, atv, sname).then(() => {
 					this.handleBlessingAction = !this.handleBlessingAction
 					this.showRedenvelope = false;
 					this.showModel = false;
 					panoramic.cancel_comment();
-					this.getCommentList(sname)
+					this.getCommentList(id, sname)
 				})
 
 			},
@@ -316,6 +333,21 @@
 			confirmRed() {
 				this.changeRedenvelope();
 				this.showOtherRed = true;
+			},
+			blessingAction() {
+				var prayId = $("#blessingDetail").attr("data-prayid");
+				this.$router.push(`/blessingdetail/${prayId}`)
+			},
+			handleResultAudio(path, duration) {
+				this.audioPath = path
+				this.audioDuration = duration
+				this.showOtherAudio = true
+			},
+			handleResultVideo(path, duration, icon) {
+				this.videoPath = path
+				this.icon = icon
+				this.videoDuration = duration
+				this.showOtherVideo = true
 			}
 		},
 		components: {
@@ -328,7 +360,7 @@
 <style scoped>
 	#wrapper {
 		width: 100%;
-		height: 94.3%;
+		/* height: 100%; */
 		position: absolute;
 		/* border: 1px solid red; */
 	}

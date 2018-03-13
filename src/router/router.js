@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:48 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-02-27 10:19:18
+ * @Last Modified time: 2018-03-12 15:57:46
  */
 
 import Main from '@/views/Main.vue';
@@ -22,9 +22,15 @@ export const appRouter = {
 };
 
 export const preview = {
-    path: '/panoramicView',
+    path: '/panoramicView/:id',
     name: 'panoramicView',
 	component: resolve => { require(['@/views/index/panoramic/panoramic-components/panoramic-detail.vue'], resolve)},
+};
+
+export const blessingdetail = {
+    path: '/blessingdetail/:id',
+    name: 'blessingdetail',
+	component: resolve => { require(['@/views/index/panoramic/panoramic-components/blessing-detail.vue'], resolve)},
 };
 
 export const otherRouter = [
@@ -134,5 +140,6 @@ export const otherRouter = [
 export const routers = [
 	appRouter,
 	preview,
+	blessingdetail,
 	...otherRouter
 ];
