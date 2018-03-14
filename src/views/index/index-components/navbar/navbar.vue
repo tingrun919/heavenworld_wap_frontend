@@ -1,8 +1,8 @@
 /*
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:58 
- * @Last Modified by:   tarn.tianrun 
- * @Last Modified time: 2018-02-07 16:26:58 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-03-13 18:15:03
  */
 
 <style scoped lang="less">
@@ -29,7 +29,7 @@
 				currentClick:0,
 				swiperOption: {
 					initialSlide: 0,
-					slidesPerView: 5,
+					slidesPerView: 4.5,
 					spaceBetween: 5,
 					freeMode: true,
 				},

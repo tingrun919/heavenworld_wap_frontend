@@ -8,10 +8,11 @@
 				<slot>
 					<ul class="list-content">
 						<!-- <li @click="clickItem($event,item)" class="list-item" v-for="item in data">{{item}}</li> -->
-						<li @click="clickItem($event,item)" class="list-item" v-for="item in data">
+						<li @click="clickItem($event,item)" class="list-item" v-for="(item,index) in data">
 							<scroll-For-Panoramic :item='item' v-if="currentRoute == 'panoramic'"></scroll-For-Panoramic>
-							<scroll-For-Information :item='item' v-if="currentRoute == 'information'"></scroll-For-Information>
+							<scroll-For-Information :item='item' :pic='mainpic[index]' v-if="currentRoute == 'information'"></scroll-For-Information>
 							<scroll-For-Dynamic :item='item' v-if="currentRoute == 'find_dynamic'"></scroll-For-Dynamic>
+							<scroll-For-Information-Comment :item='item' v-if="currentRoute == 'information_comment'"></scroll-For-Information-Comment>
 						</li>
 					</ul>
 				</slot>
@@ -52,6 +53,7 @@
 	import scrollForPanoramic from './scroll-components/scroll-panoramic/scroll-for-panoramic.vue'
 	import scrollForInformation from './scroll-components/scroll-information/scroll-for-information.vue'
 	import scrollForDynamic from './scroll-components/scroll-dynamic/scroll-for-dynamic.vue'
+	import scrollForInformationComment from './scroll-components/scroll-information-comment/scroll-information-comment.vue'
 	import { getRect } from './common/dom'
 	const COMPONENT_NAME = 'scroll'
 	const DIRECTION_H = 'horizontal'
@@ -113,6 +115,12 @@
 				type: Boolean,
 				default: false
 			},
+			mainpic: {
+				type: Array,
+				default: function () {
+					return []
+				}
+			}
 		},
 		data() {
 			return {
@@ -276,7 +284,8 @@
 			Bubble,
 			scrollForPanoramic,
 			scrollForInformation,
-			scrollForDynamic
+			scrollForDynamic,
+			scrollForInformationComment
 		}
 	}
 </script>

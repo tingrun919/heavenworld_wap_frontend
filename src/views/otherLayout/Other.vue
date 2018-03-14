@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-26 15:06:41 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-02-27 10:20:13
+ * @Last Modified time: 2018-03-14 16:13:49
  */
 <style scoped lang="less">
 	@import './other.less';
@@ -41,7 +41,7 @@
 				var title = '';
 				switch (this.$route.name) {
 					case 'information_view':
-						title = '文章标题'
+						title = this.$store.state.app.information.infoTitle
 						break;
 					case 'panoramic_view':
 						title = '全景'
@@ -82,6 +82,9 @@
 					case 'setting_view':
 						title = '设置';
 						break;
+					case 'information_comment':
+						title = '评论列表'
+						break
 				}
 				return title;
 			},

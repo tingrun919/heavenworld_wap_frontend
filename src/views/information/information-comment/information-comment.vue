@@ -1,18 +1,18 @@
 <style scoped lang="less">
-	@import './information.less';
+	@import './information-comment.less';
 </style>
 <template>
 	<div class="scroll-list-wrap" :style="{height:viewHeight}" slot="demo">
-		<scroll ref="scroll" :data="items" :mainpic="mainPic" :scrollbar="scrollbarObj" :pullDownRefresh="pullDownRefreshObj" :pullUpLoad="pullUpLoadObj"
+		<scroll ref="scroll" :data="items" :scrollbar="scrollbarObj" :pullDownRefresh="pullDownRefreshObj" :pullUpLoad="pullUpLoadObj"
 		 :startY="parseInt(startY)" @pullingDown="onPullingDown" @pullingUp="onPullingUp" @click="clickItem">
 		</scroll>
 	</div>
 </template>
 <script>
-	import Scroll from '../index/scroll/scroll.vue'
-	import informationService from './service/informationService.js'
+	import Scroll from '../../index/scroll/scroll.vue'
+	import informationCommentService from '../service/informationCommentService.js'
 	export default {
-		mixins:[informationService],
+		mixins: [informationCommentService],
 		components: {
 			Scroll,
 		},
@@ -34,15 +34,14 @@
 				scrollToEasing: 'bounce',
 				scrollToEasingOptions: ['bounce', 'swipe', 'swipeBounce'],
 				items: [],
-				itemIndex: 0,
-				mainPic:[],
+				itemIndex: 0
 			}
 		},
 		created() {
 			// this.items = this.tabType
 		},
-		beforeMount(){
-			this.getInformationList()
+		beforeMount() {
+			this.getInformationCommentList()
 		},
 		watch: {
 			// tabType() {
@@ -72,7 +71,7 @@
 		},
 		computed: {
 			viewHeight: function () {
-				return (window.innerHeight - 135) + 'px'
+				return (window.innerHeight - 41) + 'px'
 			},
 			scrollbarObj: function () {
 				return this.scrollbar ? { fade: this.scrollbarFade } : false
@@ -145,10 +144,9 @@
 				}, 1500)
 			},
 			clickItem(param) {
-				let argu = { id: param.infoId };
 				this.$router.push({
-					name: 'information_view',
-					params: argu
+					name: 'panoramicView',
+					params: { id: param.panoId }
 				});
 			},
 		}

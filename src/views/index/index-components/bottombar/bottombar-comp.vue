@@ -25,16 +25,17 @@
 	export default {
 		data() {
 			return {
-				selected:'',
+				selected: this.$route.name,
 			}
 		},
-		mounted(){
-			this.selected = this.$route.name
-			this.$emit("handleBottombar",this.selected)
+		watch: {
+			'$route'(to, from) {
+				this.selected = to.name
+			}
 		},
-		methods:{
-			handleBottombar(bottombar){
-				this.$emit("handleBottombar",bottombar)
+		methods: {
+			handleBottombar(bottombar) {
+				this.$emit("handleBottombar", bottombar)
 			}
 		}
 	}
