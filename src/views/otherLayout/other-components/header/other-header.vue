@@ -1,6 +1,9 @@
-/* * @Author: tarn.tianrun * @Date: 2018-03-12 11:00:19 * @Last Modified by: tarn.tianrun * @Last Modified time: 2018-03-12
-11:53:50 */
-
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-03-14 13:52:09 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-03-14 16:58:58
+ */
 
 <style scoped lang="less">
 	@import "./other-header.less";
@@ -55,7 +58,6 @@
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.callBack();
 				} else {
-					console.log(this.$route, '111111')
 					if (this.$route.name == 'blessingdetail') {
 						this.$router.go(-1)
 					} else if (this.$route.name == 'panoramicView') {
@@ -63,6 +65,8 @@
 							name: 'panoramic'
 						});
 					} else if (this.$route.name == 'information_view') {
+						this.$router.go(-1)
+					} else if (this.$route.name == 'information_comment') {
 						this.$router.go(-1)
 					}
 				}

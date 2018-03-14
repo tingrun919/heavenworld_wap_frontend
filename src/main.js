@@ -10,6 +10,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 
 import VueLazyload from 'vue-lazyload'
+import moment from 'moment/moment'
 
 import App from './App'
 import store from './store'
@@ -37,6 +38,13 @@ Vue.use(VueLazyload, {
 // Vue.use(VueMaterial)
 // Vue.use(VueVideoPlayer)
 /* eslint-disable no-new */
+
+Vue.filter('moment', function (value, formatString) {
+    formatString = formatString || 'YYYY-MM-DD';
+    return moment(value).format(formatString); // value可以是普通日期 20170723
+    // return moment.unix(value).format(formatString); // 这是时间戳转时间
+});
+
 new Vue({
   el: '#app',
   router,

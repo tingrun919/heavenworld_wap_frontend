@@ -7,7 +7,6 @@ export default {
 		getCommentList(id,sname) {
 			return api.get(`banaworld_show/nopano/selListPray?panoid=${id}&scenename=${sname}`)
 				.then(res => {
-					console.log(res.data.data, '2222222');
 					panoramic.show_comment_list(res.data.data);
 				})
 				.catch(err => {

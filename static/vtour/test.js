@@ -12,7 +12,8 @@ function getComment() {
 	//ajax开始=======================================
 	$.ajax({
 		type: "get",
-		url: 'http://192.168.10.196:8080/banaworld_show/nopano/selListPray',
+		url: 'http://39.107.78.100:8080/banaworld_show/nopano/selListPray',
+		// url: 'http://192.168.10.196:8080/banaworld_show/nopano/selListPray',
 		dataType: "json",
 		data: { panoid: prayId, scenename: s },
 		success: function (data) {

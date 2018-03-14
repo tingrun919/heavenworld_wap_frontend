@@ -1,8 +1,8 @@
 /*
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:54 
- * @Last Modified by:   tarn.tianrun 
- * @Last Modified time: 2018-02-07 16:26:54 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-03-14 14:51:16
  */
 
 const app = {
@@ -10,6 +10,9 @@ const app = {
 		currentPageName: '推荐',
 		currentPageFromIos: false,
 		currentPageFromAndroid: false,
+		information:[],
+		userToken:'',
+		userId:'',
 	},
 	mutations: {
 		setCurrentPageName(state, name) {
@@ -21,6 +24,15 @@ const app = {
 		setCurrentPageFromAndroid(state, name) {
 			state.currentPageFromAndroid = name;
 		},
+		setInformation(state, name){
+			state.information = name;
+		},
+		setUserToken(state, name){
+			state.userToken = name;
+		},
+		setUserId(state, name){
+			state.userId = name;
+		}
 	}
 };
 export default app;

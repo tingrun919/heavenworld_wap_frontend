@@ -4,24 +4,28 @@
 <template>
 	<div class="scroll-information-img">
 		<img src="../../../../../assets/mine-icon/mine-custom.png" width="40" height="40">
-		<span>测试用户{{item.bavbar}}</span>
-		<div class="information-title">标题限制一行标题限制一行标题限制一行标题限制一行标题限制一行标题限制一行标题限制一行标题限制一行</div>
-		<div class="information-subtitle" v-if="item.isPic == 1">副标题限制两行副标题限制两行副标题限制两行副标题限制两行副标题限制两行副
-											标题限制两行副标题限制两行副标题限制两行副标题限制两行
+		<span>{{item.staffType}}</span>
+		<div class="information-title">{{item.infoTitle}}</div>
+		<div class="information-subtitle" v-if="pic.length <= 0">
+			{{item.infoSubtitle}}
 		</div>
-		<div v-if="item.isPic == 2">
-			<img src="../../../../../assets/test-img/fo1.jpg" :style="{height:viewHeight,width:viewHeight}">
-			<img src="../../../../../assets/test-img/fo2.jpg" :style="{height:viewHeight,width:viewHeight}">
-			<img src="../../../../../assets/test-img/fo3.jpg" :style="{height:viewHeight,width:viewHeight}">
+		<div v-if="pic.length > 1" class="three-pic">
+			<img  v-for="src in pic" :src="src" :style="{height:viewHeight,width:viewHeight}">
 		</div>
-		<div v-if="item.isPic == 3">
-			<img src="../../../../../assets/test-img/allfo.jpg" :style="{height:oneImgviewHeight,width:oneImgviewHeight}">
+		<div v-if="pic.length == 1 && item.typePId != 3">
+			<img :src="pic" :style="{height:oneImgviewweight,width:oneImgviewHeight}">
+		</div>
+		<div style="position:relative;" v-if="pic.length == 1 && item.typePId == 3">
+			<img :src="pic" :style="{height:oneImgviewweight,width:oneImgviewHeight}">
+			<div style="position:absolute;bottom:10px;right:10px;">
+				<img src="../../../../../assets/information-img/playvideo.png" width="40" height="40">
+			</div>
 		</div>
 		<div class="information-comment">
-			<span>123赞</span>
-			<span>123评论</span>
+			<span>{{item.praiseCount}}赞</span>
+			<span>{{item.commentCount}}评论</span>
 			<div class="information-comment-right">
-					<span>板块名</span>
+					<span>{{item.typeName}}</span>
 			</div>
 		</div>
 	</div>
@@ -34,12 +38,21 @@
 			},
 			oneImgviewHeight(){
 				return window.innerWidth - 20 + 'px'
+			},
+			oneImgviewweight(){
+				return (window.innerWidth - 20) / 5 * 3 + 'px'
 			}
 		},
 		props: {
 			item: {
-				isPic: Object,
+				type: Object,
 			},
+			pic: {
+				type: Array,
+				default: function () {
+					return []
+				}
+			}
 		}
 	}
 </script>

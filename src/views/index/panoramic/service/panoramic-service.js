@@ -6,7 +6,6 @@ export default {
 		getPanoramicList() {
 			return api.get(`banaworld_show/nopano/selAllPano?beginRow=0&pageSize=10`)
 				.then(res => {
-					console.log(res.data.data, '2222222');
 					this.items = res.data.data
 					// panoramic.show_comment_list(res.data.data);
 				})
