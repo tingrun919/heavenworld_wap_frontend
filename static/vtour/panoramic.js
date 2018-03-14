@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 14:41:07 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-09 10:26:18
+ * @Last Modified time: 2018-03-14 18:27:38
  */
 //祈福列表
 export function show_comment_list(data) {
@@ -15,7 +15,7 @@ export function show_comment_list(data) {
 			"set(hotspot[" + commname + "].ath," + data[i].prayLongitude + ");" +
 			"set(hotspot[" + commname + "].atv," + data[i].prayDimension + ");" +
 			"set(hotspot[" + commname + "].scale,.2);" +
-			"set(hotspot[" + commname + "].onclick,js(blessing_detail()));"
+			"set(hotspot[" + commname + "].onclick,js(blessing_detail("+data[i].prayId+")));"
 		);
 	}
 }
