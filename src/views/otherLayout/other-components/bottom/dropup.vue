@@ -51,14 +51,10 @@
 				}
 			},
 			map() {
-				console.log(this.panoramic.panoAddress)
-				console.log(this.panoramic.panoLongitude)
-				console.log(this.panoramic.panoDimension)
-
 				if (this.$store.state.app.currentPageFromIos) {
 					this.$bridge.callHandler('navigation', { 'title': this.panoramic.panoAddress, 'longitude': this.panoramic.panoLongitude, 'dimension': this.panoramic.panoDimension }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.navigation();
+					android.navigation(this.panoramic.panoAddress, this.panoramic.panoLongitude, this.panoramic.panoDimension);
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}

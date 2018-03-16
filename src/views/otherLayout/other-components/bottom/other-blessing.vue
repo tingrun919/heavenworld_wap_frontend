@@ -5,22 +5,22 @@
 		<div style="position:fixed;bottom:0;width:100%;z-index:2000;">
 			<mt-tabbar v-model="selected">
 				<mt-tab-item id="blessing" @click.native="toIndex">
-					<img slot="icon" src="../../../../assets/panoramic-img/panoramic-blessing-no.png">
+					<img slot="icon" src="../../../../assets/bottom-bar-icon/panoramic-no.png">
 					<!-- <img slot="icon" v-if="selected === 'blessing'" src="../../../../assets/panoramic-img/panoramic-blessing.png">  -->
 					全景
 				</mt-tab-item>
 				<mt-tab-item id="index" @click.native="handleBottombar('index')">
-					<img slot="icon" src="../../../../assets/panoramic-img/panoramic-home-no.png">
+					<img slot="icon" src="../../../../assets/panoramic-img/panoramic-mall.png">
 					<!-- <img slot="icon" v-if="selected === 'index'" src="../../../../assets/panoramic-img/panoramic-home.png">  -->
 					福商城
 				</mt-tab-item>
 				<mt-tab-item id="scenes" @click.native="handleBottombar('scenes')">
-					<img slot="icon" src="../../../../assets/panoramic-img/panoramic-scenes-no.png">
+					<img slot="icon" src="../../../../assets/panoramic-img/panoramic-blessing-no.png">
 					<!-- <img slot="icon" v-if="selected === 'scenes'" src="../../../../assets/panoramic-img/panoramic-scenes.png">  -->
 					结缘榜
 				</mt-tab-item>
 				<mt-tab-item id="more" @click.native="showMore">
-					<img slot="icon" src="../../../../assets/panoramic-img/panoramic-more-no.png">
+					<img slot="icon" src="../../../../assets/panoramic-img/panoramic-collection-no.png">
 					<!-- <img slot="icon" v-if="selected === 'more'" src="../../../../assets/panoramic-img/panoramic-more.png">  -->
 					收藏
 				</mt-tab-item>

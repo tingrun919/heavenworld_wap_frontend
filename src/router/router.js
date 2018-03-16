@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:48 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-14 15:55:39
+ * @Last Modified time: 2018-03-15 10:41:27
  */
 
 import Main from '@/views/Main.vue';
@@ -50,7 +50,7 @@ export const otherRouter = [
         title: '福主页',
         component: Other,
         children: [
-            { path: 'index', title: '福主页', name: 'blessing_view', component: () => import('@/views/index/panoramic/panoramic-components/blessing-home.vue') }
+            { path: ':id', title: '福主页', name: 'blessing_view', component: () => import('@/views/index/panoramic/panoramic-components/blessing-home.vue') }
         ]
 	},
 	{
