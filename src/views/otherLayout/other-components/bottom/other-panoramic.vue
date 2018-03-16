@@ -51,8 +51,10 @@
 				this.show = !this.show
 			},
 			toIndex() {
+				let argu = { id: this.$route.params.id };
 				this.$router.push({
-					name: 'blessing_view'
+					name: 'blessing_view',
+					params: argu
 				});
 			},
 			testaaa() {
