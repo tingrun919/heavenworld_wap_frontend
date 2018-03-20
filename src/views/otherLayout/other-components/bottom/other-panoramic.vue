@@ -13,7 +13,7 @@
 				<img slot="icon" src="../../../../assets/panoramic-img/panoramic-home-no.png"> 主页
 			</mt-tab-item>
 			<mt-tab-item id="scenes" @click.native="testaaa">
-				<img slot="icon" src="../../../../assets/panoramic-img/panoramic-scenes-no.png" v-bind:class="{ isscenes : showScenes }">				场景
+				<img slot="icon" src="../../../../assets/panoramic-img/panoramic-scenes-no.png" v-bind:class="{ isscenes : showScenes }">场景
 			</mt-tab-item>
 			<mt-tab-item id="more" @click.native="showMore">
 				<img slot="icon" src="../../../../assets/panoramic-img/panoramic-more-no.png"> 更多
@@ -52,10 +52,27 @@
 			},
 			toIndex() {
 				let argu = { id: this.$route.params.id };
-				this.$router.push({
-					name: 'blessing_view',
-					params: argu
-				});
+				if (this.$store.state.app.currentPageFromAndroid) {
+					let args = { from: 'android' }
+					this.$router.push({
+						name: 'blessing_view',
+						params: argu,
+						query: args,
+					});
+				} else if (this.$store.state.app.currentPageFromIos) {
+					let args = { from: 'ios' }
+					this.$router.push({
+						name: 'blessing_view',
+						params: argu,
+						query: args,
+					});
+				} else {
+					this.$router.push({
+						name: 'blessing_view',
+						params: argu,
+					});
+				}
+
 			},
 			testaaa() {
 				this.showScenes = !this.showScenes

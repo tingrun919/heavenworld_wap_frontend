@@ -12,7 +12,7 @@
 							<scroll-For-Panoramic :item='item' v-if="currentRoute == 'panoramic'"></scroll-For-Panoramic>
 							<scroll-For-Information :item='item' :pic='mainpic[index]' v-if="currentRoute == 'information'"></scroll-For-Information>
 							<scroll-For-Dynamic :item='item' v-if="currentRoute == 'find_dynamic'"></scroll-For-Dynamic>
-							<scroll-For-Information-Comment :item='item' v-if="currentRoute == 'information_comment'"></scroll-For-Information-Comment>
+							<scroll-For-Information-Comment @pushComment="pushItem" :item='item' v-if="currentRoute == 'information_comment'"></scroll-For-Information-Comment>
 						</li>
 					</ul>
 				</slot>
@@ -210,6 +210,9 @@
 			clickItem(e, item) {
 				console.log(e)
 				this.$emit('click', item)
+			},
+			pushItem(param) {
+				this.$emit('push', param)
 			},
 			destroy() {
 				this.scroll.destroy()

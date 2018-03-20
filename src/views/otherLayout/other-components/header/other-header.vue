@@ -1,12 +1,18 @@
 /*
  * @Author: tarn.tianrun 
- * @Date: 2018-03-14 13:52:09 
+ * @Date: 2018-03-20 11:35:30 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-14 16:58:58
+ * @Last Modified time: 2018-03-20 11:42:29
  */
+
 
 <style scoped lang="less">
 	@import "./other-header.less";
+</style>
+<style>
+	.mintui {
+		font-size: 20px;
+	}
 </style>
 <template>
 	<div v-if="isblessing">

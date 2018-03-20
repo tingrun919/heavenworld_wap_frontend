@@ -1,3 +1,6 @@
+/* * @Author: tarn.tianrun * @Date: 2018-03-16 18:31:04 * @Last Modified by: tarn.tianrun * @Last Modified time: 2018-03-19
+10:53:53 */
+
 <style scoped lang="less">
 	@import './panoramic-detail.less';
 </style>
@@ -220,7 +223,8 @@
 				}
 				// this.showVideos = true;
 			})
-			embedpano({ swf: "../../../../static/vtour/tour.swf", xml: "../../../../static/vtour/tour.xml", target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true });
+			console.log(this.$route.params.id,'0000')
+			embedpano({ swf: "../../../../static/vtour/tour.swf", xml: `../../../../static/vtour/tour${this.$route.params.id}.xml`, target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true });
 		},
 		created() {
 			window.handleResultAudio = this.handleResultAudio;
@@ -360,9 +364,7 @@
 <style scoped>
 	#wrapper {
 		width: 100%;
-		/* height: 100%; */
 		position: absolute;
-		/* border: 1px solid red; */
 	}
 
 	#pano {

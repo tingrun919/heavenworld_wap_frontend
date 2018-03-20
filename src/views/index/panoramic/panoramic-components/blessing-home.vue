@@ -1,9 +1,10 @@
 /*
  * @Author: tarn.tianrun 
- * @Date: 2018-03-16 11:28:36 
+ * @Date: 2018-03-20 13:52:24 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-16 12:08:33
+ * @Last Modified time: 2018-03-20 15:01:09
  */
+
 
 <style scoped lang="less">
 	@import './blessing-home.less';
@@ -41,9 +42,11 @@
 			<div class="blessing-home">
 				<div class="page-swipe">
 					<mt-swipe :auto="0">
-						<mt-swipe-item class="slide1">1</mt-swipe-item>
-						<mt-swipe-item class="slide2">2</mt-swipe-item>
-						<mt-swipe-item class="slide3">3</mt-swipe-item>
+						<mt-swipe-item class="slide-img" v-for="src in panoPicture" :key="src" v-bind:style="{backgroundImage: 'url(' + src + ')'}">
+							<!-- <img :src="src" alt=""> -->
+						</mt-swipe-item>
+						<!-- <mt-swipe-item class="slide2">2</mt-swipe-item> -->
+						<!-- <mt-swipe-item class="slide3">3</mt-swipe-item> -->
 					</mt-swipe>
 				</div>
 				<div class="blessing-bio">
@@ -97,20 +100,22 @@
 							<span>写评论</span>
 						</div>
 					</div>
-					<div class="blessing-messages-list" v-for="item in commentList">
+					<div class="blessing-messages-list-nodata" v-if="commentList.length <= 0">
+							<img src="../../../../assets/nodata.png">
+					</div>
+					<div class="blessing-messages-list" v-for="item in commentList" v-else>
 						<div class="user-info">
 							<div class="user-info-left">
-								<img src="../../../../assets/mine-icon/mine-custom.png" width="25" height="25">
-								<span>{{item.staffName}}:
-									<span v-if="item.pId" style="color:#3d3d3d;">回应</span>
-									<span v-if="item.pId">{{item.staffName1}}</span>
-								</span>
+								<img v-lazy="item.staffPortrait1" width="25" height="25" @click="handlePush(item.cStaffid)">
+								<span @click="handlePush(item.cStaffid)">{{item.staffNickname}}:</span>
 							</div>
 							<div class="user-info-right">
 								<span>{{item.cTime | moment}}</span>
 							</div>
 						</div>
 						<div class="message-detail">
+							<span v-if="item.pId" style="color:#3399FF;">@</span>
+							<span v-if="item.pId" style="color:#3399FF;" @click="handlePush(item.pStaffid)">{{item.staffNickname1}}:</span>
 							<span>
 								{{item.cContent}}
 							</span>
@@ -119,17 +124,16 @@
 							<span @click="handleReplyComment(item.cId, 2)">回应</span>
 						</div>
 					</div>
-					<div class="messages-loading-more">
+					<div class="messages-loading-more" v-if="commentList.length > 0">
 						<span @click="handleMoreComment">加载更多留言</span>
 					</div>
 				</div>
 			</div>
 		</scroll>
 		<mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
-			<div class="detail-comment" contenteditable ref="divContent">
-			</div>
+			<mt-field placeholder="请输入评论内容" type="textarea" rows="4" v-model="introduction"></mt-field>
 			<div class="detail-btn">
-				<mt-button type="default" size="small" @click.native="popupVisible = false">取消</mt-button>
+				<mt-button type="default" size="small" @click.native="handleCancelComment">取消</mt-button>
 				<mt-button type="primary" size="small" @click.native="handleComment">评论</mt-button>
 			</div>
 		</mt-popup>
@@ -170,27 +174,29 @@
 				commentId: '',
 				resultPerson: [],
 				sheetVisible: false,
+				panoPicture: [],
+				introduction: '',
 			}
 		},
 		mounted() {
-			let from = this.$route.query.from
-			if (from == 'ios') {
-				this.$store.commit('setCurrentPageFromIos', true);
-				this.$store.commit('setCurrentPageFromAndroid', false);
-			} else if (from == 'android') {
-				this.$store.commit('setCurrentPageFromAndroid', true);
-				this.$store.commit('setCurrentPageFromIos', false);
-			} else {
-				this.$store.commit('setCurrentPageFromAndroid', false);
-				this.$store.commit('setCurrentPageFromIos', false);
-			}
+			// let from = this.$route.query.from
+			// if (from == 'ios') {
+			// 	this.$store.commit('setCurrentPageFromIos', true);
+			// 	this.$store.commit('setCurrentPageFromAndroid', false);
+			// } else if (from == 'android') {
+			// 	this.$store.commit('setCurrentPageFromAndroid', true);
+			// 	this.$store.commit('setCurrentPageFromIos', false);
+			// } else {
+			// 	this.$store.commit('setCurrentPageFromAndroid', false);
+			// 	this.$store.commit('setCurrentPageFromIos', false);
+			// }
 			this.actions = [{
 				name: "场景首页",
 				method: this.toPanoramic
 			},
 			{
 				name: "分享",
-				method: this.takePhoto
+				method: this.share
 			},
 			{
 				name: "进入商城",
@@ -205,14 +211,18 @@
 			this.getSinglePanoramicCommentList(this.$route.params.id, 0, '', 5)
 			//获取相关人员
 			this.getSinglePerson(this.$route.params.id)
+			this.$Lazyload.config({ error: '../../../../../static/userIcon2@3x.png' })
+			console.log(this.commentList.length)
 		},
 		methods: {
 			//退回到全景
 			toPanoramic() {
 				let argu = { id: this.$route.params.id };
+				let args = { from: this.$store.state.app.currentPageFromIos ? 'ios' : this.$store.state.app.currentPageFromAndroid ? 'android' : '' }
 				this.$router.push({
 					name: 'panoramicView',
-					params: argu
+					params: argu,
+					query: args,
 				});
 			},
 			//打开评论窗口
@@ -225,12 +235,17 @@
 			},
 			//添加评论，回复评论
 			handleComment() {
-				this.addComment('21232f297a57a5a743894a0e4a801fc3', this.$route.params.id, this.commentId, this.$refs.divContent.innerHTML, this.commentType).then(res => {
-					this.popupVisible = false
+				this.addComment('21232f297a57a5a743894a0e4a801fc55', this.$route.params.id, this.commentId, this.introduction, this.commentType).then(res => {
+					this.handleCancelComment()
 					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
 						this.getSinglePanoramicCommentList(this.$route.params.id, 0, '', 5)
 					})
 				})
+			},
+			//取消评论，清空model
+			handleCancelComment() {
+				this.popupVisible = false
+				this.introduction = ''
 			},
 			//加载更多评论
 			handleMoreComment() {
@@ -247,9 +262,9 @@
 			//导航
 			map() {
 				if (this.$store.state.app.currentPageFromIos) {
-					this.$bridge.callHandler('navigation', { 'title': this.panoramic.panoAddress, 'longitude': this.panoramic.panoLongitude, 'dimension': this.panoramic.panoDimension }, (data) => { })
+					this.$bridge.callHandler('navigation', { 'title': this.resultData.panoAddress, 'longitude': this.resultData.panoLongitude, 'dimension': this.resultData.panoDimension }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.navigation(this.panoramic.panoAddress, this.panoramic.panoLongitude, this.panoramic.panoDimension);
+					android.navigation(this.resultData.panoAddress, this.resultData.panoLongitude, this.resultData.panoDimension);
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}
@@ -264,6 +279,16 @@
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}
 			},
+			//跳转到个人中心
+			handlePush(id) {
+				if (this.$store.state.app.currentPageFromIos) {
+					this.$bridge.callHandler('handlePush', { 'to': 'otherUserCenter', 'id': `${id}` }, (data) => { })
+				} else if (this.$store.state.app.currentPageFromAndroid) {
+					// android.showVideo();
+				} else {
+					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+				}
+			}
 		},
 		components: {
 			Scroll

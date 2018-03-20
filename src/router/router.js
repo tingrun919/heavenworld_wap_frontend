@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:48 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-15 10:41:27
+ * @Last Modified time: 2018-03-19 18:37:20
  */
 
 import Main from '@/views/Main.vue';
@@ -41,7 +41,7 @@ export const otherRouter = [
         component: Other,
         children: [
 			{ path: ':id', title: '资讯详情', name: 'information_view', component: () => import('@/views/information/information-detail/information-detail.vue') },
-			{ path: '/comment', title: '评论列表', name: 'information_comment', component: () => import('@/views/information/information-comment/information-comment.vue') }
+			{ path: '/comment/:id', title: '评论列表', name: 'information_comment', component: () => import('@/views/information/information-comment/information-comment.vue') }
         ]
 	},
 	{
