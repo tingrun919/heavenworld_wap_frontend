@@ -8,6 +8,17 @@ export default {
 			return api.get(`banaworld_show/nopano/selOnePano?panoid=${panoid}`)
 				.then(res => {
 					this.resultData = res.data.data[0]
+					this.panoPicture = this.resultData.panoPicture.split(",")
+					// this.resultData.panoPicture.forEach(element => {
+					// 	// if (element.panoPicture) {
+					// 	// 	var pic = element.panoPicture.split(",")
+					// 	// 	this.panoPicture.push(pic)
+					// 	// } else {
+					// 	// 	this.panoPicture.push([])
+					// 	// }
+					// 	console.log(element,'1')
+					// });
+					// console.log(this.panoPicture,'1')
 				})
 				.catch(err => {
 				});

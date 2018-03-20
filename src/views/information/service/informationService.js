@@ -17,6 +17,7 @@ export default {
 							this.mainPic.push([])
 						}
 					});
+					
 				})
 				.catch(err => {
 				});

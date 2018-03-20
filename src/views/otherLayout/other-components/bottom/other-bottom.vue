@@ -43,8 +43,10 @@
 			},
 			//跳转到评论列表
 			handleCommentList() {
+				let argu = { id: this.$route.params.id };
 				this.$router.push({
-					name: 'information_comment'
+					name: 'information_comment',
+					params: argu
 				})
 			},
 			share() {

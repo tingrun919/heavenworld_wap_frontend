@@ -1,3 +1,10 @@
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-03-16 18:31:10 
+ * @Last Modified by:   tarn.tianrun 
+ * @Last Modified time: 2018-03-16 18:31:10 
+ */
+
 <style scoped lang="less">
 		@import "./other-blessing.less";
 	</style>

@@ -14,10 +14,16 @@
 <template>
 	<scroll ref="scroll" :scrollY="freeScroll" :scrollbar="scrollbar" :mouseWheel="mouseWheel" :style="{height:viewHeight}">
 		<div class="information-detail-main">
+			<div class="v-video" v-if="showVideos">
+				<video playsinline webkit-playsinline ref="videoTag" controls="controls" :poster="resultData.infoMainpic" autoplay="autoplay" :width="viewWidthVideo">
+					<source :src="resultData.infoVideo" type="video/mp4" />
+				</video>
+			</div>
 			<div class="info-infomation">
 				<div class="user-info">
 					<div class="info-left">
-						<img v-lazy="resultData.staffPortrait" width="20" height="20">
+						<!-- <img v-lazy="resultData.staffPortrait" width="40" height="40"> -->
+						<div class="info-header-img" v-bind:style="{backgroundImage: 'url(' + resultData.staffPortrait + ')'}"></div>
 						<!-- <img src="../../../assets/mine-icon/mine-custom.png" width="20" height="20"> -->
 						<span>{{resultData.staffNickname}} ({{resultData.staffType}})</span>
 					</div>
@@ -32,9 +38,6 @@
 					<span>{{resultData.infoSubtitle}}</span>
 				</div>
 			</div>
-			<!-- <li v-for="n in 140">
-				{{n}}
-			</li> -->
 			<div class="content-infomation">
 				<div v-html="resultData.infoContent" class="information-content"></div>
 				<div class="content-icon">
@@ -52,7 +55,8 @@
 <script>
 	import informationDetailService from './information-detail-service/information-detail-service.js'
 	import Scroll from '../../index/scroll/scroll.vue'
-
+	import { Indicator } from 'mint-ui';
+	
 	export default {
 		mixins: [informationDetailService],
 		components: {
@@ -62,6 +66,9 @@
 		computed: {
 			viewHeight: function () {
 				return (window.innerHeight - 95) + 'px'
+			},
+			viewWidthVideo: function () {
+				return (window.innerWidth) + 'px'
 			},
 		},
 		mounted() {
@@ -82,8 +89,11 @@
 			}
 		},
 		beforeMount() {
-			this.getInformationDetail(this.$route.params.id, this.$store.state.app.userToken,).then(() => {
+			Indicator.open('加载中...');
+			this.getInformationDetail(this.$route.params.id, this.$store.state.app.userToken, ).then(() => {
 				this.$store.commit('setInformation', this.resultData);
+				this.resultData.infoVideo.length > 0 ? this.showVideos = true : this.showVideos = false
+				Indicator.close();
 			})
 			this.$Lazyload.config({ error: '../../../../../../static/picture.png' })
 		},
@@ -96,6 +106,7 @@
 					fade: true,
 					interactive: false
 				},
+				showVideos:false,
 			}
 		},
 

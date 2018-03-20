@@ -1,5 +1,6 @@
 @background: #ffffff;
 @font-size13:13px;
+@font-size18:18px;
 @font-size12:12px;
 .information-detail-main{
 	width: 100%;
@@ -18,11 +19,7 @@
 		align-items: center;
 		justify-content: flex-start;
 		width: 60%;
-		font-size: @font-size13;
-		img{
-			padding: 10px;
-			vertical-align: middle;
-		}
+		font-size: @font-size18;
 	}
 	.info-right{
 		text-align: right;
@@ -38,19 +35,21 @@
 }
 .info-subtitle{
 	text-align: left;
-	padding: 20px 10px;
+	padding: 10px 10px 20px 10px;
 	background-color: @background;
 }
 .info-title {
-	.info-subtitle;
-	border-bottom: 1px solid #e5e5e5;
+	padding: 20px 10px 0 10px;
+	p{
+		font-size: @font-size18;
+	}
 }
 .content-infomation{
 	width: 100%;
 	background-color: @background;
 }
 .content-icon{
-	padding: 20px 0 10px 0;
+	padding: 10px 0 0 0;
 	text-align: center;
 }
 .content-read{
@@ -63,4 +62,19 @@
 }
 .information-navbar{
 	
+}
+.info-header-img{
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin: 10px;
+}
+.v-video{
+	// position: absolute;
+	// z-index: 2;
+	// top: 0;
+	// transform: translateY(-50%);
 }
