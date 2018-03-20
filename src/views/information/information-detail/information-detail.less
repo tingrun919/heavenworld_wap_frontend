@@ -1,12 +1,17 @@
 @background: #ffffff;
-@font-size13:13px;
-@font-size18:18px;
+@font-size14:14px;
+@font-size20:20px;
 @font-size12:12px;
 .information-detail-main{
+	margin-top: 40px;
 	width: 100%;
-	// height: 100%;
-	// position: absolute;
+	height: 100%;
+	position: absolute;
 	// overflow: auto;
+
+	-webkit-overflow-scrolling: touch;
+    overflow-y: auto;       
+    overflow-x: hidden;  
 }
 .user-info{
 	display: flex;
@@ -19,7 +24,7 @@
 		align-items: center;
 		justify-content: flex-start;
 		width: 60%;
-		font-size: @font-size18;
+		font-size: @font-size20;
 	}
 	.info-right{
 		text-align: right;
@@ -30,23 +35,25 @@
 	}
 }
 .info-font{
-	font-size: @font-size12;
+	font-size: @font-size14;
 	color: #888;
 }
 .info-subtitle{
 	text-align: left;
 	padding: 10px 10px 20px 10px;
+	line-height: 1.5;
 	background-color: @background;
 }
 .info-title {
 	padding: 20px 10px 0 10px;
 	p{
-		font-size: @font-size18;
+		font-size: @font-size20;
 	}
 }
 .content-infomation{
 	width: 100%;
 	background-color: @background;
+	line-height: 1.5;
 }
 .content-icon{
 	padding: 10px 0 0 0;

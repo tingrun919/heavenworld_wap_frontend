@@ -1,8 +1,6 @@
 //更新祈福位置
 function update_comm_ele(p1, p2) {
 	$("#comment-athv").attr("data-ath", p1).attr("data-atv", p2)
-	console.log(p1,'p1')
-	console.log(p2,'p2')
 }
 //获取某scene下的所有祈福
 function getComment() {

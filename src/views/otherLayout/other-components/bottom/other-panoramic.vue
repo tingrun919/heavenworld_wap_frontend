@@ -1,5 +1,10 @@
-/* * @Author: tarn.tianrun * @Date: 2018-02-07 10:36:22 * @Last Modified by: tarn.tianrun * @Last Modified time: 2018-03-12
-16:37:39 */
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-03-20 18:21:49 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-03-20 22:06:24
+ */
+
 <style scoped lang="less">
 	@import "./other-panoramic.less";
 </style>
@@ -34,15 +39,12 @@
 			return {
 				selected: 'blessing',
 				show: false,
-				showScenes: true,
+				showScenes: false,
 			}
 		},
 		props: [
 			'panoramicinfo'
 		],
-		mounted() {
-			console.log(typeof this.panoramicinfo)
-		},
 		methods: {
 			handleBlessingBottom(bottombar) {
 				this.$emit("handleBlessing", bottombar)

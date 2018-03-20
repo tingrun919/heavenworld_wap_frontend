@@ -14,14 +14,31 @@ export default {
 				.catch(err => {
 				});
 		},
-		getCommentList(prayid, pagesize){
+		getCommentList(prayid, pagesize) {
 			return api.get(`banaworld_show/nopano/selPrayComment?prayid=${prayid}&pagesize=${pagesize}`)
-			.then(res => {
-				console.log(res.data.data, '2222222');
-				this.commentList = res.data.data
-			})
-			.catch(err => {
-			});	
-		}
+				.then(res => {
+					this.commentList = res.data.data
+				})
+				.catch(err => {
+				});
+		},
+		//添加评论，回复评论
+		addComment(token, panoid, commentid, content, type, prayid) {
+			return api.get(`banaworld_show/pano/addPrayComment?token=${token}&panoid=${panoid}&commentid=${commentid}&content=${content}&type=${type}&prayid=${prayid}`)
+				.then(res => {
+					return res
+				})
+				.catch(err => {
+				});
+		},
+		//获取更多评论
+		getMoreComment(prayid, commentid, pagesize) {
+			return api.get(`banaworld_show/nopano/selPrayComment?prayid=${prayid}&cid=${commentid}&pagesize=${pagesize}`)
+				.then(res => {
+					return res
+				})
+				.catch(err => {
+				});
+		},
 	}
 }

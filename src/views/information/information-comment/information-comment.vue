@@ -3,10 +3,14 @@
 </style>
 <template>
 	<div class="scroll-list-wrap" :style="{height:viewHeight}" slot="demo">
-		<scroll ref="scroll" :data="items" :scrollbar="scrollbarObj" :pullDownRefresh="pullDownRefreshObj" :pullUpLoad="pullUpLoadObj"
+		<scroll ref="scroll" v-if="items.length > 0" :data="items" :scrollbar="scrollbarObj" :pullDownRefresh="pullDownRefreshObj" :pullUpLoad="pullUpLoadObj"
 		 :startY="parseInt(startY)" @push="clickItem" @pullingDown="onPullingDown" @pullingUp="onPullingUp">
 		</scroll>
-		<img class="img-comment" @click="handleComment" src="../../../assets/panoramic-img/panoramic-action-edit.png" width="50" height="50">
+		<div class="blessing-messages-list-nodata" v-if="items.length <= 0">
+				<img src="../../../assets/nodata.png">
+			</div>
+		<img class="img-comment"  @click="handleComment" src="../../../assets/panoramic-img/panoramic-action-edit.png" width="50"
+		 height="50">
 		<mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
 			<div class="detail-comment" contenteditable ref="divContent">
 			</div>
@@ -46,9 +50,9 @@
 				scrollToEasingOptions: ['bounce', 'swipe', 'swipeBounce'],
 				items: [],
 				itemIndex: 0,
-				popupVisible:false,
-				commentId:'',
-				commentType:'',
+				popupVisible: false,
+				commentId: '',
+				commentType: '',
 			}
 		},
 		created() {
@@ -160,26 +164,30 @@
 			//type：1 -> 评论
 			//type：2 -> 回复
 			clickItem(param) {
-				if(param[0] == 'name'){
+				if (param[0] == 'name') {
 
-				}else{
+				} else {
 					this.popupVisible = true
 					this.commentId = param[1]
 					this.commentType = 1
 				}
 			},
-			handleComment(){
+			handleComment() {
 				this.popupVisible = true
 				this.commentId = 0
 				this.commentType = 0
 			},
-			handleCommentApi(){
-				this.addComment('21232f297a57a5a743894a0e4a801fc55', this.$route.params.id, this.commentType == 1 ? this.commentId : 0, this.$refs.divContent.innerHTML, this.commentType).then(res => {
-					this.popupVisible = false
-					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
-						this.getInformationCommentList(this.$route.params.id)
+			handleCommentApi() {
+				if (this.$refs.divContent.innerText.length >= 140) {
+					Toast('最大限制输入为140个字！');
+				} else {
+					this.addComment('21232f297a57a5a743894a0e4a801fc55', this.$route.params.id, this.commentType == 1 ? this.commentId : 0, this.$refs.divContent.innerHTML, this.commentType).then(res => {
+						this.popupVisible = false
+						MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
+							this.getInformationCommentList(this.$route.params.id)
+						})
 					})
-				})
+				}
 			}
 		}
 	}

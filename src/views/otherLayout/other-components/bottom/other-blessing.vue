@@ -1,8 +1,8 @@
 /*
  * @Author: tarn.tianrun 
  * @Date: 2018-03-16 18:31:10 
- * @Last Modified by:   tarn.tianrun 
- * @Last Modified time: 2018-03-16 18:31:10 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-03-20 21:20:12
  */
 
 <style scoped lang="less">
@@ -27,8 +27,8 @@
 					结缘榜
 				</mt-tab-item>
 				<mt-tab-item id="more" @click.native="showMore">
-					<img slot="icon" src="../../../../assets/panoramic-img/panoramic-collection-no.png">
-					<!-- <img slot="icon" v-if="selected === 'more'" src="../../../../assets/panoramic-img/panoramic-more.png">  -->
+					<img slot="icon" v-if="selected === 'more'" src="../../../../assets/panoramic-img/panoramic-blessing-collection.png"> 
+					<img slot="icon" v-if="!(selected === 'more')" src="../../../../assets/panoramic-img/panoramic-collection-no.png">
 					收藏
 				</mt-tab-item>
 			</mt-tabbar>

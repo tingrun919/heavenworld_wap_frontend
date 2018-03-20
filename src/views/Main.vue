@@ -58,7 +58,6 @@
 				});
 			},
 			getNavbar(routerlink){
-				// console.log(routerlink,'routerlink')
 			}
 		}
 	}

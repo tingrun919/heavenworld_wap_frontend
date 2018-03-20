@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-03-20 13:52:24 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-20 15:01:09
+ * @Last Modified time: 2018-03-20 21:07:17
  */
 
 
@@ -30,6 +30,9 @@
 	.mint-swipe-indicator.is-active {
 		background: #FF6600;
 		opacity: 1;
+	}
+	.mint-field-core{
+		border: 1px solid #888;
 	}
 </style>
 <template>
@@ -131,7 +134,7 @@
 			</div>
 		</scroll>
 		<mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
-			<mt-field placeholder="请输入评论内容" type="textarea" rows="4" v-model="introduction"></mt-field>
+			<mt-field placeholder="请输入评论内容" type="textarea" :attr="{ maxlength: 140 }" rows="4" v-model="introduction"></mt-field>
 			<div class="detail-btn">
 				<mt-button type="default" size="small" @click.native="handleCancelComment">取消</mt-button>
 				<mt-button type="primary" size="small" @click.native="handleComment">评论</mt-button>
@@ -212,7 +215,6 @@
 			//获取相关人员
 			this.getSinglePerson(this.$route.params.id)
 			this.$Lazyload.config({ error: '../../../../../static/userIcon2@3x.png' })
-			console.log(this.commentList.length)
 		},
 		methods: {
 			//退回到全景

@@ -45,5 +45,3 @@
 		</mt-cell>
 	</div>
 </template>
-<style>
-</style>
