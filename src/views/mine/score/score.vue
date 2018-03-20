@@ -1,8 +1,8 @@
 /*
  * @Author: tarn.tianrun 
  * @Date: 2018-02-26 15:18:59 
- * @Last Modified by:   tarn.tianrun 
- * @Last Modified time: 2018-02-26 15:18:59 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-03-20 21:46:47
  */
 
 <style scoped lang="less">
@@ -50,7 +50,7 @@
 		},
 		computed: {
 			viewHeight: function () {
-				return (window.innerHeight - 41) + 'px'
+				return (window.innerHeight - 42) + 'px'
 			},
 		},
 		data() {

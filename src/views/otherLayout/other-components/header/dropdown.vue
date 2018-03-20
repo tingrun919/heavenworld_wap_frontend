@@ -50,10 +50,8 @@
 		},
 		methods: {
 			share() {
-				console.log(this.$store.state.app.currentPageFromAndroid)
 				if (this.$store.state.app.currentPageFromIos) {
 					this.$bridge.callHandler('appShare', { 'title': '标题', 'description': '测试简介', 'url': 'http://39.107.78.100/panoramicView' }, (data) => { })
-					// this.$bridge.callHandler('appShare', { 'title': '标题', 'description': '测试简介', 'url': 'http://192.168.10.72:8080/panoramicView' }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.doShare();
 				} else {

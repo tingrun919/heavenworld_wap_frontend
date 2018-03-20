@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-03-20 11:35:30 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-20 11:42:29
+ * @Last Modified time: 2018-03-20 22:06:28
  */
 
 
@@ -34,9 +34,6 @@
 			return {
 				show: false,
 			}
-		},
-		mounted() {
-			console.log(this.isblessing)
 		},
 		components: {
 			dropDown

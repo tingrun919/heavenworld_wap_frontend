@@ -1,8 +1,8 @@
 /*
  * @Author: tarn.tianrun 
  * @Date: 2018-02-23 15:50:10 
- * @Last Modified by:   tarn.tianrun 
- * @Last Modified time: 2018-02-23 15:50:10 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-03-20 21:43:00
  */
 <style lang="less">
 	@import './follow.less';
@@ -76,7 +76,7 @@
 		},
 		computed: {
 			viewHeight: function () {
-				return (window.innerHeight - 78) + 'px'
+				return (window.innerHeight - 38) + 'px'
 			},
 		},
 		data() {

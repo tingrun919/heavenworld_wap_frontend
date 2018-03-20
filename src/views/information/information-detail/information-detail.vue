@@ -12,10 +12,11 @@
 	}
 </style>
 <template>
-	<scroll ref="scroll" :scrollY="freeScroll" :scrollbar="scrollbar" :mouseWheel="mouseWheel" :style="{height:viewHeight}">
-		<div class="information-detail-main">
+	<!-- <scroll ref="scroll" :scrollY="freeScroll" :scrollbar="scrollbar" :mouseWheel="mouseWheel" :style="{height:viewHeight}"> -->
+		<div class="information-detail-main" :style="{height:viewHeight}">
 			<div class="v-video" v-if="showVideos">
-				<video playsinline webkit-playsinline ref="videoTag" controls="controls" :poster="resultData.infoMainpic" autoplay="autoplay" :width="viewWidthVideo">
+				<video playsinline webkit-playsinline ref="videoTag" controls="controls" :poster="resultData.infoMainpic" autoplay="autoplay"
+				 :width="viewWidthVideo">
 					<source :src="resultData.infoVideo" type="video/mp4" />
 				</video>
 			</div>
@@ -49,14 +50,14 @@
 				</div>
 			</div>
 		</div>
-	</scroll>
+	<!-- </scroll> -->
 </template>
 
 <script>
 	import informationDetailService from './information-detail-service/information-detail-service.js'
 	import Scroll from '../../index/scroll/scroll.vue'
 	import { Indicator } from 'mint-ui';
-	
+
 	export default {
 		mixins: [informationDetailService],
 		components: {
@@ -92,7 +93,9 @@
 			Indicator.open('加载中...');
 			this.getInformationDetail(this.$route.params.id, this.$store.state.app.userToken, ).then(() => {
 				this.$store.commit('setInformation', this.resultData);
-				this.resultData.infoVideo.length > 0 ? this.showVideos = true : this.showVideos = false
+				if(this.resultData.infoVideo){
+					this.resultData.infoVideo.length > 0 ? this.showVideos = true : this.showVideos = false
+				}
 				Indicator.close();
 			})
 			this.$Lazyload.config({ error: '../../../../../../static/picture.png' })
@@ -106,9 +109,24 @@
 					fade: true,
 					interactive: false
 				},
-				showVideos:false,
+				showVideos: false,
 			}
 		},
-
+		methods: {
+			test() {
+				var de = this.$refs.videoTag;
+				alert(de.msRequestFullscreen)
+				// if (de.requestFullscreen) {
+				// 	de.requestFullscreen();
+				// 	alert(de,'1')
+				// } else if (de.mozRequestFullScreen) {
+				// 	de.mozRequestFullScreen();
+				// 	alert(de,'2')
+				// } else if (de.webkitRequestFullScreen) {
+				// 	de.webkitRequestFullScreen();
+				// 	alert(de,'3')
+				// }
+			}
+		}
 	}
 </script>

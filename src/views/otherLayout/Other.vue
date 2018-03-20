@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-26 15:06:41 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-14 16:13:49
+ * @Last Modified time: 2018-03-20 22:06:33
  */
 <style scoped lang="less">
 	@import './other.less';
@@ -136,13 +136,5 @@
 		methods: {
 
 		},
-		// mounted() {
-		// 	document.addEventListener('click', (e) => {
-		// 		if (!this.$el.contains(e.target)){
-		// 			this.show = false
-		// 			console.log(this.show,'2222222223')
-		// 		} 
-		// 	})
-		// },
 	}
 </script>

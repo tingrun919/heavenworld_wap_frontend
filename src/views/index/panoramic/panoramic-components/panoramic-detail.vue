@@ -223,7 +223,6 @@
 				}
 				// this.showVideos = true;
 			})
-			console.log(this.$route.params.id,'0000')
 			embedpano({ swf: "../../../../static/vtour/tour.swf", xml: `../../../../static/vtour/tour${this.$route.params.id}.xml`, target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true });
 		},
 		created() {
@@ -309,15 +308,17 @@
 				var ath = $("#comment-athv").attr("data-ath")
 				var atv = $("#comment-athv").attr("data-atv")
 				var sname = krpano.get("scene[get(xml.scene)].name");
-
-				this.handleAddcomment(id, ath, atv, sname).then(() => {
-					this.handleBlessingAction = !this.handleBlessingAction
-					this.showRedenvelope = false;
-					this.showModel = false;
-					panoramic.cancel_comment();
-					this.getCommentList(id, sname)
-				})
-
+				if (this.$refs.divContent.innerText.length >= 140) {
+					Toast('最大限制输入为140个字！');
+				} else {
+					this.handleAddcomment(id, ath, atv, sname).then(() => {
+						this.handleBlessingAction = !this.handleBlessingAction
+						this.showRedenvelope = false;
+						this.showModel = false;
+						panoramic.cancel_comment();
+						this.getCommentList(id, sname)
+					})
+				}
 			},
 			handleCancelComment() {
 				//隐藏祈福功能

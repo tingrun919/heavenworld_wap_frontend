@@ -1,6 +1,11 @@
 <style scoped lang="less">
 	@import "./blessing-detail.less";
 </style>
+<style>
+	.mint-field-core {
+		border: 1px solid #888;
+	}
+</style>
 <template>
 	<div>
 		<div class="blessing-detail-main" :style="{height:viewHeight}">
@@ -13,6 +18,7 @@
 			<div class="v-video" v-show="showVideos">
 				<video playsinline webkit-playsinline id="videoPlay" ref="videoTag" controls="controls" :poster="icon" autoplay="autoplay"
 				 :width="viewWidthVideo">
+					<!-- <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" /> -->
 					<source :src="resultData.prayVideo" type="video/mp4" />
 				</video>
 			</div>
@@ -22,9 +28,11 @@
 			<scroll ref="scroll" :scrollY="freeScroll" :scrollbar="scrollbar" :mouseWheel="mouseWheel">
 				<div class="blesssing-detail-info">
 					<div class="info-main">
-						<img :src="src" class="info-main-img" :height="viewHeightImg">
-						<div class="info-content" :style="viewHeightContent">
-							<span>{{resultData.prayContent}}</span>
+						<!-- <img :src="src" class="info-main-img" :height="viewHeightImg"> -->
+						<div class="info-main-img" v-bind:style="{height: viewHeightImg}"></div>
+						<div class="info-content" v-bind:style="{backgroundImage: 'url(' + src + ')',height: viewHeightContent}">
+							<span class="pray-content1">{{resultData.prayContent}}</span>
+							<!-- <div class="pray-content">{{resultData.prayContent}}</div> -->
 							<div class="blessing-other">
 								<div class="blessing-other-info" :style="{width:viewWidth}" v-show="showOtherAudio" @click="playAudio">
 									<img src="../../../../assets/panoramic-img/panoramic-blessing-radio.png" width="20" height="20">
@@ -58,48 +66,45 @@
 							<div class="blessing-red-point"></div>
 							<span>用户留言</span>
 						</div>
-						<div @click="popupVisible = true">
+						<div @click="handleReplyComment(0, 1)">
 							<img src="../../../../assets/panoramic-img/panoramic-action-edit.png" width="18" height="18">
 							<span>写评论</span>
 						</div>
 					</div>
-					<div class="blessing-messages-list" v-for="item in commentList">
+					<div class="blessing-messages-list-nodata" v-if="commentList.length <= 0">
+						<img src="../../../../assets/nodata.png">
+					</div>
+					<div class="blessing-messages-list" v-for="item in commentList" v-else>
 						<div class="user-info">
-							<div class="user-info-left" @click="handlePush(item.cStaffid)">
-								<img src="../../../../assets/mine-icon/mine-custom.png" width="25" height="25">
-								<span>{{item.staffName}}:</span>
+							<div class="user-info-left">
+								<img v-lazy="item.staffPortrait1" width="25" height="25" @click="handlePush(item.cStaffid)">
+								<span @click="handlePush(item.cStaffid)">{{item.staffNickname}}:</span>
 							</div>
 							<div class="user-info-right">
-								<span>{{item.cTime}}</span>
+								<span>{{item.cTime | moment}}</span>
 							</div>
 						</div>
 						<div class="message-detail">
+							<span v-if="item.pId" style="color:#3399FF;">@</span>
+							<span v-if="item.pId" style="color:#3399FF;" @click="handlePush(item.pStaffid)">{{item.staffNickname1}}:</span>
 							<span>
 								{{item.cContent}}
 							</span>
 						</div>
 						<div class="message-reply">
-							<span @click="popupVisible = true">回应</span>
+							<span @click="handleReplyComment(item.cId, 2)">回应</span>
 						</div>
 					</div>
-					<!-- <div class="messages-loading-more">
-						<span>加载更多留言</span>
+					<div class="messages-loading-more" v-if="commentList.length > 0">
+							<span @click="handleMoreComment">加载更多留言</span>
 					</div>
-					<div class="messages-posted">
-						<textarea name="" id="" cols="30" rows="10" placeholder="留言"></textarea>
-						<div class="messages-action">
-							<span>取消输入</span>
-							<mt-button type="primary" size="small">发表</mt-button>
-						</div>
-					</div> -->
 				</div>
 			</scroll>
 			<mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
-				<div class="detail-comment" contenteditable>
-				</div>
+				<mt-field placeholder="请输入评论内容" type="textarea" :attr="{ maxlength: 140 }" rows="4" v-model="introduction"></mt-field>
 				<div class="detail-btn">
-					<mt-button type="default" size="small" @click.native="popupVisible = false">取消</mt-button>
-					<mt-button type="primary" size="small" @click.native="popupVisible = false">评论</mt-button>
+					<mt-button type="default" size="small" @click.native="handleCancelComment">取消</mt-button>
+					<mt-button type="primary" size="small" @click.native="handleComment">评论</mt-button>
 				</div>
 			</mt-popup>
 		</div>
@@ -109,8 +114,9 @@
 	import Scroll from '../../../index/scroll/scroll.vue'
 	import headerChildComp from '../../../otherLayout/other-components/header/other-header.vue';
 	import img1 from '../../../../assets/view/timg5.jpeg'
+	import { MessageBox } from 'mint-ui';
 	import { Toast } from 'mint-ui';
-	
+
 	import blessingService from './scrvice/blessing-detail-service.js'
 
 	export default {
@@ -124,13 +130,13 @@
 				return (window.innerHeight - 42) + 'px'
 			},
 			viewHeightImg: function () {
-				return (window.innerHeight / 2) + 'px'
+				return (window.innerWidth / 2) + 'px'
 			},
 			viewHeightContent: function () {
-				return "height:" + (window.innerHeight / 7 * 4) + 'px'
+				return ((window.innerWidth - 60) / 5 * 4) + 'px'
 			},
 			viewHeightUser: function () {
-				return "padding:" + (window.innerHeight / 6) + 'px' + " 20px" + " 10px" + " 20px"
+				return "padding:" + (window.innerHeight / 5.5) + 'px' + " 20px" + " 10px" + " 20px"
 			},
 			viewWidth: function () {
 				return (window.innerWidth / 3 - 30) + 'px'
@@ -144,7 +150,8 @@
 		},
 		beforeMount() {
 			this.getBlessingOne(this.$route.params.id)
-			this.getCommentList(this.$route.params.id, 1000)
+			this.getCommentList(this.$route.params.id, 5)
+			this.$Lazyload.config({ error: '../../../../../static/userIcon2@3x.png' })
 		},
 		data() {
 			return {
@@ -177,7 +184,10 @@
 						id: 4, name: 'Name'
 					},
 				],
-				commentList:[],
+				commentList: [],
+				introduction: '',
+				commentType: 1,
+				commentId: '',
 			}
 		},
 		methods: {
@@ -211,7 +221,41 @@
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}
-			}
+			},
+			//打开评论窗口
+			//type：1 -> 评论
+			//type：2 -> 回复
+			handleReplyComment(id, type) {
+				this.popupVisible = true
+				this.commentId = id
+				this.commentType = type
+			},
+			//添加评论，回复评论
+			handleComment() {
+				this.addComment('21232f297a57a5a743894a0e4a801fc55', this.resultData.prayPanoid, this.commentId, this.introduction, this.commentType, this.resultData.prayId).then(res => {
+					this.handleCancelComment()
+					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
+						this.getCommentList(this.$route.params.id, 1000)
+					})
+				})
+			},
+			//取消评论，清空model
+			handleCancelComment() {
+				this.popupVisible = false
+				this.introduction = ''
+			},
+			//加载更多评论
+			handleMoreComment() {
+				this.getMoreComment(this.resultData.prayId, this.commentList[this.commentList.length - 1].cId, 5).then(res => {
+					if (res.data.data.length > 0) {
+						res.data.data.forEach(item => {
+							this.commentList.push(item)
+						});
+					} else {
+						MessageBox('提示', '已经显示所有的评论啦！')
+					}
+				})
+			},
 		}
 	}
 </script>

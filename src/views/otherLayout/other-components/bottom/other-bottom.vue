@@ -4,14 +4,15 @@
 <template>
 	<mt-tabbar v-model="selected">
 		<mt-tab-item id="panoramic" @click.native="handlePraise">
-			<img slot="icon" src="../../../../assets/information-img/like.png"> {{praiseCount}}人点赞
+			<img slot="icon" v-if="!(selected === 'panoramic')" src="../../../../assets/information-img/like.png"> 
+			<img slot="icon" v-if="selected === 'panoramic'" src="../../../../assets/information-img/like-in.png">{{praiseCount}}人点赞
 		</mt-tab-item>
 		<mt-tab-item id="information" @click.native="share">
 			<img slot="icon" src="../../../../assets/information-img/share.png"> 分享
 		</mt-tab-item>
 		<mt-tab-item id="find" @click.native="handleBottombar('find')">
 			<img slot="icon" v-if="!(selected === 'find')" src="../../../../assets/information-img/collection.png">
-			<img slot="icon" v-if="selected === 'find'" src="../../../../assets/bottom-bar-icon/find-in.png"> 收藏
+			<img slot="icon" v-if="selected === 'find'" src="../../../../assets/information-img/collection-in.png"> 收藏
 		</mt-tab-item>
 		<mt-tab-item id="mine" @click.native="handleCommentList">
 			<img slot="icon" src="../../../../assets/information-img/comment.png">{{commentCount}}人评论
@@ -50,9 +51,7 @@
 				})
 			},
 			share() {
-				console.log(this.$route.path)
 				if (this.$store.state.app.currentPageFromIos) {
-					// this.$bridge.callHandler('appShare', { 'title': '标题', 'description': '测试简介', 'url': `http://192.168.10.72:8080${this.$route.path}` }, (data) => { })
 					this.$bridge.callHandler('appShare', { 'title': '标题', 'description': '测试简介', 'url': `http://39.107.78.100${this.$route.path}` }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.doShare();
@@ -61,16 +60,16 @@
 				}
 			},
 			handlePraise() {
-				this.resultData = this.$store.state.app.information
-				if (this.resultData.praiseState == 0) {
-					if (this.$store.state.app.userToken && this.$store.state.app.userId) {
-						this.handlePraiseNetWork(this.$store.state.app.userToken, this.resultData.infoId, this.$store.state.app.userId)
-					} else {
-						Toast('请先登录！');
-					}
-				} else {
-					Toast('您已经点过赞啦～');
-				}
+				// this.resultData = this.$store.state.app.information
+				// if (this.resultData.praiseState == 0) {
+				// 	if (this.$store.state.app.userToken && this.$store.state.app.userId) {
+				// 		this.handlePraiseNetWork(this.$store.state.app.userToken, this.resultData.infoId, this.$store.state.app.userId)
+				// 	} else {
+				// 		Toast('请先登录！');
+				// 	}
+				// } else {
+				// 	Toast('您已经点过赞啦～');
+				// }
 			}
 		}
 	}

@@ -200,8 +200,6 @@
 			tabType: function () {
 				var resultList = []
 				for (var i = 1; i < 4; i++) {
-					console.log(1)
-
 					var item = {
 						isPic: i,
 						bavbar: this.$store.state.app.currentPageName,

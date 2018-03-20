@@ -16,7 +16,7 @@
 			</layer>
         </layer>
     </layer>
-    <autorotate enabled="true"
+    <autorotate enabled="false"
         		waittime="5.0"
         		speed="3.0"
     	   	 	horizon="0.0"
@@ -66,7 +66,7 @@
 		if(startactions !== null, startactions() );
 		if(autorotate.enabled,bombtimer(0));
         
-        playsound(bgsnd, 'http://media-qiniu2.720static.com/@/b80jOruOsf7/1/9de93641fafc1160a7922e4e9f00e008.mp3', 0);"
+        <!-- playsound(bgsnd, 'http://media-qiniu2.720static.com/@/b80jOruOsf7/1/9de93641fafc1160a7922e4e9f00e008.mp3', 0);" -->
     </action>
     <action name="bombtimer"> 
               set(autorotate.enabled,true); 
