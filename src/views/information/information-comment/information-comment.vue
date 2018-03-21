@@ -1,8 +1,8 @@
 /*
  * @Author: tarn.tianrun 
- * @Date: 2018-03-21 11:03:36 
- * @Last Modified by:   tarn.tianrun 
- * @Last Modified time: 2018-03-21 11:03:36 
+ * @Date: 2018-03-21 13:53:50 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-03-21 13:56:14
  */
 
 <style scoped lang="less">
@@ -101,6 +101,11 @@
 			},
 			startY() {
 				this.rebuildScroll()
+			},
+			popupVisible() {
+				if (this.popupVisible == false) {
+					this.introduction = ''
+				}
 			}
 		},
 		computed: {
@@ -183,7 +188,6 @@
 			//取消评论，清空model
 			handleCancelComment() {
 				this.popupVisible = false
-				this.introduction = ''
 			},
 			handleComment() {
 				this.popupVisible = true
@@ -191,16 +195,12 @@
 				this.commentType = 0
 			},
 			handleCommentApi() {
-				// if (this.$refs.divContent.innerText.length >= 140) {
-				// 	Toast('最大限制输入为140个字！');
-				// } else {
 				this.addComment('21232f297a57a5a743894a0e4a801fc55', this.$route.params.id, this.commentType == 1 ? this.commentId : 0, this.introduction, this.commentType).then(res => {
-					this.popupVisible = false
+					this.handleCancelComment()
 					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
 						this.getInformationCommentList(this.$route.params.id)
 					})
 				})
-				// }
 			}
 		}
 	}

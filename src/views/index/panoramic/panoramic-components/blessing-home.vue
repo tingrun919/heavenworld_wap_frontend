@@ -1,9 +1,5 @@
-/*
- * @Author: tarn.tianrun 
- * @Date: 2018-03-20 13:52:24 
- * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-21 10:55:47
- */
+/* * @Author: tarn.tianrun * @Date: 2018-03-20 13:52:24 * @Last Modified by: tarn.tianrun * @Last Modified time: 2018-03-21
+13:54:38 */
 
 
 <style scoped lang="less">
@@ -101,7 +97,7 @@
 						</div>
 					</div>
 					<div class="blessing-messages-list-nodata" v-if="commentList.length <= 0">
-							<img src="../../../../assets/nodata.png"  :width="viewHeightImgNodata" :height="viewHeightImgNodata">
+						<img src="../../../../assets/nodata.png" :width="viewHeightImgNodata" :height="viewHeightImgNodata">
 					</div>
 					<div class="blessing-messages-list" v-for="item in commentList" v-else>
 						<div class="user-info">
@@ -178,7 +174,7 @@
 				introduction: '',
 			}
 		},
-		computed:{
+		computed: {
 			viewHeightImgNodata: function () {
 				return window.innerHeight / 3
 			},
@@ -208,6 +204,13 @@
 				method: this.toPanoramic
 			}
 			]
+		},
+		watch: {
+			popupVisible() {
+				if (this.popupVisible == false) {
+					this.introduction = ''
+				}
+			}
 		},
 		beforeMount() {
 			//获取全景信息
@@ -249,7 +252,6 @@
 			//取消评论，清空model
 			handleCancelComment() {
 				this.popupVisible = false
-				this.introduction = ''
 			},
 			//加载更多评论
 			handleMoreComment() {
