@@ -13,7 +13,7 @@
 	<div>
 		<div class="blessing-detail-main" :style="{height:viewHeight}">
 			<div class="other-header">
-				<header-child-Comp :title="title" :isblessing="true" :isShowRight="false"></header-child-Comp>
+				<header-child-Comp :title="resultData.staffNickname+'的祈福'" :isblessing="true" :isShowRight="false"></header-child-Comp>
 			</div>
 			<div class="v-shadow" v-if="showVideos">
 				<img src="../../../../assets/panoramic-img/panoramic-blessing-close.png" @click="closeVideo" width="20" height="20">
@@ -53,9 +53,9 @@
 							</div>
 						</div>
 						<div class="info-user" :style="viewHeightUser">
-							<div class="info-user-left" @click="handlePush">
-								<img src="../../../../assets/mine-icon/mine-custom.png" width="25" height="25">
-								<span>{{resultData.staffName}}（作者）</span>
+							<div class="info-user-left">
+								<img v-lazy="resultData.staffPortrait" width="25" height="25" @click="handlePush(resultData.prayStaffid)">
+								<span @click="handlePush(resultData.prayStaffid)">{{resultData.staffNickname}}（作者）</span>
 							</div>
 							<div class="info-user-right">
 								<span>{{resultData.prayTime}} 发表</span>
@@ -151,8 +151,18 @@
 				return window.innerHeight / 3
 			},
 		},
-		watch: {
-
+		mounted(){
+			let from = this.$route.query.from
+			if (from == 'ios') {
+				this.$store.commit('setCurrentPageFromIos', true);
+				this.$store.commit('setCurrentPageFromAndroid', false);
+			} else if (from == 'android') {
+				this.$store.commit('setCurrentPageFromAndroid', true);
+				this.$store.commit('setCurrentPageFromIos', false);
+			} else {
+				this.$store.commit('setCurrentPageFromAndroid', false);
+				this.$store.commit('setCurrentPageFromIos', false);
+			}
 		},
 		beforeMount() {
 			this.getBlessingOne(this.$route.params.id)
@@ -168,7 +178,7 @@
 					interactive: false
 				},
 				src: img1,
-				title: '测试用户的祈福',
+				title: '',
 				showOtherAudio: false,
 				showOtherVideo: false,
 				showVideos: false,
