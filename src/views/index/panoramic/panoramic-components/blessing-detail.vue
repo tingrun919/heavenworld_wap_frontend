@@ -169,6 +169,13 @@
 			this.getCommentList(this.$route.params.id, 5)
 			this.$Lazyload.config({ error: '../../../../../static/userIcon2@3x.png' })
 		},
+		watch: {
+			popupVisible() {
+				if (this.popupVisible == false) {
+					this.introduction = ''
+				}
+			}
+		},
 		data() {
 			return {
 				freeScroll: true,
@@ -258,7 +265,6 @@
 			//取消评论，清空model
 			handleCancelComment() {
 				this.popupVisible = false
-				this.introduction = ''
 			},
 			//加载更多评论
 			handleMoreComment() {
