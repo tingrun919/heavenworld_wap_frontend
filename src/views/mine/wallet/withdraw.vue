@@ -1,12 +1,12 @@
 <style scoped lang="less">
 		@import './withdraw.less';
-	</style>
-	<style>
+</style>
+	<!-- <style>
 		.mint-field-core {
 			font-size: 13px !important;
 			text-align: center;
 		}
-	</style>
+	</style> -->
 	<template>
 		<div class="withdraw-main">
 			<div class="withdraw-title">

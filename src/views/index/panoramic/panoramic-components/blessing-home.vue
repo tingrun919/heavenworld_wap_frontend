@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-03-20 13:52:24 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-20 21:07:17
+ * @Last Modified time: 2018-03-21 10:55:47
  */
 
 
@@ -30,9 +30,6 @@
 	.mint-swipe-indicator.is-active {
 		background: #FF6600;
 		opacity: 1;
-	}
-	.mint-field-core{
-		border: 1px solid #888;
 	}
 </style>
 <template>
@@ -104,7 +101,7 @@
 						</div>
 					</div>
 					<div class="blessing-messages-list-nodata" v-if="commentList.length <= 0">
-							<img src="../../../../assets/nodata.png">
+							<img src="../../../../assets/nodata.png"  :width="viewHeightImgNodata" :height="viewHeightImgNodata">
 					</div>
 					<div class="blessing-messages-list" v-for="item in commentList" v-else>
 						<div class="user-info">
@@ -133,8 +130,8 @@
 				</div>
 			</div>
 		</scroll>
-		<mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
-			<mt-field placeholder="请输入评论内容" type="textarea" :attr="{ maxlength: 140 }" rows="4" v-model="introduction"></mt-field>
+		<mt-popup v-model="popupVisible" position="top" class="mint-popup">
+			<mt-field placeholder="请输入评论内容" type="textarea" :attr="{ maxlength: 140 }" rows="6" v-model="introduction"></mt-field>
 			<div class="detail-btn">
 				<mt-button type="default" size="small" @click.native="handleCancelComment">取消</mt-button>
 				<mt-button type="primary" size="small" @click.native="handleComment">评论</mt-button>
@@ -180,6 +177,11 @@
 				panoPicture: [],
 				introduction: '',
 			}
+		},
+		computed:{
+			viewHeightImgNodata: function () {
+				return window.innerHeight / 3
+			},
 		},
 		mounted() {
 			// let from = this.$route.query.from
@@ -274,7 +276,7 @@
 			//分享
 			share() {
 				if (this.$store.state.app.currentPageFromIos) {
-					this.$bridge.callHandler('appShare', { 'title': '标题', 'description': '测试简介', 'url': `http://39.107.78.100${this.$route.path}` }, (data) => { })
+					this.$bridge.callHandler('appShare', { 'title': this.resultData.panoName, 'description': this.resultData.panoSubtitle, 'url': `http://39.107.78.100/panoramicView/${this.resultData.panoId}` }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.doShare();
 				} else {

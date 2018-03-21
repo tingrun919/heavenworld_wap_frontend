@@ -4,6 +4,7 @@
 <style>
 	.information-content {
 		padding: 0 12px;
+		line-height: 2;
 	}
 
 	.information-content img {

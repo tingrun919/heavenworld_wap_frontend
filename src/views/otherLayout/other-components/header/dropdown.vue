@@ -51,7 +51,7 @@
 		methods: {
 			share() {
 				if (this.$store.state.app.currentPageFromIos) {
-					this.$bridge.callHandler('appShare', { 'title': '标题', 'description': '测试简介', 'url': 'http://39.107.78.100/panoramicView' }, (data) => { })
+					this.$bridge.callHandler('appShare', { 'title': this.$store.state.app.panoramic.panoName, 'description': this.$store.state.app.panoramic.panoSubtitle, 'url': `http://39.107.78.100${this.$route.fullPath}` }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.doShare();
 				} else {
