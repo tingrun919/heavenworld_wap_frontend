@@ -1,21 +1,36 @@
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-03-21 11:03:36 
+ * @Last Modified by:   tarn.tianrun 
+ * @Last Modified time: 2018-03-21 11:03:36 
+ */
+
 <style scoped lang="less">
 	@import './information-comment.less';
 </style>
+<style>
+	.mint-cell-value>textarea {
+		background-color: rgba(213, 213, 213, .6);
+	}
+
+	.mint-field.is-textarea .mint-cell-value {
+		padding: 10px 0;
+	}
+</style>
 <template>
 	<div class="scroll-list-wrap" :style="{height:viewHeight}" slot="demo">
-		<scroll ref="scroll" v-if="items.length > 0" :data="items" :scrollbar="scrollbarObj" :pullDownRefresh="pullDownRefreshObj" :pullUpLoad="pullUpLoadObj"
-		 :startY="parseInt(startY)" @push="clickItem" @pullingDown="onPullingDown" @pullingUp="onPullingUp">
+		<scroll ref="scroll" v-if="items.length > 0" :data="items" :scrollbar="scrollbarObj" :pullDownRefresh="pullDownRefreshObj"
+		 :pullUpLoad="pullUpLoadObj" :startY="parseInt(startY)" @push="clickItem" @pullingDown="onPullingDown" @pullingUp="onPullingUp">
 		</scroll>
 		<div class="blessing-messages-list-nodata" v-if="items.length <= 0">
-				<img src="../../../assets/nodata.png">
-			</div>
-		<img class="img-comment"  @click="handleComment" src="../../../assets/panoramic-img/panoramic-action-edit.png" width="50"
+			<img src="../../../assets/nodata.png" :width="viewHeightImgNodata" :height="viewHeightImgNodata">
+		</div>
+		<img class="img-comment" @click="handleComment" src="../../../assets/panoramic-img/panoramic-action-edit.png" width="50"
 		 height="50">
-		<mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
-			<div class="detail-comment" contenteditable ref="divContent">
-			</div>
+		<mt-popup v-model="popupVisible" position="top" class="mint-popup">
+			<mt-field placeholder="请输入评论内容" type="textarea" :attr="{ maxlength: 140 }" rows="6" v-model="introduction"></mt-field>
 			<div class="detail-btn">
-				<mt-button type="default" size="small" @click.native="popupVisible = false">取消</mt-button>
+				<mt-button type="default" size="small" @click.native="handleCancelComment">取消</mt-button>
 				<mt-button type="primary" size="small" @click.native="handleCommentApi">评论</mt-button>
 			</div>
 		</mt-popup>
@@ -53,6 +68,7 @@
 				popupVisible: false,
 				commentId: '',
 				commentType: '',
+				introduction: '',
 			}
 		},
 		created() {
@@ -106,17 +122,9 @@
 					txt: { more: this.pullUpLoadMoreTxt, noMore: this.pullUpLoadNoMoreTxt }
 				} : false
 			},
-			// tabType: function () {
-			// 	var resultList = []
-			// 	for (var i = 1; i < 4; i++) {
-			// 		var item = {
-			// 			isPic: i,
-			// 			bavbar: this.$store.state.app.currentPageName,
-			// 		}
-			// 		resultList.push(item);
-			// 	}
-			// 	return resultList;
-			// }
+			viewHeightImgNodata: function () {
+				return window.innerHeight / 3
+			},
 		},
 		methods: {
 			onPullingDown() {
@@ -172,22 +180,27 @@
 					this.commentType = 1
 				}
 			},
+			//取消评论，清空model
+			handleCancelComment() {
+				this.popupVisible = false
+				this.introduction = ''
+			},
 			handleComment() {
 				this.popupVisible = true
 				this.commentId = 0
 				this.commentType = 0
 			},
 			handleCommentApi() {
-				if (this.$refs.divContent.innerText.length >= 140) {
-					Toast('最大限制输入为140个字！');
-				} else {
-					this.addComment('21232f297a57a5a743894a0e4a801fc55', this.$route.params.id, this.commentType == 1 ? this.commentId : 0, this.$refs.divContent.innerHTML, this.commentType).then(res => {
-						this.popupVisible = false
-						MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
-							this.getInformationCommentList(this.$route.params.id)
-						})
+				// if (this.$refs.divContent.innerText.length >= 140) {
+				// 	Toast('最大限制输入为140个字！');
+				// } else {
+				this.addComment('21232f297a57a5a743894a0e4a801fc55', this.$route.params.id, this.commentType == 1 ? this.commentId : 0, this.introduction, this.commentType).then(res => {
+					this.popupVisible = false
+					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
+						this.getInformationCommentList(this.$route.params.id)
 					})
-				}
+				})
+				// }
 			}
 		}
 	}

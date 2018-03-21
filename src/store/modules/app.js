@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:54 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-14 14:51:16
+ * @Last Modified time: 2018-03-21 10:47:06
  */
 
 const app = {
@@ -11,6 +11,7 @@ const app = {
 		currentPageFromIos: false,
 		currentPageFromAndroid: false,
 		information:[],
+		panoramic:[],
 		userToken:'',
 		userId:'',
 	},
@@ -26,6 +27,9 @@ const app = {
 		},
 		setInformation(state, name){
 			state.information = name;
+		},
+		setPanoramic(state, name){
+			state.panoramic = name;
 		},
 		setUserToken(state, name){
 			state.userToken = name;

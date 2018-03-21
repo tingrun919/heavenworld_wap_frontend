@@ -1,12 +1,12 @@
 <style scoped lang="less">
 	@import './balance.less';
 </style>
-<style>
+<!-- <style>
 	.mint-field-core {
 		font-size: 13px !important;
 		text-align: center;
 	}
-</style>
+</style> -->
 <template>
 	<div class="balance-main">
 		<div class="balance-title">

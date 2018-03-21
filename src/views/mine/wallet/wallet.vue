@@ -1,12 +1,12 @@
 <style scoped lang="less">
 	@import './wallet.less';
 </style>
-<style>
+<!-- <style>
 	.mint-field-core {
 		font-size: 13px !important;
 		text-align: center;
 	}
-</style>
+</style> -->
 <template>
 	<div class="wallet-main">
 		<div class="wallet-title">

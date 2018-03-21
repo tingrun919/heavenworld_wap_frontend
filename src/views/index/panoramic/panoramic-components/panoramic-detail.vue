@@ -1,5 +1,10 @@
-/* * @Author: tarn.tianrun * @Date: 2018-03-16 18:31:04 * @Last Modified by: tarn.tianrun * @Last Modified time: 2018-03-19
-10:53:53 */
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-03-21 10:04:13 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-03-21 10:49:14
+ */
+
 
 <style scoped lang="less">
 	@import './panoramic-detail.less';
@@ -196,7 +201,9 @@
 			},
 		},
 		beforeMount() {
-			this.getSinglePanoramic(this.$route.params.id)
+			this.getSinglePanoramic(this.$route.params.id).then(() => {
+				this.$store.commit('setPanoramic', this.panoramicInfo);
+			})
 		},
 		mounted() {
 			let from = this.$route.query.from
