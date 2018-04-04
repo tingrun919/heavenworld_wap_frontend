@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-03-16 18:31:26 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-21 11:47:41
+ * @Last Modified time: 2018-04-03 18:35:50
  */
 
 .blessing-detail-main{
@@ -25,6 +25,16 @@
 	img{
 		padding:10px;
 	}
+}
+.v-shadow-red{
+	z-index: 102;
+	position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+	background: #000;
+	opacity: .8;
 }
 .blesssing-detail-info{
 	background: #fff;
@@ -153,8 +163,8 @@
   .v-video{
 	position: absolute;
 	z-index: 103;
-	top: 50%;
-	transform: translateY(-50%);
+	// top: 50%;
+	// transform: translateY(-50%);
 }
   .blessing-detail-comment{
 	margin-top: 10px;
@@ -275,4 +285,100 @@
 }
 .blessing-messages-list-nodata{
 	text-align: center;
+}
+.to-panoramic{
+	position: absolute;
+	right: 3%;
+	background-color: #fff;
+	color: #000;
+	padding: 2px 10px;
+	font-size: 14px;
+	border-radius: 20px;
+}
+.red-detail{
+	z-index: 205;
+	position: absolute;
+	top: 8%;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	background-image: url('../../../../assets/panoramic-img/panoramic-red.png');
+	background-repeat: no-repeat;
+	border-radius: 5%;
+	background-size: cover;
+	background-position: center;
+	width: 90%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch;
+}
+.red-detail-img{
+	position: relative;
+	top: 5%;
+	text-align: center;
+	span{
+		position: relative;
+		left: 12px;
+	}
+	span:first-child{
+		color: #e8ce98;
+		font-size: 22px;
+	}
+	span:nth-child(2){
+		color: #fff;
+		margin-left: 2px;
+		top: -5px;
+		font-size: 12px;
+		border: 1px solid #fff;
+		border-radius: 2px;
+	}
+}
+.red-detail-item{
+	position: relative;
+	top: 5%;
+	text-align: center;
+	color: #e8ce98;
+	font-size: 16px;
+	opacity: .7;
+}
+.red-detail-money{
+	position: relative;
+	top: 5%;
+	margin-top: 15px;
+	text-align: center;
+	color: #e8ce98;
+	span:first-child{
+		font-size: 50px;
+		font-weight: bold;
+	}
+}
+.red-detail-child{
+	position: relative;
+	top: 8%;
+	left: 5%;
+	color: #fff;
+}
+.red-detail-details{
+	position: relative;
+	top: 8%;
+	left: 5%;
+	color: #fff;
+	border-top: 1px solid rgba(255, 255, 255, 0.2);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 90%;
+	padding: 5px 0;
+	img{
+		vertical-align: middle;
+	}
+	&:last-child {
+		border-bottom:1px solid rgba(255, 255, 255, 0.2);
+		margin-bottom: 10px;
+	}
+}
+.details-red{
+	display: flex;
+	flex-direction: column;
+	padding-left: 10px;
 }

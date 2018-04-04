@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-03-21 10:04:13 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-21 10:49:14
+ * @Last Modified time: 2018-04-03 15:54:16
  */
 
 
@@ -60,11 +60,11 @@
 					</div>
 				</div>
 				<div class="blessing-action">
-					<div><img src="../../../../assets/panoramic-img/panoramic-action-edit.png" @click="handleFocus" width="45" height="45"></div>
-					<div><img src="../../../../assets/panoramic-img/panoramic-action-more.png" @click="changeModel" width="45" height="45"></div>
-					<div><img src="../../../../assets/panoramic-img/panoramic-action-redprice.png" @click="changeRedenvelope" width="45" height="45"></div>
-					<div><img src="../../../../assets/panoramic-img/panoramic-action-voice.png" @click="changeAudio" width="45" height="45"></div>
-					<div><img src="../../../../assets/panoramic-img/panoramic-action-video.png" @click="changeVideo" width="45" height="45"></div>
+					<div><img src="../../../../assets/panoramic-img/panoramic-action-edit1.png" @click="handleFocus" width="25" height="25"></div>
+					<div><img src="../../../../assets/panoramic-img/panoramic-action-more1.png" @click="changeModel" width="25" height="25"></div>
+					<div><img src="../../../../assets/panoramic-img/panoramic-action-redprice1.png" @click="changeRedenvelope" width="25" height="25"></div>
+					<div><img src="../../../../assets/panoramic-img/panoramic-action-voice1.png" @click="changeAudio" width="25" height="25"></div>
+					<div><img src="../../../../assets/panoramic-img/panoramic-action-video1.png" @click="changeVideo" width="25" height="25"></div>
 				</div>
 				<transition name="slide-fade">
 					<div class="blessing-model" v-if="showModel">

@@ -2,10 +2,13 @@
 function update_comm_ele(p1, p2) {
 	$("#comment-athv").attr("data-ath", p1).attr("data-atv", p2)
 }
+
+var comment_list = new Array();
+
 //获取某scene下的所有祈福
 function getComment() {
 	var prayId = window.location.pathname
-	prayId = prayId.substr(prayId.length-1,1)
+	prayId = prayId.substr(prayId.length - 1, 1)
 	var krpano = document.getElementById('krpanoSWFObject');
 	//取得当前scene
 	var s = krpano.get("scene[get(xml.scene)].name");
@@ -17,23 +20,80 @@ function getComment() {
 		dataType: "json",
 		data: { panoid: prayId, scenename: s },
 		success: function (data) {
+			comment_list = data.data;
 			var data = data.data
 			for (var i = 0; i < data.length; i++) {
 				var commname = "userComm_" + data[i].prayId;
+				var commname_txt = commname + "_txt";
+				var commname_avatar = commname + "_avatar";
+				var head_img = data[i].staffPortrait
+				// krpano.call(//显示可拖动的评论热点
+				// 	"addhotspot(" + commname + ");" +
+				// 	"set(hotspot[" + commname + "].url,%SWFPATH%/blessing.png);" +
+				// 	"set(hotspot[" + commname + "].ath," + data[i].prayLongitude + ");" +
+				// 	"set(hotspot[" + commname + "].atv," + data[i].prayDimension + ");" +
+				// 	"set(hotspot[" + commname + "].scale,.2);" +
+				// 	"set(hotspot[" + commname + "].onclick,js(blessing_detail("+data[i].prayId+")));"
+				// );
 				krpano.call(//显示可拖动的评论热点
 					"addhotspot(" + commname + ");" +
-					"set(hotspot[" + commname + "].url,%SWFPATH%/blessing.png);" +
+					"set(hotspot[" + commname + "].url,%SWFPATH%/comm-hide-icon1.png);" +
+					// "set(hotspot[" + commname + "].url,"+data[i].staffPortrait+");" +
 					"set(hotspot[" + commname + "].ath," + data[i].prayLongitude + ");" +
 					"set(hotspot[" + commname + "].atv," + data[i].prayDimension + ");" +
-					"set(hotspot[" + commname + "].scale,.2);" +
-					"set(hotspot[" + commname + "].onclick,js(blessing_detail("+data[i].prayId+")));"
+					// "set(hotspot[" + commname + "].scale,.2);" +
+					"set(hotspot[" + commname + "].edge,bottom);" +
+					"set(hotspot[" + commname + "].zoom,false);" +
+					"set(hotspot[" + commname + "].onclick,js(blessing_detail(" + data[i].prayId + ")));" +
+					"addplugin(" + commname_txt + ");" +
+					"set(plugin[" + commname_txt + "].parent, 'hotspot[" + commname + "]');" +
+					"set(plugin[" + commname_txt + "].url,'%SWFPATH%/plugins/textfield.swf');" +
+					"set(plugin[" + commname_txt + "].align,righttop);" +
+					"set(plugin[" + commname_txt + "].edge,lefttop);" +
+					"set(plugin[" + commname_txt + "].x,-5);" +
+					"set(plugin[" + commname_txt + "].autowidth,true);" +
+					"set(plugin[" + commname_txt + "].height,30);" +
+					"set(plugin[" + commname_txt + "].background,true);" +
+					"set(plugin[" + commname_txt + "].backgroundcolor,0x333333);" +
+					"set(plugin[" + commname_txt + "].roundedge,5);" +
+					"set(plugin[" + commname_txt + "].backgroundalpha,0.8);" +
+					"set(plugin[" + commname_txt + "].css,'text-align:center;color:#FFFFFF;font-size:14px;line-height:25px;padding:0 5px;font-family:microsoft yahei;');" +
+					"set(plugin[" + commname_txt + "].html," + data[i].staffNickname + ");" +
+					"set(plugin[" + commname_txt + "].enabled,true);" +
+					"addplugin(" + commname_avatar + ");" +
+					"set(plugin[" + commname_avatar + "].url,%SWFPATH%/plugins/textfield.swf);" +
+					"set(plugin[" + commname_avatar + "].parent,'hotspot[" + commname + "]');" +
+					"set(plugin[" + commname_avatar + "].width,30);" +
+					"set(plugin[" + commname_avatar + "].height,30);" +
+					"set(plugin[" + commname_avatar + "].align,lefttop);" +
+					"set(plugin[" + commname_avatar + "].edge,lefttop);" +
+					"set(plugin[" + commname_avatar + "].roundedge,3);" +
+					"set(plugin[" + commname_avatar + "].enabled,false);" +
+					"set(plugin[" + commname_avatar + "].css,'margin:0;width:30px;height:30px;background:url(" + head_img + ") 0 0 no-repeat;background-size:cover;background-position:center;');"
+
 				);
 			}
 		}
 	});
 	//ajax开始=======================================end
 }
-function blessing_detail(prayId){
-	$("#blessingDetail").attr("data-prayid",prayId)
+function blessing_detail(prayId) {
+	$("#blessingDetail").attr("data-prayid", prayId)
 	$("#blessingBtn").trigger("click");
-}	
+}
+
+function switch_show_comment(arg) {
+	var krpano = document.getElementById('krpanoSWFObject');
+	console.log(arg)
+	if (arg == 'true') {
+		for (var i = 0; i < comment_list.length; i++) {
+			krpano.call("set(hotspot[userComm_" + comment_list[i].prayId + "].visible,true);");
+		}
+	} else {
+		for (var i = 0; i < comment_list.length; i++) {
+			krpano.call("set(hotspot[userComm_" + comment_list[i].prayId + "].visible,false);");
+		}
+	}
+
+
+}

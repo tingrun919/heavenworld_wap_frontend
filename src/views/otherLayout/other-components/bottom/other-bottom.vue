@@ -52,9 +52,9 @@
 			},
 			share() {
 				if (this.$store.state.app.currentPageFromIos) {
-					this.$bridge.callHandler('appShare', { 'title': '标题', 'description': '测试简介', 'url': `http://39.107.78.100${this.$route.path}` }, (data) => { })
+					this.$bridge.callHandler('appShare', { 'title': this.$store.state.app.information.infoTitle, 'description': this.$store.state.app.information.infoSubtitle, 'url': `http://39.107.78.100${this.$route.path}` }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.doShare();
+					android.doShare(this.$store.state.app.information.infoTitle, this.$store.state.app.information.infoSubtitle, `http://39.107.78.100${this.$route.path}`);
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}

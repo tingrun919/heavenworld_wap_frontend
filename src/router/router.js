@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:48 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-19 18:37:20
+ * @Last Modified time: 2018-04-02 15:32:35
  */
 
 import Main from '@/views/Main.vue';
@@ -51,6 +51,15 @@ export const otherRouter = [
         component: Other,
         children: [
             { path: ':id', title: '福主页', name: 'blessing_view', component: () => import('@/views/index/panoramic/panoramic-components/blessing-home.vue') }
+        ]
+	},
+	{
+        path: '/affiliation',
+        name: 'affiliation',
+        title: '结缘榜',
+        component: Other,
+        children: [
+            { path: 'index', title: '结缘榜', name: 'affiliation_view', component: () => import('@/views/index/panoramic/panoramic-components/affiliation-index') }
         ]
 	},
 	{

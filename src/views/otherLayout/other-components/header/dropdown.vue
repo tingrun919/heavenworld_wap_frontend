@@ -25,7 +25,7 @@
 						<img src="../../../../assets/panoramic-img/panoramic-music.png" width="20" height="20"> 音乐列表
 					</span>
 				</li>
-				<li class="">
+				<li class="" @click="toAffiliation">
 					<span>
 						<img src="../../../../assets/panoramic-img/panoramic-fate.png" width="20" height="20">结缘榜
 					</span>
@@ -53,7 +53,7 @@
 				if (this.$store.state.app.currentPageFromIos) {
 					this.$bridge.callHandler('appShare', { 'title': this.$store.state.app.panoramic.panoName, 'description': this.$store.state.app.panoramic.panoSubtitle, 'url': `http://39.107.78.100${this.$route.fullPath}` }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.doShare();
+					android.doShare(this.$store.state.app.panoramic.panoName, this.$store.state.app.panoramic.panoSubtitle, `http://39.107.78.100${this.$route.fullPath}`);
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}
@@ -63,7 +63,12 @@
 			},
 			cancel(){
 				this.$emit("handleCancel",false)
-			}
+			},
+			toAffiliation(){
+					this.$router.push({
+						name: 'affiliation_view'
+					});
+				}
 		},
 
 

@@ -1,6 +1,9 @@
-/* * @Author: tarn.tianrun * @Date: 2018-03-20 13:52:24 * @Last Modified by: tarn.tianrun * @Last Modified time: 2018-03-21
-13:54:38 */
-
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-04-03 15:47:45 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-04-04 14:25:17
+ */
 
 <style scoped lang="less">
 	@import './blessing-home.less';
@@ -280,7 +283,7 @@
 				if (this.$store.state.app.currentPageFromIos) {
 					this.$bridge.callHandler('appShare', { 'title': this.resultData.panoName, 'description': this.resultData.panoSubtitle, 'url': `http://39.107.78.100/panoramicView/${this.resultData.panoId}` }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.doShare();
+					android.doShare(this.resultData.panoName, this.resultData.panoSubtitle, `http://39.107.78.100/panoramicView/${this.resultData.panoId}`);
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}
