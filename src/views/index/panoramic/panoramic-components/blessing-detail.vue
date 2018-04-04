@@ -2,10 +2,11 @@
 	@import "./blessing-detail.less";
 </style>
 <style>
-	.mint-cell-value > textarea{
+	.mint-cell-value>textarea {
 		background-color: rgba(213, 213, 213, .6);
 	}
-	.mint-field.is-textarea .mint-cell-value{
+
+	.mint-field.is-textarea .mint-cell-value {
 		padding: 10px 0;
 	}
 </style>
@@ -13,20 +14,57 @@
 	<div>
 		<div class="blessing-detail-main" :style="{height:viewHeight}">
 			<div class="other-header">
-				<header-child-Comp :title="resultData.staffNickname+'的祈福'" :isblessing="true" :isShowRight="false"></header-child-Comp>
+				<header-child-Comp :title="resultData.staffNickname" :isblessing="true" :isShowRight="false" :isShowRightMore="true"></header-child-Comp>
 			</div>
 			<div class="v-shadow" v-if="showVideos">
 				<img src="../../../../assets/panoramic-img/panoramic-blessing-close.png" @click="closeVideo" width="20" height="20">
 			</div>
+			<div class="v-shadow-red" v-if="showRed" @click="showRed = false">
+			</div>
 			<div class="v-video" v-show="showVideos">
 				<video playsinline webkit-playsinline id="videoPlay" ref="videoTag" controls="controls" :poster="icon" autoplay="autoplay"
-				 :width="viewWidthVideo">
+				 :width="viewWidthVideo" :height="viewHeight">
+					<!-- <source src="http://banaworld.oss-cn-beijing.aliyuncs.com/video/20180321/612874741521616699731.MOV" type="video/mp4" /> -->
 					<!-- <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" /> -->
 					<source :src="resultData.prayVideo" type="video/mp4" />
 				</video>
 			</div>
 			<div class="v-video">
 				<audio :src="resultData.prayVoice" ref="audioTag"></audio>
+			</div>
+			<div class="red-detail" v-if="showRed" v-bind:style="{height: viewHeightRed}">
+				<div class="red-detail-img">
+					<img src="../../../../assets/mine-icon/mine-custom.png" width="40" height="40">
+				</div>
+				<div class="red-detail-img">
+					<span>{{redDetailGrab.money[0].staffNickname}}</span>
+					<span>{{resultData.monType == 1 ? '手气' : '口令'}}</span>
+				</div>
+				<div class="red-detail-item">
+					<span>发了一个红包，金额随机</span>
+				</div>
+				<div class="red-detail-money">
+					<span>{{redDetailGrab.grab[0].grabMoney}}</span>
+					<span>元</span>
+				</div>
+				<div class="red-detail-item">
+					<span style="color:#fff;">已存入钱包，可直接消费</span>
+				</div>
+				<div class="red-detail-child">
+					<span>领取{{redDetailGrab.money[0].monNumber - redDetailGrab.money[0].monRenumber}}/{{redDetailGrab.money[0].monNumber}}个</span>
+				</div>
+				<div class="red-detail-details" v-for="item in redDetailGrab.grab">
+					<div style="display:flex;align-items:center;">
+						<img :src="item.staffPortrait" width="30" height="30">
+						<div class="details-red">
+							<span>{{item.staffNickname}}</span>
+							<span>{{item.grabTime.split(" ")[1]}}</span>
+						</div>
+					</div>
+					<div>
+						<span>{{redDetailGrab.grab[0].grabMoney}}元</span>
+					</div>
+				</div>
 			</div>
 			<scroll ref="scroll" :scrollY="freeScroll" :scrollbar="scrollbar" :mouseWheel="mouseWheel">
 				<div class="blesssing-detail-info">
@@ -35,7 +73,7 @@
 						<div class="info-main-img" v-bind:style="{height: viewHeightImg}"></div>
 						<div class="info-content" v-bind:style="{backgroundImage: 'url(' + src + ')',height: viewHeightContent}">
 							<span class="pray-content1">{{resultData.prayContent}}</span>
-							<!-- <div class="pray-content">{{resultData.prayContent}}</div> -->
+							<div class="to-panoramic" @click="toPanoramic">进入VR全景</div>
 							<div class="blessing-other">
 								<div class="blessing-other-info" :style="{width:viewWidth}" v-show="showOtherAudio" @click="playAudio">
 									<img src="../../../../assets/panoramic-img/panoramic-blessing-radio.png" width="20" height="20">
@@ -46,9 +84,9 @@
 									<img src="../../../../assets/panoramic-img/panoramic-blessing-video.png" width="20" height="20">
 									<span>{{resultData.prayVideotime}}秒</span>
 								</div>
-								<div class="red blessing-other-info" :style="{width:viewWidth}" v-show="showOtherRed">
+								<div class="red blessing-other-info" :style="{width:viewWidth}" v-show="showOtherRed" @click="redPackets">
 									<img src="../../../../assets/panoramic-img/panoramic-blessing-gift.png" width="20" height="20">
-									<span>手气红包</span>
+									<span>{{resultData.monType == 1 ? '手气红包' : '口令红包'}}</span>
 								</div>
 							</div>
 						</div>
@@ -132,6 +170,9 @@
 			viewHeight: function () {
 				return (window.innerHeight - 42) + 'px'
 			},
+			viewHeightRed: function () {
+				return (window.innerHeight / 6 * 5) + 'px'
+			},
 			viewHeightImg: function () {
 				return (window.innerWidth / 2) + 'px'
 			},
@@ -151,22 +192,31 @@
 				return window.innerHeight / 3
 			},
 		},
-		mounted(){
-			let from = this.$route.query.from
-			if (from == 'ios') {
-				this.$store.commit('setCurrentPageFromIos', true);
-				this.$store.commit('setCurrentPageFromAndroid', false);
-			} else if (from == 'android') {
-				this.$store.commit('setCurrentPageFromAndroid', true);
-				this.$store.commit('setCurrentPageFromIos', false);
+		mounted() {
+			if (this.$store.state.app.currentPageFromIos || this.$store.state.app.currentPageFromAndroid) {
+
 			} else {
-				this.$store.commit('setCurrentPageFromAndroid', false);
-				this.$store.commit('setCurrentPageFromIos', false);
+				let from = this.$route.query.from
+				if (from == 'ios') {
+					this.$store.commit('setCurrentPageFromIos', true);
+					this.$store.commit('setCurrentPageFromAndroid', false);
+				} else if (from == 'android') {
+					this.$store.commit('setCurrentPageFromAndroid', true);
+					this.$store.commit('setCurrentPageFromIos', false);
+				} else {
+					this.$store.commit('setCurrentPageFromAndroid', false);
+					this.$store.commit('setCurrentPageFromIos', false);
+				}
 			}
 		},
 		beforeMount() {
 			this.getBlessingOne(this.$route.params.id)
 			this.getCommentList(this.$route.params.id, 5)
+			if (!this.$store.state.app.panoramic) {
+				this.getSinglePanoramic(this.commentList[0].prayPanoid).then(() => {
+					this.$store.commit('setPanoramic', this.panoramicInfo);
+				})
+			}
 			this.$Lazyload.config({ error: '../../../../../static/userIcon2@3x.png' })
 		},
 		watch: {
@@ -211,6 +261,8 @@
 				introduction: '',
 				commentType: 1,
 				commentId: '',
+				showRed: false,
+				redDetailGrab:[],
 			}
 		},
 		methods: {
@@ -278,6 +330,42 @@
 					}
 				})
 			},
+			//抢红包
+			redPackets() {
+				if (this.resultData.monType == 2) {
+					MessageBox.prompt(' ', '请输入口令').then(({ value }) => {
+						if (value) {
+							this.handleRed(value)
+						}
+					});
+				} else {
+					this.handleRed('')
+				}
+			},
+			//显示红包详情
+			redDetail() {
+				this.showRed = true;
+			},
+			handleRed(value) {
+				this.handleRedPackets('21232f297a57a5a743894a0e4a801fc55', this.resultData.prayId, value).then(res => {
+					if (res.data.code == 100000) {
+						MessageBox('提示', res.data.data)
+						this.handleRedPacketsDetail('21232f297a57a5a743894a0e4a801fc55', this.resultData.prayId)
+					} else {
+						MessageBox('提示', res.data.message)
+					}
+				})
+			},
+			toPanoramic(){
+				let argu = { id: this.resultData.prayPanoid };
+				let args = { from: this.$store.state.app.currentPageFromIos ? 'ios' : this.$store.state.app.currentPageFromAndroid ? 'android' : '' }
+				// console.log(this.commentList[0],1)
+				this.$router.push({
+					name: 'panoramicView',
+					params: argu,
+					query: args,
+				});
+			}
 		}
 	}
 </script>

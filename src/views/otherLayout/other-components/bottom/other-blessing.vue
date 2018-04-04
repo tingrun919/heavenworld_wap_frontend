@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-03-16 18:31:10 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-20 21:20:12
+ * @Last Modified time: 2018-04-02 15:33:42
  */
 
 <style scoped lang="less">
@@ -21,7 +21,7 @@
 					<!-- <img slot="icon" v-if="selected === 'index'" src="../../../../assets/panoramic-img/panoramic-home.png">  -->
 					福商城
 				</mt-tab-item>
-				<mt-tab-item id="scenes" @click.native="handleBottombar('scenes')">
+				<mt-tab-item id="scenes" @click.native="toAffiliation">
 					<img slot="icon" src="../../../../assets/panoramic-img/panoramic-blessing-no.png">
 					<!-- <img slot="icon" v-if="selected === 'scenes'" src="../../../../assets/panoramic-img/panoramic-scenes.png">  -->
 					结缘榜
@@ -58,6 +58,11 @@
 				toIndex() {
 					this.$router.push({
 						name: 'panoramicView'
+					});
+				},
+				toAffiliation(){
+					this.$router.push({
+						name: 'affiliation_view'
 					});
 				}
 			}

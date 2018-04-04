@@ -276,6 +276,7 @@
     <!-- 声音 -->
     <layer name="soundico" if="!webvr.isenabled" url="sound.png" align="righttop" x="10" y="10" keep="true" crop="0|70|62|62" scale="0.5" onclick=" if(crop == '0|70|62|62', set(crop,'0|0|62|62'); pausesound(bgsnd); , set(crop,'0|70|62|62'); resumesound(bgsnd); ); "/>
     <layer name="webvrenterbutton" if="!webvr.isenabled" url="vr.png" align="righttop" x="10" y="50" keep="true" scale="0.5" onclick="webvr.enterVR(); webvr_act_as_gyro_in_portrait_mode();"/>
+	<layer name="say" if="!webvr.isenabled" url="sound1.png" align="righttop" x="10" y="90" keep="true" crop="0|70|62|62" scale="0.5" onclick=" if(crop == '0|70|62|62', set(crop,'0|0|62|62'); js(switch_show_comment(false);) , set(crop,'0|70|62|62'); js(switch_show_comment(true);) ); "/>
     <!-- <layer name="webvrexitbutton" url="vr2.png" align="righttop" x="10" y="10" keep="true" scale="0.5"/> -->
     <action name="webvr_act_as_gyro_in_portrait_mode">
 if(device.mobile AND webvr.isenabled, div(aspect, stagewidth, stageheight); if(aspect != lastaspect OR '%1' == 'true', copy(lastaspect, aspect); if(stagewidth GT stageheight,

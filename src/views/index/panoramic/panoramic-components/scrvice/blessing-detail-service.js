@@ -40,5 +40,34 @@ export default {
 				.catch(err => {
 				});
 		},
+		//查询单个全景信息
+		getSinglePanoramic(panoid) {
+			return api.get(`banaworld_show/nopano/selOnePano?panoid=${panoid}`)
+				.then(res => {
+					this.resultData = res.data.data[0]
+					this.panoPicture = this.resultData.panoPicture.split(",")
+				})
+				.catch(err => {
+				});
+		},
+		//抢红包
+		handleRedPackets(token, prayid, check) {
+			return api.get(`banaworld_show/pano/grabPrayMoney?token=${token}&prayid=${prayid}&check=${check}`)
+				.then(res => {
+					return res
+				})
+				.catch(err => {
+				});
+		},
+		//红包详情
+		handleRedPacketsDetail(token, prayid) {
+			return api.get(`banaworld_show/nopano/selMoney?token=${token}&prayid=${prayid}`)
+				.then(res => {
+					this.showRed = true
+					this.redDetailGrab = res.data.data
+				})
+				.catch(err => {
+				});
+		}
 	}
 }
