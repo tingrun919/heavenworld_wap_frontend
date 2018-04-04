@@ -8,19 +8,19 @@
 		</div>
 		<scroll ref="scroll" :scrollY="freeScroll" :scrollbar="scrollbar" :mouseWheel="mouseWheel">
 			<div class="advertising-img" v-bind:style="{backgroundImage: 'url(' + img + ')',height:viewHeightAdvertising}">
-				<p>广告位文本限制一行</p>
+				<!-- <p>广告位文本限制一行</p> -->
 			</div>
 			<div class="score-main" v-for="n in 30" :key="n">
 				<div class="score-main-left">
 					<span>{{n}}</span>
 					<img src="../../../../assets/mine-icon/mine-custom.png" width="25" height="25">
-					<span>测试用户昵称</span>
+					<span>释星云</span>
 				</div>
 				<div class="score-main-right">
-					<span>123123福报分</span>
+					<span>{{Math.floor(Math.random() * (10-0) + 0)*1000,}}</span>
 					<div class="score-main-right-title">
-						<img src="../../../../assets/score-img/heart-in.png" width="15" height="15">
 						<span>1.2w</span>
+						<img src="../../../../assets/score-img/heart-in.png" width="15" height="15">
 					</div>
 				</div>
 			</div>
@@ -32,7 +32,7 @@
 	import headerChildComp from '../../../otherLayout/other-components/header/other-header.vue';
 	import { MessageBox } from 'mint-ui';
 	import { Toast } from 'mint-ui';
-	import img2 from '../../../../assets/view/timg2.jpeg'
+	import img2 from '../../../../assets/view/timg8.jpg'
 
 	export default {
 		components: {
@@ -44,7 +44,8 @@
 				return (window.innerHeight - 38) + 'px'
 			},
 			viewHeightAdvertising: function () {
-				return (window.innerHeight / 5) + 'px'
+				// return (window.innerHeight / 5) + 'px'
+				return 200 + 'px'
 			},
 		},
 		mounted() {

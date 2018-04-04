@@ -1,10 +1,9 @@
 /*
  * @Author: tarn.tianrun 
  * @Date: 2018-04-04 14:30:43 
- * @Last Modified by:   tarn.tianrun 
- * @Last Modified time: 2018-04-04 14:30:43 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-04-04 17:18:01
  */
-
 
 <style scoped lang="less">
 	@import "./other-header.less";
@@ -83,6 +82,8 @@
 					} else if (this.$route.name == 'information_view') {
 						this.$router.go(-1)
 					} else if (this.$route.name == 'information_comment') {
+						this.$router.go(-1)
+					} else if (this.$route.name == 'affiliation_view') {
 						this.$router.go(-1)
 					}
 				}
