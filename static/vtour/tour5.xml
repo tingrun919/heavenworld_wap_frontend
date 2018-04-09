@@ -66,7 +66,7 @@
 		if(startactions !== null, startactions() );
 		if(autorotate.enabled,bombtimer(0));
         
-        playsound(bgsnd, 'http://media-qiniu2.720static.com/@/749015/1/14762537082154289.mp3', 0);"
+        <!-- playsound(bgsnd, 'http://media-qiniu2.720static.com/@/749015/1/14762537082154289.mp3', 0);" -->
     </action>
     <action name="bombtimer"> 
               set(autorotate.enabled,true); 
@@ -111,7 +111,7 @@
 		set(hlookat,get(ath)); set(vlookat,get(atv)); );
     
     </action>
-    <events onenterfullscreen="" onexitfullscreen="" onxmlcomplete="" onpreviewcomplete="" onloadcomplete="" onnewpano="js(getComment();)" onremovepano="" onnewscene="" onloaderror="" onkeydown="" onkeyup="" onclick="" onmousedown="set(bt,0);" onmouseup="" onmousewheel="" onidle="" onviewchange="" onviewchanged="" onresize="" onautorotatestart="" onautorotatestop="" onautorotateoneround="" onautorotatechange=""/>
+    <events onenterfullscreen="" onexitfullscreen="" onxmlcomplete="" onpreviewcomplete="" onloadcomplete="js(getMusciListApi();)" onnewpano="js(getComment();)" onremovepano="" onnewscene="" onloaderror="" onkeydown="" onkeyup="" onclick="" onmousedown="set(bt,0);" onmouseup="" onmousewheel="" onidle="" onviewchange="" onviewchanged="" onresize="" onautorotatestart="" onautorotatestop="" onautorotateoneround="" onautorotatechange=""/>
     <scene name="scene_hongkong0" title="hongkong" onstart="" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading="">
         <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
         <preview url="http://pano10.qncdn.720static.com/resource/prod/9f6i611d5r5/4ed2ecpdybw/1572523/imgs/preview.jpg" />
@@ -274,7 +274,7 @@
     <!-- 音乐图标 -->
     <layer name="sound" if="!webvr.isenabled" url="../%SWFPATH%/plugins/soundinterface.js" preload="true" rootpath=""/>
     <!-- 声音 -->
-    <layer name="soundico" if="!webvr.isenabled" url="sound.png" align="righttop" x="10" y="10" keep="true" crop="0|70|62|62" scale="0.5" onclick=" if(crop == '0|70|62|62', set(crop,'0|0|62|62'); pausesound(bgsnd); , set(crop,'0|70|62|62'); resumesound(bgsnd); ); "/>
+	<layer name="soundico" if="!webvr.isenabled" url="sound.png" align="righttop" x="10" y="10" keep="true" crop="0|70|62|62" scale="0.5" onclick=" if(crop == '0|70|62|62', set(crop,'0|0|62|62'); js(getMusciList();) , set(crop,'0|70|62|62'); js(getMusciList();) ); "/>
     <layer name="webvrenterbutton" if="!webvr.isenabled" url="vr.png" align="righttop" x="10" y="50" keep="true" scale="0.5" onclick="webvr.enterVR(); webvr_act_as_gyro_in_portrait_mode();"/>
 	<layer name="say" if="!webvr.isenabled" url="sound1.png" align="righttop" x="10" y="90" keep="true" crop="0|70|62|62" scale="0.5" onclick=" if(crop == '0|70|62|62', set(crop,'0|0|62|62'); js(switch_show_comment(false);) , set(crop,'0|70|62|62'); js(switch_show_comment(true);) ); "/>
     <!-- <layer name="webvrexitbutton" url="vr2.png" align="righttop" x="10" y="10" keep="true" scale="0.5"/> -->
