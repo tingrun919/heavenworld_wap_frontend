@@ -94,6 +94,61 @@ function switch_show_comment(arg) {
 			krpano.call("set(hotspot[userComm_" + comment_list[i].prayId + "].visible,false);");
 		}
 	}
+}
 
+function getMusciList() {
+	var audio = document.getElementById("audioMusic")
+	if (audio.paused) {
+		audio.currentTime = currenttime
+		audio.play()
+	} else {
+		audio.pause()
+		currenttime = audio.currentTime
+	}
+}
 
+var arr = new Array()
+function getMusciListApi(){
+	var prayId = window.location.pathname
+	prayId = prayId.substr(prayId.length - 1, 1)
+	
+	$.ajax({
+		type: "get",
+		url: 'http://39.107.78.100:8080/banaworld_show/nopano/panoMusic',
+		dataType: "json",
+		data: { panoid: prayId },
+		success: function (data) {
+			for(var i = 0; i <= data.data.length; i++){
+				if(i == data.data.length){
+					playMusic()
+				}else{
+					arr.push(data.data[i].music_url)
+				}
+			}
+		}
+	});
+}
+
+function playMusic(){
+	var index = 0;
+	var myAudio = new Audio();
+	var currenttime;
+	myAudio.id = "audioMusic"
+	myAudio.preload = true;
+	// myAudio.controls = true;
+	myAudio.src = arr[index];
+	myAudio.addEventListener('ended', playEndedHandler, false);
+	myAudio.play();
+	document.getElementById("audioBox").appendChild(myAudio);
+	myAudio.loop = false;
+	function playEndedHandler() {
+		index++
+		if(index == arr.length){
+			index = 0
+			$("#audioMusic").remove()
+			getMusciListApi()
+		}
+		myAudio.src = arr[index];
+		myAudio.play();
+	}
 }

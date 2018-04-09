@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-03-21 10:04:13 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-04-03 15:54:16
+ * @Last Modified time: 2018-04-09 17:14:21
  */
 
 
@@ -14,6 +14,9 @@
 		<div class="v-shadow" v-if="showVideos">
 			<img src="../../../../assets/panoramic-img/panoramic-blessing-close.png" @click="closeVideo" width="20" height="20">
 		</div>
+		<div id="audioBox">
+			<!-- <audio id="audioBox" src="http://banaworld.oss-cn-beijing.aliyuncs.com/music/20180329/673277781522325511575.amr" ref="audioTag1" autoplay="autoplay"></audio> -->
+		</div>
 		<div class="other-header">
 			<header-child-Comp :title="title" :isblessing="true" :isShowRight="true"></header-child-Comp>
 		</div>
@@ -22,12 +25,12 @@
 				<div id="pano"></div>
 			</div>
 		</div>
-		<div class="v-video" v-show="showVideos">
+		<div class="v-video" v-if="showVideos">
 			<video playsinline webkit-playsinline ref="videoTag" controls="controls" :poster="icon" autoplay="autoplay" :width="viewWidthVideo">
 				<source :src="videoPath" type="video/mp4" />
 			</video>
 		</div>
-		<div class="v-video">
+		<div class="v-video" v-if="showVideos">
 			<audio :src="audioPath" ref="audioTag"></audio>
 		</div>
 		<transition name="slide-fade">
@@ -44,16 +47,16 @@
 					<div contenteditable ref="divContent" class="blessing-text-enter"></div>
 					<!-- @focus="handleEdit" -->
 					<div class="blessing-other">
-						<div class="blessing-other-info" :style="{width:viewWidth}" v-show="showOtherAudio" @click="playAudio">
+						<div class="blessing-other-info" :style="{width:viewWidth}" v-if="showOtherAudio" @click="playAudio">
 							<img src="../../../../assets/panoramic-img/panoramic-blessing-radio.png" width="20" height="20">
 							<span>{{audioDuration}}秒</span>
 							<div class="bg" v-bind:class="{ voicePlay : playAudioAnimation }"></div>
 						</div>
-						<div class="blessing-other-info" :style="{width:viewWidth}" v-show="showOtherVideo" @click="playVideo">
+						<div class="blessing-other-info" :style="{width:viewWidth}" v-if="showOtherVideo" @click="playVideo">
 							<img src="../../../../assets/panoramic-img/panoramic-blessing-video.png" width="20" height="20">
 							<span>{{videoDuration}}秒</span>
 						</div>
-						<div class="red blessing-other-info" :style="{width:viewWidth}" v-show="showOtherRed">
+						<div class="red blessing-other-info" :style="{width:viewWidth}" v-if="showOtherRed">
 							<img src="../../../../assets/panoramic-img/panoramic-blessing-gift.png" width="20" height="20">
 							<span>手气红包</span>
 						</div>
