@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-03-21 10:04:13 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-04-09 17:14:21
+ * @Last Modified time: 2018-04-11 15:56:08
  */
 
 
@@ -291,8 +291,8 @@
 				}
 			},
 			playVideo() {
-				this.$refs.videoTag.play()
 				this.showVideos = true;
+				this.$refs.videoTag.play()
 			},
 			closeVideo() {
 				this.$refs.videoTag.currentTime = 0;
