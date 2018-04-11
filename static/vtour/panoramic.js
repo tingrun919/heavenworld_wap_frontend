@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 14:41:07 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-04-04 15:39:49
+ * @Last Modified time: 2018-04-11 12:13:14
  */
 //祈福列表
 export function show_comment_list(data) {
@@ -11,10 +11,10 @@ export function show_comment_list(data) {
 		var commname = "userComm_" + data[i].prayId;
 		krpano.call(//显示可拖动的评论热点
 			"addhotspot(" + commname + ");" +
-			"set(hotspot[" + commname + "].url,%SWFPATH%/comm-hide-icon1.png);" +
+			"set(hotspot[" + commname + "].url,%SWFPATH%/comm-hide-icon2.png);" +
 			"set(hotspot[" + commname + "].ath," + data[i].prayLongitude + ");" +
 			"set(hotspot[" + commname + "].atv," + data[i].prayDimension + ");" +
-			"set(hotspot[" + commname + "].scale,.2);" +
+			// "set(hotspot[" + commname + "].scale,.2);" +
 			"set(hotspot[" + commname + "].onclick,js(blessing_detail("+data[i].prayId+")));"
 		);
 	}

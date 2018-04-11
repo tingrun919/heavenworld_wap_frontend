@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-04-03 15:47:45 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-04-04 14:25:17
+ * @Last Modified time: 2018-04-11 11:56:11
  */
 
 <style scoped lang="less">
@@ -227,13 +227,24 @@
 		methods: {
 			//退回到全景
 			toPanoramic() {
-				let argu = { id: this.$route.params.id };
-				let args = { from: this.$store.state.app.currentPageFromIos ? 'ios' : this.$store.state.app.currentPageFromAndroid ? 'android' : '' }
-				this.$router.push({
-					name: 'panoramicView',
-					params: argu,
-					query: args,
-				});
+				// let argu = { id: this.$route.params.id };
+				// let args = { from: this.$store.state.app.currentPageFromIos ? 'ios' : this.$store.state.app.currentPageFromAndroid ? 'android' : '' }
+				// this.$router.push({
+				// 	name: 'panoramicView',
+				// 	params: argu,
+				// 	query: args,
+				// });
+				if (this.$store.state.app.currentPageFromIos) {
+					this.$bridge.callHandler('checkUrl', { 'url': `${this.$route.path}` }, (data) => {
+						if (data == 1) {
+							this.$router.go(-1)
+						}
+					})
+				} else if (this.$store.state.app.currentPageFromAndroid) {
+					android.callBack();
+				} else {
+					this.$router.go(-1)
+				}
 			},
 			//打开评论窗口
 			//type：1 -> 评论

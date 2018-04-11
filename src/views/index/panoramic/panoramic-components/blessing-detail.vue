@@ -22,11 +22,12 @@
 			<div class="v-shadow-red" v-if="showRed" @click="showRed = false">
 			</div>
 			<div class="v-video" v-show="showVideos">
-				<video playsinline webkit-playsinline id="videoPlay" ref="videoTag" controls="controls" :poster="icon" autoplay="autoplay"
+				<video v-if="resultData.prayVideo" playsinline webkit-playsinline id="videoPlay" ref="videoTag" controls="controls" :poster="icon" autoplay="autoplay"
 				 :width="viewWidthVideo" :height="viewHeight">
-					<!-- <source src="http://banaworld.oss-cn-beijing.aliyuncs.com/video/20180321/612874741521616699731.MOV" type="video/mp4" /> -->
+					<!-- <source src="https://banaworld.oss-cn-beijing.aliyuncs.com/video/20180411/344794581523429664513.mp4" type="video/mp4" /> -->
 					<!-- <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" /> -->
 					<source :src="resultData.prayVideo" type="video/mp4" />
+					<!-- <source id="videoSrc" src="" type="video/mp4" /> -->
 				</video>
 			</div>
 			<div class="v-video">
@@ -180,7 +181,7 @@
 				return ((window.innerWidth - 60) / 5 * 4) + 'px'
 			},
 			viewHeightUser: function () {
-				return "padding:" + (window.innerHeight / 5.5) + 'px' + " 20px" + " 10px" + " 20px"
+				return "padding:" + (window.innerHeight / (window.innerHeight < 600 ? 4.5 : 5.5)) + 'px' + " 20px" + " 10px" + " 20px"
 			},
 			viewWidth: function () {
 				return (window.innerWidth / 3 - 30) + 'px'
