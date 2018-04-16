@@ -1,9 +1,5 @@
-/*
- * @Author: tarn.tianrun 
- * @Date: 2018-03-21 10:04:13 
- * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-04-11 15:56:08
- */
+/* * @Author: tarn.tianrun * @Date: 2018-03-21 10:04:13 * @Last Modified by: tarn.tianrun * @Last Modified time: 2018-04-13
+16:15:26 */
 
 
 <style scoped lang="less">
@@ -17,9 +13,9 @@
 		<div id="audioBox">
 			<!-- <audio id="audioBox" src="http://banaworld.oss-cn-beijing.aliyuncs.com/music/20180329/673277781522325511575.amr" ref="audioTag1" autoplay="autoplay"></audio> -->
 		</div>
-		<div class="other-header">
-			<header-child-Comp :title="title" :isblessing="true" :isShowRight="true"></header-child-Comp>
-		</div>
+		<!-- <div class="other-header"> -->
+		<!-- <header-child-Comp :title="title" :isblessing="true" :isShowRight="true"></header-child-Comp> -->
+		<!-- </div> -->
 		<div class="other-content">
 			<div id="wrapper" :style="{height:viewHeightPanoramic}">
 				<div id="pano"></div>
@@ -45,14 +41,14 @@
 				</div>
 				<div class="blessing-text" v-bind:style="{backgroundImage: 'url(' + dataSwipe[chioseImg].img + ')'}">
 					<div contenteditable ref="divContent" class="blessing-text-enter"></div>
-					<!-- @focus="handleEdit" -->
+					<!-- @focus="handleEdit" @click="playAudio"  @click="playVideo"-->
 					<div class="blessing-other">
-						<div class="blessing-other-info" :style="{width:viewWidth}" v-if="showOtherAudio" @click="playAudio">
+						<div class="blessing-other-info" :style="{width:viewWidth}" v-if="showOtherAudio">
 							<img src="../../../../assets/panoramic-img/panoramic-blessing-radio.png" width="20" height="20">
 							<span>{{audioDuration}}秒</span>
 							<div class="bg" v-bind:class="{ voicePlay : playAudioAnimation }"></div>
 						</div>
-						<div class="blessing-other-info" :style="{width:viewWidth}" v-if="showOtherVideo" @click="playVideo">
+						<div class="blessing-other-info" :style="{width:viewWidth}" v-if="showOtherVideo">
 							<img src="../../../../assets/panoramic-img/panoramic-blessing-video.png" width="20" height="20">
 							<span>{{videoDuration}}秒</span>
 						</div>
@@ -194,7 +190,8 @@
 				return (window.innerHeight / 3) + 'px'
 			},
 			viewHeightPanoramic: function () {
-				return (window.innerHeight - 40) + 'px'
+				// return (window.innerHeight - 40) + 'px'
+				return '100%'
 			},
 			viewWidth: function () {
 				return (window.innerWidth / 3 - 30) + 'px'
@@ -233,11 +230,17 @@
 				}
 				// this.showVideos = true;
 			})
+			this.$bridge.registerHandler("handleMusicPause", () => {
+				document.getElementById("audioMusic").pause();
+			})
 			embedpano({ swf: "../../../../static/vtour/tour.swf", xml: `../../../../static/vtour/tour${this.$route.params.id}.xml`, target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true });
 		},
 		created() {
 			window.handleResultAudio = this.handleResultAudio;
 			window.handleResultVideo = this.handleResultVideo;
+			window.handleMusicPause = this.handleMusicPause;
+			window.handleDoshare = this.handleDoshare;
+			window.toAffiliation = this.toAffiliation;
 		},
 		methods: {
 			getPanoramicAction(param) {
@@ -363,7 +366,24 @@
 				this.icon = icon
 				this.videoDuration = duration
 				this.showOtherVideo = true
-			}
+			},
+			handleMusicPause() {
+				document.getElementById("audioMusic").pause();
+			},
+			handleDoshare() {
+				if (this.$store.state.app.currentPageFromIos) {
+					this.$bridge.callHandler('appShare', { 'title': this.resultData.panoName, 'description': this.resultData.panoSubtitle, 'url': `http://39.107.78.100/panoramicView/${this.resultData.panoId}` }, (data) => { })
+				} else if (this.$store.state.app.currentPageFromAndroid) {
+					android.doShare(this.panoramicInfo.panoName, this.panoramicInfo.panoSubtitle, `http://39.107.78.100/panoramicView/${this.panoramicInfo.panoId}`);
+				} else {
+					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+				}
+			},
+			toAffiliation(){
+					this.$router.push({
+						name: 'affiliation_view'
+					});
+				}
 		},
 		components: {
 			headerChildComp,

@@ -67,7 +67,7 @@
 		},
 		computed: {
 			viewHeight: function () {
-				return (window.innerHeight - 95) + 'px'
+				return (window.innerHeight - 45) + 'px'
 			},
 			viewWidthVideo: function () {
 				return (window.innerWidth) + 'px'

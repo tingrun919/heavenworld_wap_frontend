@@ -65,7 +65,7 @@
 		loadscene(get(startscene), null, MERGE);
 		if(startactions !== null, startactions() );
 		if(autorotate.enabled,bombtimer(0));
-        
+        js(getMusciListApi();)
         <!-- playsound(bgsnd, 'http://media-qiniu2.720static.com/@/9a422crucci/1/fc0200330ef908e77ae965e81ab434be.mp3', 0);" -->
     </action>
     <action name="bombtimer"> 
@@ -111,7 +111,7 @@
 		set(hlookat,get(ath)); set(vlookat,get(atv)); );
     
     </action>
-    <events onenterfullscreen="" onexitfullscreen="" onxmlcomplete="" onpreviewcomplete="" onloadcomplete="js(getMusciListApi();)" onnewpano="js(getComment();)" onremovepano="" onnewscene="" onloaderror="" onkeydown="" onkeyup="" onclick="" onmousedown="set(bt,0);" onmouseup="" onmousewheel="" onidle="" onviewchange="" onviewchanged="" onresize="" onautorotatestart="" onautorotatestop="" onautorotateoneround="" onautorotatechange=""/>
+    <events onenterfullscreen="" onexitfullscreen="" onxmlcomplete="" onpreviewcomplete="" onloadcomplete="" onnewpano="js(getComment();)" onremovepano="" onnewscene="" onloaderror="" onkeydown="" onkeyup="" onclick="" onmousedown="set(bt,0);" onmouseup="" onmousewheel="" onidle="" onviewchange="" onviewchanged="" onresize="" onautorotatestart="" onautorotatestop="" onautorotateoneround="" onautorotatechange=""/>
     <scene name="scene_hongkong0" title="hongkong" onstart="" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading="">
         <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
         <preview url="http://pano32.qncdn.720static.com/resource/prod/2bei7218cr2/9a422crucci/7354469/1515075275/imgs/preview.jpg" />

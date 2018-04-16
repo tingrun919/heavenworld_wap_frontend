@@ -1,9 +1,10 @@
 /*
  * @Author: tarn.tianrun 
- * @Date: 2018-04-03 15:47:45 
+ * @Date: 2018-04-16 11:25:03 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-04-11 11:56:11
+ * @Last Modified time: 2018-04-16 11:32:12
  */
+
 
 <style scoped lang="less">
 	@import './blessing-home.less';
@@ -30,14 +31,20 @@
 		background: #FF6600;
 		opacity: 1;
 	}
+	.mint-field.is-textarea .mint-cell-value {
+		margin-bottom: 10px;
+		padding: 5px;
+		border: 1px solid #888888;
+		border-radius: 4px;
+	}
 </style>
 <template>
 	<div style="width:100%;height:100%;">
 		<scroll ref="scroll" :scrollY="freeScroll" :scrollbar="scrollbar" :mouseWheel="mouseWheel">
-			<mt-header class="headerActive">
+			<!-- <mt-header class="headerActive">
 				<img slot="left" src="../../../../assets/panoramic-img/panoramic-blessing-back.png" width="23" height="23" @click="toPanoramic">
 				<img slot="right" src="../../../../assets/panoramic-img/panoramic-blessing-more.png" width="20" height="20" @click="sheetVisible = true">
-			</mt-header>
+			</mt-header> -->
 			<div class="blessing-home">
 				<div class="page-swipe">
 					<mt-swipe :auto="0">
@@ -70,7 +77,7 @@
 						<swiper :options="swiperOption">
 							<swiper-slide v-for="(item,index) in resultPerson" :key="item.per_id" @click.native="">
 								<img src="../../../../assets/bottom-bar-icon/mine-in.png" width="50" height="50">
-								<span>{{item.per_usertype == 1 ? item.staff_nickname : item.per_username}}</span>
+								<p>{{item.per_usertype == 1 ? item.staff_nickname : item.per_username}}</p>
 							</swiper-slide>
 						</swiper>
 					</div>
@@ -129,12 +136,12 @@
 				</div>
 			</div>
 		</scroll>
-		<mt-popup v-model="popupVisible" position="top" class="mint-popup">
-			<mt-field placeholder="请输入评论内容" type="textarea" :attr="{ maxlength: 140 }" rows="6" v-model="introduction"></mt-field>
+		<mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
 			<div class="detail-btn">
 				<mt-button type="default" size="small" @click.native="handleCancelComment">取消</mt-button>
 				<mt-button type="primary" size="small" @click.native="handleComment">评论</mt-button>
 			</div>
+			<mt-field placeholder="请输入评论内容" type="textarea" :attr="{ maxlength: 140 }" rows="6" v-model="introduction"></mt-field>
 		</mt-popup>
 		<mt-actionsheet :actions="actions" v-model="sheetVisible">
 		</mt-actionsheet>
@@ -153,7 +160,7 @@
 				msgObj: '',
 				swiperOption: {
 					initialSlide: 0,
-					slidesPerView: 5.6,
+					slidesPerView: 4,
 					spaceBetween: 20,
 					// freeMode: true,
 					roundLengths: true,

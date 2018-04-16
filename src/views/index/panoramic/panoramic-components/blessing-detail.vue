@@ -3,19 +3,22 @@
 </style>
 <style>
 	.mint-cell-value>textarea {
-		background-color: rgba(213, 213, 213, .6);
+		/* background-color: rgba(213, 213, 213, .6); */
 	}
 
 	.mint-field.is-textarea .mint-cell-value {
-		padding: 10px 0;
+		margin-bottom: 10px;
+		padding: 5px;
+		border: 1px solid #888888;
+		border-radius: 4px;
 	}
 </style>
 <template>
 	<div>
 		<div class="blessing-detail-main" :style="{height:viewHeight}">
-			<div class="other-header">
-				<header-child-Comp :title="resultData.staffNickname" :isblessing="true" :isShowRight="false" :isShowRightMore="true"></header-child-Comp>
-			</div>
+			<!-- <div class="other-header"> -->
+				<!-- <header-child-Comp :title="resultData.staffNickname" :isblessing="true" :isShowRight="false" :isShowRightMore="true"></header-child-Comp> -->
+			<!-- </div> -->
 			<div class="v-shadow" v-if="showVideos">
 				<img src="../../../../assets/panoramic-img/panoramic-blessing-close.png" @click="closeVideo" width="20" height="20">
 			</div>
@@ -142,12 +145,12 @@
 					</div>
 				</div>
 			</scroll>
-			<mt-popup v-model="popupVisible" position="top" class="mint-popup">
-				<mt-field placeholder="请输入评论内容" type="textarea" :attr="{ maxlength: 140 }" rows="6" v-model="introduction"></mt-field>
+			<mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
 				<div class="detail-btn">
 					<mt-button type="default" size="small" @click.native="handleCancelComment">取消</mt-button>
 					<mt-button type="primary" size="small" @click.native="handleComment">评论</mt-button>
 				</div>
+				<mt-field placeholder="请输入评论内容" type="textarea" :attr="{ maxlength: 140 }" rows="6" v-model="introduction"></mt-field>
 			</mt-popup>
 		</div>
 	</div>
@@ -169,7 +172,8 @@
 		},
 		computed: {
 			viewHeight: function () {
-				return (window.innerHeight - 42) + 'px'
+				// return (window.innerHeight - 42) + 'px'
+				return (window.innerHeight) + 'px'
 			},
 			viewHeightRed: function () {
 				return (window.innerHeight / 6 * 5) + 'px'
@@ -293,7 +297,7 @@
 				if (this.$store.state.app.currentPageFromIos) {
 					this.$bridge.callHandler('handlePush', { 'to': 'otherUserCenter', 'id': `${id}` }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.showVideo();
+					android.otherUserCenter(`${id}`);
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}

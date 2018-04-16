@@ -2,16 +2,16 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-26 15:06:41 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-20 22:06:33
+ * @Last Modified time: 2018-04-13 17:28:22
  */
 <style scoped lang="less">
 	@import './other.less';
 </style>
 <template>
 	<div class="other-main">
-		<div class="other-header">
+		<!-- <div class="other-header">
 			<header-child-Comp :title="title" :isblessing="isBlessing" :isShowRight="isShowRightTag" :isShowRightDetail="isShowRightDetails"></header-child-Comp>
-		</div>
+		</div> -->
 		<div class="other-content">
 			<keep-alive>
 				<router-view></router-view>

@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-03-21 13:53:50 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-21 13:56:14
+ * @Last Modified time: 2018-04-16 11:34:06
  */
 
 <style scoped lang="less">
@@ -10,11 +10,14 @@
 </style>
 <style>
 	.mint-cell-value>textarea {
-		background-color: rgba(213, 213, 213, .6);
+		/* background-color: rgba(213, 213, 213, .6); */
 	}
 
 	.mint-field.is-textarea .mint-cell-value {
-		padding: 10px 0;
+		margin-bottom: 10px;
+		padding: 5px;
+		border: 1px solid #888888;
+		border-radius: 4px;
 	}
 </style>
 <template>
@@ -27,12 +30,12 @@
 		</div>
 		<img class="img-comment" @click="handleComment" src="../../../assets/panoramic-img/panoramic-action-edit.png" width="50"
 		 height="50">
-		<mt-popup v-model="popupVisible" position="top" class="mint-popup">
-			<mt-field placeholder="请输入评论内容" type="textarea" :attr="{ maxlength: 140 }" rows="6" v-model="introduction"></mt-field>
+		<mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
 			<div class="detail-btn">
 				<mt-button type="default" size="small" @click.native="handleCancelComment">取消</mt-button>
 				<mt-button type="primary" size="small" @click.native="handleCommentApi">评论</mt-button>
 			</div>
+			<mt-field placeholder="请输入评论内容" type="textarea" :attr="{ maxlength: 140 }" rows="6" v-model="introduction"></mt-field>
 		</mt-popup>
 	</div>
 </template>
@@ -110,7 +113,7 @@
 		},
 		computed: {
 			viewHeight: function () {
-				return (window.innerHeight - 41) + 'px'
+				return (window.innerHeight) + 'px'
 			},
 			scrollbarObj: function () {
 				return this.scrollbar ? { fade: this.scrollbarFade } : false
