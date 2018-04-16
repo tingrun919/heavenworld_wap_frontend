@@ -1,6 +1,9 @@
-/* * @Author: tarn.tianrun * @Date: 2018-03-21 10:04:13 * @Last Modified by: tarn.tianrun * @Last Modified time: 2018-04-13
-16:15:26 */
-
+/*
+ * @Author: tarn.tianrun 
+ * @Date: 2018-04-16 17:55:11 
+ * @Last Modified by: tarn.tianrun
+ * @Last Modified time: 2018-04-16 18:05:46
+ */
 
 <style scoped lang="less">
 	@import './panoramic-detail.less';
@@ -233,6 +236,14 @@
 			this.$bridge.registerHandler("handleMusicPause", () => {
 				document.getElementById("audioMusic").pause();
 			})
+
+			this.$bridge.registerHandler("handleDoshare", () => {
+				this.handleDoshare()
+			})
+			
+			this.$bridge.registerHandler("toAffiliation", () => {
+				this.toAffiliation()
+			})
 			embedpano({ swf: "../../../../static/vtour/tour.swf", xml: `../../../../static/vtour/tour${this.$route.params.id}.xml`, target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true });
 		},
 		created() {
@@ -372,7 +383,7 @@
 			},
 			handleDoshare() {
 				if (this.$store.state.app.currentPageFromIos) {
-					this.$bridge.callHandler('appShare', { 'title': this.resultData.panoName, 'description': this.resultData.panoSubtitle, 'url': `http://39.107.78.100/panoramicView/${this.resultData.panoId}` }, (data) => { })
+					this.$bridge.callHandler('appShare', { 'title': this.panoramicInfo.panoName, 'description': this.panoramicInfo.panoSubtitle, 'url': `http://39.107.78.100/panoramicView/${this.panoramicInfo.panoId}` }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.doShare(this.panoramicInfo.panoName, this.panoramicInfo.panoSubtitle, `http://39.107.78.100/panoramicView/${this.panoramicInfo.panoId}`);
 				} else {
