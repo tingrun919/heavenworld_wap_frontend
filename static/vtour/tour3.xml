@@ -118,7 +118,7 @@ inc(frame,1,get(lastframe),0); mul(xpos,frame,frameheight); txtadd(crop,get(xpos
     <action name="hotspot_animate">
 inc(frame,1,get(lastframe),0); mul(ypos,frame,frameheight); txtadd(crop,'0|',get(ypos),'|',get(framewidth),'|',get(frameheight)); delayedcall(0.03, hotspot_animate());
 </action>
-    <events onenterfullscreen="" onexitfullscreen="" onxmlcomplete="" onpreviewcomplete="" onloadcomplete="" onnewpano="js(getComment();)" onremovepano="" onnewscene="" onloaderror="" onkeydown="" onkeyup="" onclick="" onmousedown="set(bt,0);" onmouseup="" onmousewheel="" onidle="" onviewchange="" onviewchanged="" onresize="" onautorotatestart="" onautorotatestop="" onautorotateoneround="" onautorotatechange=""/>
+    <events onenterfullscreen="" onexitfullscreen="" onxmlcomplete="" onpreviewcomplete="" onloadcomplete="" onnewpano="js(getComment(););hotspot_Handle();" onremovepano="" onnewscene="" onloaderror="" onkeydown="" onkeyup="" onclick="" onmousedown="set(bt,0);" onmouseup="" onmousewheel="" onidle="" onviewchange="" onviewchanged="" onresize="" onautorotatestart="" onautorotatestop="" onautorotateoneround="" onautorotatechange=""/>
     <scene name="scene_hongkong0" title="hongkong" onstart="" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading="">
         <view  hlookat="-122.43" vlookat="2" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="110" fovmax="120" limitview="auto" />
         <preview url="http://pano27.qncdn.720static.com/resource/prod/2bei7218cr2/9a422crucci/6785876/imgs/preview.jpg" />

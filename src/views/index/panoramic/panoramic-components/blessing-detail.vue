@@ -213,6 +213,9 @@
 					this.$store.commit('setCurrentPageFromIos', false);
 				}
 			}
+			this.$bridge.registerHandler("handleDoshare", () => {
+				this.handleDoshare()
+			})
 		},
 		beforeMount() {
 			this.getBlessingOne(this.$route.params.id)
@@ -230,6 +233,9 @@
 					this.introduction = ''
 				}
 			}
+		},
+		created() {
+			window.handleDoshare = this.handleDoshare;
 		},
 		data() {
 			return {
@@ -370,7 +376,16 @@
 					params: argu,
 					query: args,
 				});
-			}
+			},
+			handleDoshare() {
+				if (this.$store.state.app.currentPageFromIos) {
+					this.$bridge.callHandler('appShare', { 'title': this.$store.state.app.panoramic.panoName, 'description': this.title+"给你分享了一个祈福", 'url': `http://39.107.78.100${this.$route.fullPath}` }, (data) => { })
+				} else if (this.$store.state.app.currentPageFromAndroid) {
+					android.doShare(this.$store.state.app.panoramic.panoName, this.title+"给你分享了一个祈福", `http://39.107.78.100${this.$route.fullPath}`);
+				} else {
+					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+				}
+			},
 		}
 	}
 </script>
