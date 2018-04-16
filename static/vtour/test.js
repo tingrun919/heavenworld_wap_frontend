@@ -96,54 +96,71 @@ function switch_show_comment(arg) {
 	}
 }
 
+var arr = new Array()
+var isplay = true
+
 function getMusciList() {
 	var audio = document.getElementById("audioMusic")
 	if (audio.paused) {
 		audio.currentTime = currenttime
 		audio.play()
+		isplay = true
 	} else {
 		audio.pause()
+		isplay = false
 		currenttime = audio.currentTime
 	}
 }
 
-var arr = new Array()
-function getMusciListApi(){
+function getMusciListApi() {
 	var prayId = window.location.pathname
 	prayId = prayId.substr(prayId.length - 1, 1)
-	
-	$.ajax({
-		type: "get",
-		url: 'http://39.107.78.100:8080/banaworld_show/nopano/panoMusic',
-		dataType: "json",
-		data: { panoid: prayId },
-		success: function (data) {
-			for(var i = 0; i <= data.data.length; i++){
-				if(i == data.data.length){
-					playMusic()
-				}else{
-					arr.push(data.data[i].music_url)
+	var audio = document.getElementById("audioMusic")
+	if (!audio) {
+		$.ajax({
+			type: "get",
+			url: 'http://39.107.78.100:8080/banaworld_show/nopano/panoMusic',
+			dataType: "json",
+			data: { panoid: prayId },
+			success: function (data) {
+				for (var i = 0; i <= data.data.length; i++) {
+					if (i == data.data.length) {
+						playMusic()
+					} else {
+						arr.push(data.data[i].music_url)
+					}
 				}
 			}
-		}
-	});
+		});
+	}
+
 }
 
-function playMusic(){
+function playMusic() {
 	var index = 0;
 	var myAudio = new Audio();
-	var currenttime;
+	var currenttime = 0;
 	myAudio.id = "audioMusic"
 	myAudio.preload = true;
 	// myAudio.controls = true;
 	myAudio.src = arr[index];
 	myAudio.addEventListener('ended', playEndedHandler, false);
-	myAudio.play();
+	// myAudio.play();
+	if (isplay) {
+		myAudio.play()
+	} else {
+		// var krpano = document.getElementById('krpanoSWFObject');
+		// var name = 'soundico'
+		myAudio.pause();
+		myAudio.currentTime = currenttime;
+		// krpano.set('layer[soundico].crop;', "0|70|62|62");
+	}
+
 	document.getElementById("audioBox").appendChild(myAudio);
 	myAudio.loop = false;
 	function playEndedHandler() {
 		index++
-		if(index == arr.length){
+		if (index == arr.length) {
 			index = 0
 			$("#audioMusic").remove()
 			getMusciListApi()
@@ -151,4 +168,13 @@ function playMusic(){
 		myAudio.src = arr[index];
 		myAudio.play();
 	}
+}
+
+function testaaa() {
+	alert(123)
+	// var krpano = document.getElementById('krpanoSWFObject');
+	// krpano.call('loadscene("scene_hongkong1", null, MERGE,BLEND(0.5));');
+	// txtadd(onclick,js(testaaa();));
+
+	// txtadd(onclick,'loadscene(',get(name),', null, MERGE,BLEND(0.5));');
 }

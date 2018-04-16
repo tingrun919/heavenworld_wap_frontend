@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-04-04 14:30:43 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-04-04 17:18:01
+ * @Last Modified time: 2018-04-13 16:55:28
  */
 
 <style scoped lang="less">
@@ -14,7 +14,7 @@
 	}
 </style>
 <template>
-	<div v-if="isblessing">
+	<div v-if="false">
 		<mt-header :title="title + isTitle">
 			<mt-button icon="back" slot="left" @click="test2"></mt-button>
 			<mt-button icon="more" v-if="isShowRight" slot="right" style="transform: rotate(-90deg);" @click="test"></mt-button>

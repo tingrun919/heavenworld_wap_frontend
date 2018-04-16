@@ -3,9 +3,9 @@
 </style>
 <template>
 	<div class="affiliation-list-main" :style="{height:viewHeight}">
-		<div class="other-header">
+		<!-- <div class="other-header">
 			<header-child-Comp :title="title1" :isblessing="true" :isShowRight="false" :isShowRightMore="false"></header-child-Comp>
-		</div>
+		</div> -->
 		<scroll ref="scroll" :scrollY="freeScroll" :scrollbar="scrollbar" :mouseWheel="mouseWheel">
 			<div class="advertising-img" v-bind:style="{backgroundImage: 'url(' + img + ')',height:viewHeightAdvertising}">
 				<!-- <p>广告位文本限制一行</p> -->
@@ -41,7 +41,7 @@
 		},
 		computed: {
 			viewHeight: function () {
-				return (window.innerHeight - 38) + 'px'
+				return (window.innerHeight) + 'px'
 			},
 			viewHeightAdvertising: function () {
 				// return (window.innerHeight / 5) + 'px'
