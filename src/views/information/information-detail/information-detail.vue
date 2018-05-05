@@ -41,7 +41,7 @@
 				</div>
 			</div>
 			<div class="content-infomation">
-				<div v-html="resultData.infoContent" class="information-content"></div>
+				<div v-html="resultData.infoContent" class="information-content"  v-bind:style="{fontSize: fontSize + 'px'}"></div>
 				<div class="content-icon">
 					<img src="../../../assets/information-img/read.png" width="20" height="20">
 				</div>
@@ -81,6 +81,7 @@
 				this.$bridge.callHandler('hasToken', {}, (data) => {
 					this.$store.commit('setUserToken', data.token);
 					this.$store.commit('setUserId', data.userId);
+					this.fontSize = data.fontSize
 				})
 			} else if (from == 'android') {
 				this.$store.commit('setCurrentPageFromAndroid', true);
@@ -111,7 +112,11 @@
 					interactive: false
 				},
 				showVideos: false,
+				fontSize:18,
 			}
+		},
+		created(){
+			window.changeFontSize = this.changeFontSize;
 		},
 		methods: {
 			test() {
@@ -127,6 +132,9 @@
 				// 	de.webkitRequestFullScreen();
 				// 	alert(de,'3')
 				// }
+			},
+			changeFontSize(font){
+				this.fontSize = font
 			}
 		}
 	}
