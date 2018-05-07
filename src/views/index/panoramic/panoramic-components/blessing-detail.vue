@@ -216,6 +216,9 @@
 			this.$bridge.registerHandler("handleDoshare", () => {
 				this.handleDoshare()
 			})
+			this.$bridge.registerHandler("handleCloseVideo", () => {
+				this.closeVideo()
+			})
 		},
 		beforeMount() {
 			this.getBlessingOne(this.$route.params.id)
@@ -236,6 +239,7 @@
 		},
 		created() {
 			window.handleDoshare = this.handleDoshare;
+			window.handleCloseVideo = this.handleCloseVideo;
 		},
 		data() {
 			return {
@@ -293,8 +297,16 @@
 			playVideo() {
 				this.$refs.videoTag.play()
 				this.showVideos = true;
+				android.isShowVideo("0");
+				this.$bridge.callHandler('isShowVideo', { 'isOpen': '0' }, (data) => { })
 			},
 			closeVideo() {
+				this.$refs.videoTag.currentTime = 0;
+				this.$refs.videoTag.pause()
+				this.showVideos = false;
+				this.$bridge.callHandler('isShowVideo', { 'isOpen': '1' }, (data) => { })
+			},
+			handleCloseVideo(){
 				this.$refs.videoTag.currentTime = 0;
 				this.$refs.videoTag.pause()
 				this.showVideos = false;

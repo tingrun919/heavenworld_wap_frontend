@@ -62,7 +62,7 @@
 	</action>
     <action name="startup" autorun="onstart">
 		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
-		loadscene(get(startscene), null, MERGE);
+		js(testaaa();)
 		if(startactions !== null, startactions() );
 		if(autorotate.enabled,bombtimer(0));
         js(getMusciListApi();)
