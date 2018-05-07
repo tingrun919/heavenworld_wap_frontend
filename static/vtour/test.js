@@ -171,10 +171,23 @@ function playMusic() {
 }
 
 function testaaa() {
-	alert(123)
-	// var krpano = document.getElementById('krpanoSWFObject');
-	// krpano.call('loadscene("scene_hongkong1", null, MERGE,BLEND(0.5));');
+	// return "scene_hongkong4"
+	// alert(123)
+	var param = getQueryVariable("param")
+	var krpano = document.getElementById('krpanoSWFObject');
+	krpano.call('loadscene("'+param+'", null, MERGE,BLEND(0.5));');
 	// txtadd(onclick,js(testaaa();));
 
 	// txtadd(onclick,'loadscene(',get(name),', null, MERGE,BLEND(0.5));');
+}
+
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
 }

@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 14:41:07 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-04-11 12:13:14
+ * @Last Modified time: 2018-05-07 15:28:49
  */
 //祈福列表
 export function show_comment_list(data) {
@@ -66,3 +66,7 @@ export function cancel_comment() {
 	krpano.call("removehotspot(commname);removeplugin(commname_avatar);set(layer[skin_layer].visible,true);");
 }
 
+export function testtesttest(){
+	var krpano = document.getElementById('krpanoSWFObject');
+	krpano.call('loadscene("scene_hongkong9", null, MERGE,BLEND(0.5));');
+}

@@ -1,8 +1,8 @@
 /*
  * @Author: tarn.tianrun 
- * @Date: 2018-04-16 17:55:11 
+ * @Date: 2018-05-07 16:02:33 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-04-16 18:05:46
+ * @Last Modified time: 2018-05-07 16:26:00
  */
 
 <style scoped lang="less">
@@ -240,7 +240,7 @@
 			this.$bridge.registerHandler("handleDoshare", () => {
 				this.handleDoshare()
 			})
-			
+
 			this.$bridge.registerHandler("toAffiliation", () => {
 				this.toAffiliation()
 			})
@@ -365,7 +365,13 @@
 			},
 			blessingAction() {
 				var prayId = $("#blessingDetail").attr("data-prayid");
-				this.$router.push(`/blessingdetail/${prayId}`)
+				if (this.$store.state.app.currentPageFromIos) {
+					this.$bridge.callHandler('toBlessingDetail', { 'blessingId': `${prayId}` }, (data) => { })
+				} else if (this.$store.state.app.currentPageFromAndroid) {
+					android.toBlessingDetail(`${prayId}`)
+				} else {
+					this.$router.push(`/blessingdetail/${prayId}`)
+				}
 			},
 			handleResultAudio(path, duration) {
 				this.audioPath = path
@@ -383,18 +389,20 @@
 			},
 			handleDoshare() {
 				if (this.$store.state.app.currentPageFromIos) {
-					this.$bridge.callHandler('appShare', { 'title': this.panoramicInfo.panoName, 'description': this.panoramicInfo.panoSubtitle, 'url': `http://39.107.78.100/panoramicView/${this.panoramicInfo.panoId}` }, (data) => { })
+					var krpano = document.getElementById('krpanoSWFObject');
+					var s = krpano.get("scene[get(xml.scene)].name");
+					this.$bridge.callHandler('appShare', { 'title': this.panoramicInfo.panoName, 'description': this.panoramicInfo.panoSubtitle, 'url': `http://39.107.78.100/panoramicView/${this.panoramicInfo.panoId}`, 'param': s }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.doShare(this.panoramicInfo.panoName, this.panoramicInfo.panoSubtitle, `http://39.107.78.100/panoramicView/${this.panoramicInfo.panoId}`);
+					android.doShare(this.panoramicInfo.panoName, this.panoramicInfo.panoSubtitle, `http://39.107.78.100/panoramicView/${this.panoramicInfo.panoId}` , s);
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}
 			},
-			toAffiliation(){
-					this.$router.push({
-						name: 'affiliation_view'
-					});
-				}
+			toAffiliation() {
+				this.$router.push({
+					name: 'affiliation_view'
+				});
+			}
 		},
 		components: {
 			headerChildComp,

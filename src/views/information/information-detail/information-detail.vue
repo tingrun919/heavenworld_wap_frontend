@@ -34,14 +34,14 @@
 					</div>
 				</div>
 				<div class="info-title">
-					<p>{{resultData.infoTitle}}</p>
+					<p v-bind:style="{fontSize: fontSize + 'px'}">{{resultData.infoTitle}}</p>
 				</div>
-				<div class="info-subtitle info-font">
+				<div class="info-subtitle info-font" v-bind:style="{fontSize: fontSize-2 + 'px'}">
 					<span>{{resultData.infoSubtitle}}</span>
 				</div>
 			</div>
 			<div class="content-infomation">
-				<div v-html="resultData.infoContent" class="information-content"  v-bind:style="{fontSize: fontSize + 'px'}"></div>
+				<div v-html="resultData.infoContent" class="information-content" v-bind:style="{fontSize: fontSize + 'px'}"></div>
 				<div class="content-icon">
 					<img src="../../../assets/information-img/read.png" width="20" height="20">
 				</div>
