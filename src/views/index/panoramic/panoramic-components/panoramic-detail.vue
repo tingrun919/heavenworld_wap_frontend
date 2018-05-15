@@ -1,9 +1,5 @@
-/*
- * @Author: tarn.tianrun 
- * @Date: 2018-05-07 16:02:33 
- * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-05-07 16:26:00
- */
+/* * @Author: tarn.tianrun * @Date: 2018-05-07 16:02:33 * @Last Modified by: tarn.tianrun * @Last Modified time: 2018-05-07
+16:26:00 */
 
 <style scoped lang="less">
 	@import './panoramic-detail.less';
@@ -388,12 +384,12 @@
 				document.getElementById("audioMusic").pause();
 			},
 			handleDoshare() {
+				var krpano = document.getElementById('krpanoSWFObject');
+				var s = krpano.get("scene[get(xml.scene)].name");
 				if (this.$store.state.app.currentPageFromIos) {
-					var krpano = document.getElementById('krpanoSWFObject');
-					var s = krpano.get("scene[get(xml.scene)].name");
 					this.$bridge.callHandler('appShare', { 'title': this.panoramicInfo.panoName, 'description': this.panoramicInfo.panoSubtitle, 'url': `http://39.107.78.100/panoramicView/${this.panoramicInfo.panoId}`, 'param': s }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.doShare(this.panoramicInfo.panoName, this.panoramicInfo.panoSubtitle, `http://39.107.78.100/panoramicView/${this.panoramicInfo.panoId}` , s);
+					android.doShare(this.panoramicInfo.panoName, this.panoramicInfo.panoSubtitle, `http://39.107.78.100/panoramicView/${this.panoramicInfo.panoId}`, s);
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}
