@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-04-16 11:25:03 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-04-16 11:32:12
+ * @Last Modified time: 2018-05-16 15:07:17
  */
 
 
@@ -299,9 +299,9 @@
 			//分享
 			share() {
 				if (this.$store.state.app.currentPageFromIos) {
-					this.$bridge.callHandler('appShare', { 'title': this.resultData.panoName, 'description': this.resultData.panoSubtitle, 'url': `http://39.107.78.100/panoramicView/${this.resultData.panoId}` }, (data) => { })
+					this.$bridge.callHandler('appShare', { 'title': this.resultData.panoName, 'description': this.resultData.panoSubtitle, 'url': `http://www.tiantangshijie.com/panoramicView/${this.resultData.panoId}` }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.doShare(this.resultData.panoName, this.resultData.panoSubtitle, `http://39.107.78.100/panoramicView/${this.resultData.panoId}`);
+					android.doShare(this.resultData.panoName, this.resultData.panoSubtitle, `http://www.tiantangshijie.com/panoramicView/${this.resultData.panoId}`);
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}

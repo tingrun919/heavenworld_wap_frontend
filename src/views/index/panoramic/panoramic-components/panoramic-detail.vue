@@ -166,19 +166,19 @@
 				redCheck: '',
 				dataSwipe: [
 					{
-						id: 1, name: '祈福模版', img: img1
+						id: 1, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-9686b0a6f66ccff4.jpeg'
 					}, {
-						id: 2, name: '祈福模版', img: img2
+						id: 2, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-dbe5da109cfa2389.jpeg'
 					}, {
-						id: 3, name: '祈福模版', img: img3
+						id: 3, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-e1cfba899cdddb5f.jpeg'
 					}, {
-						id: 4, name: '祈福模版', img: img4
+						id: 4, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-788433c7bb874a1d.jpeg'
 					}, {
-						id: 5, name: '祈福模版', img: img5
+						id: 5, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-21c3295a3eb3be6f.jpeg'
 					}, {
-						id: 6, name: '祈福模版', img: img6
+						id: 6, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-300bcacca29feed0.jpeg'
 					}, {
-						id: 7, name: '祈福模版', img: img7
+						id: 7, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-9b012987f0e41a94.jpeg'
 					}
 				],
 				panoramicInfo: [],
@@ -331,7 +331,7 @@
 				if (this.$refs.divContent.innerText.length >= 140) {
 					Toast('最大限制输入为140个字！');
 				} else {
-					this.handleAddcomment(id, ath, atv, sname).then(() => {
+					this.handleAddcomment(id, ath, atv, sname, this.dataSwipe[this.chioseImg].img).then(() => {
 						this.handleBlessingAction = !this.handleBlessingAction
 						this.showRedenvelope = false;
 						this.showModel = false;
@@ -387,9 +387,9 @@
 				var krpano = document.getElementById('krpanoSWFObject');
 				var s = krpano.get("scene[get(xml.scene)].name");
 				if (this.$store.state.app.currentPageFromIos) {
-					this.$bridge.callHandler('appShare', { 'title': this.panoramicInfo.panoName, 'description': this.panoramicInfo.panoSubtitle, 'url': `http://39.107.78.100/panoramicView/${this.panoramicInfo.panoId}`, 'param': s }, (data) => { })
+					this.$bridge.callHandler('appShare', { 'title': this.panoramicInfo.panoName, 'description': this.panoramicInfo.panoSubtitle, 'url': `http://www.tiantangshijie.com/panoramicView/${this.panoramicInfo.panoId}`, 'param': s }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.doShare(this.panoramicInfo.panoName, this.panoramicInfo.panoSubtitle, `http://39.107.78.100/panoramicView/${this.panoramicInfo.panoId}`, s);
+					android.doShare(this.panoramicInfo.panoName, this.panoramicInfo.panoSubtitle, `http://www.tiantangshijie.com/panoramicView/${this.panoramicInfo.panoId}`, s);
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}
