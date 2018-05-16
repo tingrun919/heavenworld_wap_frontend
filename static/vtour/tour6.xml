@@ -2,17 +2,12 @@
     <include url="skin/vtourskin.xml" />
     <layer name="sltbg" type="container" keep="true" width="100%" height="110" align="bottom" y="-170" bgalpha="0.5" zorder="98">
         <layer name="scrollareabg" type="container" keep="true" height="110" align="top" bgcolor="0xff0000" bgalpha="0" onloaded="sub(layer[scrollareabg].width,stagewidth,20); aaaa();">
-            <layer name="scrollarea1" url="../%SWFPATH%/plugins/scrollarea.js" keep="true" align="lefttop" height="110" y="15" direction="h" width="calc:10*100-16">
-                <layer style="slts" sid="0" title="峄山西大门" url="http://thumb-qiniu.720static.com/@/resource/prod/da03cbbfs0x/b80jOruOsf7/7030254/1507346344/imgs/thumb.jpg?imageView2/0/w/160/h/160" name="scene_hongkong0"/>
-                <layer style="slts" sid="1" title="天下第一奇山" url="http://thumb-qiniu.720static.com/@/resource/prod/da03cbbfs0x/b80jOruOsf7/7030255/imgs/thumb.jpg?imageView2/0/w/160/h/160" name="scene_hongkong1"/>
-                <layer style="slts" sid="2" title="索道站" url="http://thumb-qiniu.720static.com/@/resource/prod/da03cbbfs0x/b80jOruOsf7/7030256/1507346351/imgs/thumb.jpg?imageView2/0/w/160/h/160" name="scene_hongkong2"/>
-                <layer style="slts" sid="3" title="南天门" url="http://thumb-qiniu.720static.com/@/resource/prod/da03cbbfs0x/b80jOruOsf7/7030258/1507346393/imgs/thumb.jpg?imageView2/0/w/160/h/160" name="scene_hongkong3"/>
-                <layer style="slts" sid="4" title="峄山奇石" url="http://thumb-qiniu.720static.com/@/resource/prod/da03cbbfs0x/b80jOruOsf7/7030259/1507346371/imgs/thumb.jpg?imageView2/0/w/160/h/160" name="scene_hongkong4"/>
-				<layer style="slts" sid="5" title="八卦石" url="http://thumb-qiniu.720static.com/@/resource/prod/da03cbbfs0x/b80jOruOsf7/7030260/1507346389/imgs/thumb.jpg?imageView2/0/w/160/h/160" name="scene_hongkong5"/>
-				<layer style="slts" sid="6" title="中国书画院" url="http://thumb-qiniu.720static.com/@/resource/prod/da03cbbfs0x/b80jOruOsf7/7030261/1507346409/imgs/thumb.jpg?imageView2/0/w/160/h/160" name="scene_hongkong6"/>
-				<layer style="slts" sid="7" title="通明天宫" url="http://thumb-qiniu.720static.com/@/resource/prod/da03cbbfs0x/b80jOruOsf7/7030263/1507346400/imgs/thumb.jpg?imageView2/0/w/160/h/160" name="scene_hongkong7"/>
-				<layer style="slts" sid="8" title="白云宫" url="http://thumb-qiniu.720static.com/@/resource/prod/da03cbbfs0x/b80jOruOsf7/7030264/1508374874/imgs/thumb.jpg?imageView2/0/w/160/h/160" name="scene_hongkong8"/>
-				<layer style="slts" sid="9" title="玉皇殿" url="http://thumb-qiniu.720static.com/@/resource/prod/da03cbbfs0x/b80jOruOsf7/7030265/1507346420/imgs/thumb.jpg?imageView2/0/w/160/h/160" name="scene_hongkong9"/>
+            <layer name="scrollarea1" url="../%SWFPATH%/plugins/scrollarea.js" keep="true" align="lefttop" height="110" y="15" direction="h" width="calc:5*100-16">
+                <layer style="slts" sid="0" title="办公室" url="http://thumb-qiniu.720static.com/@/resource/prod/116333eds1y/d0djOdtyzu8/10413554/imgs/thumb.jpg?imageView2/0/w/200/h/200" name="scene_hongkong0"/>
+                <layer style="slts" sid="1" title="二楼走廊" url="http://thumb-qiniu.720static.com/@/resource/prod/116333eds1y/d0djOdtyzu8/10413555/imgs/thumb.jpg?imageView2/0/w/200/h/200" name="scene_hongkong1"/>
+                <layer style="slts" sid="2" title="外景" url="http://thumb-qiniu.720static.com/@/resource/prod/116333eds1y/d0djOdtyzu8/10413556/imgs/thumb.jpg?imageView2/0/w/200/h/200" name="scene_hongkong2"/>
+                <layer style="slts" sid="3" title="项目办公室" url="http://thumb-qiniu.720static.com/@/resource/prod/116333eds1y/d0djOdtyzu8/10413557/imgs/thumb.jpg?imageView2/0/w/200/h/200" name="scene_hongkong3"/>
+                <layer style="slts" sid="4" title="一楼大厅" url="http://thumb-qiniu.720static.com/@/resource/prod/116333eds1y/d0djOdtyzu8/10413558/imgs/thumb.jpg?imageView2/0/w/200/h/200" name="scene_hongkong4"/>
 			</layer>
         </layer>
     </layer>
@@ -126,176 +121,80 @@ inc(frame,1,get(lastframe),0); mul(ypos,frame,frameheight); txtadd(crop,'0|',get
     <events onenterfullscreen="" onexitfullscreen="" onxmlcomplete="" onpreviewcomplete="" onloadcomplete="" onnewpano="js(getComment(););hotspot_Handle();" onremovepano="" onnewscene="" onloaderror="" onkeydown="" onkeyup="" onclick="" onmousedown="set(bt,0);" onmouseup="" onmousewheel="" onidle="" onviewchange="" onviewchanged="" onresize="" onautorotatestart="" onautorotatestop="" onautorotateoneround="" onautorotatechange=""/>
     <scene name="scene_hongkong0" title="hongkong" pano_id="hongkong0" onstart="" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading="">
         <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-        <preview url="http://pano28.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030254/1507346344/imgs/preview.jpg" />
+        <preview url="http://pano37.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413554/imgs/preview.jpg" />
         <image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
-            <level tiledimagewidth="1900" tiledimageheight="1900">
-                <cube url="http://pano28.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030254/1507346344/imgs/%s/l3/%v/l3_%s_%v_%h.jpg" />
+					<level tiledimagewidth="1664" tiledimageheight="1664">
+                <cube url="http://pano37.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413554/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
             </level>
-            <level tiledimagewidth="940" tiledimageheight="940">
-                <cube url="http://pano28.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030254/1507346344/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			<level tiledimagewidth="768" tiledimageheight="768">
+                <cube url="http://pano37.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413554/imgs/%s/l1/%v/l1_%s_%v_%h.jpg" />
             </level>
         </image>
         <image if="webvr.isenabled">
-            <cube url="http://pano28.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030254/1507346344/imgs/mobile_%s.jpg" />
+            <cube url="http://pano37.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413554/imgs/mobile_%s.jpg" />
         </image>
-		<hotspot name="hotspot_1" style="new_spotd01" ath="23.37" atv="4.56" linkedscene="hongkong1"/>
     </scene>
     <scene name="scene_hongkong1" title="hongkong" pano_id="hongkong1" onstart="" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading="">
         <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-        <preview url="http://pano25.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030255/imgs/preview.jpg" />
+        <preview url="http://pano34.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413555/imgs/preview.jpg" />
         <image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
-            <level tiledimagewidth="1900" tiledimageheight="1900">
-                <cube url="http://pano25.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030255/imgs/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			            <level tiledimagewidth="1664" tiledimageheight="1664">
+                <cube url="http://pano34.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413555/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
             </level>
-            <level tiledimagewidth="940" tiledimageheight="940">
-                <cube url="http://pano25.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030255/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			            <level tiledimagewidth="768" tiledimageheight="768">
+                <cube url="http://pano34.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413555/imgs/%s/l1/%v/l1_%s_%v_%h.jpg" />
             </level>
         </image>
         <image if="webvr.isenabled">
-            <cube url="http://pano25.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030255/1507346344/imgs/mobile_%s.jpg" />
+            <cube url="http://pano34.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413555/imgs/mobile_%s.jpg" />
         </image>
-		<hotspot name="hotspot_1" style="new_spotd01" ath="146.32" atv="0.08" linkedscene="hongkong2"/>
     </scene>
     <scene name="scene_hongkong2" title="hongkong" pano_id="hongkong2" onstart="" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading="">
         <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-        <preview url="http://pano26.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030256/1507346351/imgs/preview.jpg" />
+        <preview url="http://pano37.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413556/imgs/preview.jpg" />
         <image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
-            <level tiledimagewidth="1900" tiledimageheight="1900">
-                <cube url="http://pano26.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030256/1507346351/imgs/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			            <level tiledimagewidth="1664" tiledimageheight="1664">
+                <cube url="http://pano37.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413556/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
             </level>
-            <level tiledimagewidth="940" tiledimageheight="940">
-                <cube url="http://pano26.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030256/1507346351/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			            <level tiledimagewidth="768" tiledimageheight="768">
+                <cube url="http://pano37.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413556/imgs/%s/l1/%v/l1_%s_%v_%h.jpg" />
             </level>
         </image>
         <image if="webvr.isenabled">
-            <cube url="http://pano26.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030256/1507346351/imgs/mobile_%s.jpg" />
+            <cube url="http://pano37.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413556/imgs/mobile_%s.jpg" />
         </image>
-				<hotspot name="hotspot_1" style="new_spotd01" ath="144.65" atv="9.42" linkedscene="hongkong3"/>
     </scene>
     <scene name="scene_hongkong3" title="hongkong" pano_id="hongkong3" onstart="" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading="">
         <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-        <preview url="http://pano25.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030258/1507346393/imgs/preview.jpg" />
+        <preview url="http://pano35.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413557/imgs/preview.jpg" />
         <image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
-            <level tiledimagewidth="1900" tiledimageheight="1900">
-                <cube url="http://pano25.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030258/1507346393/imgs/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			            <level tiledimagewidth="1664" tiledimageheight="1664">
+                <cube url="http://pano35.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413557/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
             </level>
-            <level tiledimagewidth="940" tiledimageheight="940">
-                <cube url="http://pano25.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030258/1507346393/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			            <level tiledimagewidth="768" tiledimageheight="768">
+                <cube url="http://pano35.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413557/imgs/%s/l1/%v/l1_%s_%v_%h.jpg" />
             </level>
         </image>
         <image if="webvr.isenabled">
-            <cube url="http://pano25.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030256/1507346393/imgs/mobile_%s.jpg" />
+            <cube url="http://pano35.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413557/imgs/mobile_%s.jpg" />
         </image>
-		<hotspot name="hotspot_1" style="hotspot_36" ath="118.37" atv="7.06" linkedscene="hongkong4"/>
     </scene>
     <scene name="scene_hongkong4" title="hongkong" pano_id="hongkong4" onstart="" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading="">
         <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-        <preview url="http://pano26.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030259/1507346371/imgs/preview.jpg" />
+        <preview url="http://pano34.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413558/imgs/preview.jpg" />
         <image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
-            <level tiledimagewidth="1900" tiledimageheight="1900">
-                <cube url="http://pano26.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030259/1507346371/imgs/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			            <level tiledimagewidth="1664" tiledimageheight="1664">
+                <cube url="http://pano34.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413558/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
             </level>
-            <level tiledimagewidth="940" tiledimageheight="940">
-                <cube url="http://pano26.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030259/1507346371/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			            <level tiledimagewidth="768" tiledimageheight="768">
+                <cube url="http://pano34.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413558/imgs/%s/l1/%v/l1_%s_%v_%h.jpg" />
             </level>
         </image>
         <image if="webvr.isenabled">
-            <cube url="http://pano26.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030259/1507346371/imgs/mobile_%s.jpg" />
-        </image>
-				<hotspot name="hotspot_1" style="hotspot_35" ath="-29.34" atv="34.19" linkedscene="hongkong5"/>
-    </scene>
-	<scene name="scene_hongkong5" title="hongkong" pano_id="hongkong5" onstart="" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading="">
-        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-        <preview url="http://pano27.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030260/1507346389/imgs/preview.jpg" />
-        <image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
-            <level tiledimagewidth="1900" tiledimageheight="1900">
-                <cube url="http://pano27.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030260/1507346389/imgs/%s/l3/%v/l3_%s_%v_%h.jpg" />
-            </level>
-            <level tiledimagewidth="940" tiledimageheight="940">
-                <cube url="http://pano27.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030260/1507346389/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
-            </level>
-        </image>
-        <image if="webvr.isenabled">
-            <cube url="http://pano27.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030260/1507346389/imgs/mobile_%s.jpg" />
-        </image>
-		<hotspot name="hotspot_1" style="new_spotd01" ath="-166.01" atv="1.10" linkedscene="hongkong6"/>
-    </scene>
-	<scene name="scene_hongkong6" title="hongkong" pano_id="hongkong6" onstart="" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading="">
-        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-        <preview url="http://pano28.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030261/1507346409/imgs/preview.jpg" />
-        <image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
-            <level tiledimagewidth="1900" tiledimageheight="1900">
-                <cube url="http://pano28.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030261/1507346409/imgs/%s/l3/%v/l3_%s_%v_%h.jpg" />
-            </level>
-            <level tiledimagewidth="940" tiledimageheight="940">
-                <cube url="http://pano28.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030261/1507346409/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
-            </level>
-        </image>
-        <image if="webvr.isenabled">
-            <cube url="http://pano28.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030261/1507346409/imgs/mobile_%s.jpg" />
-        </image>
-				<hotspot name="hotspot_1" style="new_spotd01" ath="12.26" atv="15.41" linkedscene="hongkong7"/>
-
-    </scene>
-	<scene name="scene_hongkong7" title="hongkong" pano_id="hongkong7" onstart="" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading="">
-        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-        <preview url="http://pano28.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030263/1507346400/imgs/preview.jpg" />
-        <image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
-            <level tiledimagewidth="1900" tiledimageheight="1900">
-                <cube url="http://pano28.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030263/1507346400/imgs/%s/l3/%v/l3_%s_%v_%h.jpg" />
-            </level>
-            <level tiledimagewidth="940" tiledimageheight="940">
-                <cube url="http://pano28.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030263/1507346400/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
-            </level>
-        </image>
-        <image if="webvr.isenabled">
-            <cube url="http://pano28.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030263/1507346400/imgs/mobile_%s.jpg" />
-        </image>
-						<hotspot name="hotspot_1" style="new_spotd01" ath="142.80" atv="17.28" linkedscene="hongkong8"/>
-
-    </scene>
-	<scene name="scene_hongkong8" title="hongkong" pano_id="hongkong8" onstart="" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading="">
-        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-        <preview url="http://pano26.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030264/1508374874/imgs/preview.jpg" />
-        <image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
-            <level tiledimagewidth="1900" tiledimageheight="1900">
-                <cube url="http://pano26.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030264/1508374874/imgs/%s/l3/%v/l3_%s_%v_%h.jpg" />
-            </level>
-            <level tiledimagewidth="940" tiledimageheight="940">
-                <cube url="http://pano26.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030264/1508374874/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
-            </level>
-        </image>
-        <image if="webvr.isenabled">
-            <cube url="http://pano26.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030264/1508374874/imgs/mobile_%s.jpg" />
-        </image>
-								<hotspot name="hotspot_1" style="new_spotd01" ath="2.80" atv="-7.28" linkedscene="hongkong9"/>
-
-    </scene>
-		<scene name="scene_hongkong9" title="hongkong" pano_id="hongkong9" onstart="" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading="">
-        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-        <preview url="http://pano25.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030265/1507346420/imgs/preview.jpg" />
-        <image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
-            <level tiledimagewidth="1900" tiledimageheight="1900">
-                <cube url="http://pano25.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030265/1507346420/imgs/%s/l3/%v/l3_%s_%v_%h.jpg" />
-            </level>
-            <level tiledimagewidth="940" tiledimageheight="940">
-                <cube url="http://pano25.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030265/1507346420/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
-            </level>
-        </image>
-        <image if="webvr.isenabled">
-            <cube url="http://pano25.qncdn.720static.com/resource/prod/da03cbbfs0x/b80jOruOsf7/7030265/1507346420/imgs/mobile_%s.jpg" />
+            <cube url="http://pano34.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413558/imgs/mobile_%s.jpg" />
         </image>
     </scene>
 
-
-
-
-
-
-
-
-
-    <!-- <scene name="scene_hongkong1" title="hongkong1" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading=""><view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" /><preview url="panos/hongkong.tiles/preview.jpg" /><image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled"><level tiledimagewidth="1280" tiledimageheight="1280"><cube url="http://pano25.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208849/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" /></level><level tiledimagewidth="640" tiledimageheight="640"><cube url="http://pano25.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208849/imgs/%s/l1/%v/l1_%s_%v_%h.jpg" /></level></image><image if="webvr.isenabled"><cube url="http://pano25.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208849/imgs/mobile_%s.jpg" /></image></scene><scene name="scene_hongkong2" title="hongkong2" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading=""><view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" /><preview url="http://pano30.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208850/imgs/preview.jpg" /><image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled"><level tiledimagewidth="1280" tiledimageheight="1280"><cube url="http://pano30.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208850/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" /></level><level tiledimagewidth="640" tiledimageheight="640"><cube url="http://pano30.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208850/imgs/%s/l1/%v/l1_%s_%v_%h.jpg" /></level></image><image if="webvr.isenabled"><cube url="http://pano30.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208850/imgs/mobile_%s.jpg" /></image></scene><scene name="scene_hongkong3" title="hongkong3" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading=""><view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" /><preview url="http://pano31.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208843/imgs/preview.jpg" /><image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled"><level tiledimagewidth="1280" tiledimageheight="1280"><cube url="http://pano31.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208843/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" /></level><level tiledimagewidth="640" tiledimageheight="640"><cube url="http://pano31.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208843/imgs/%s/l1/%v/l1_%s_%v_%h.jpg" /></level></image><image if="webvr.isenabled"><cube url="http://pano31.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208843/imgs/mobile_%s.jpg" /></image></scene><scene name="scene_hongkong4" title="hongkong4" havevrimage="true" thumburl="panos/hongkong.tiles/thumb.jpg" lat="" lng="" heading=""><view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" /><preview url="http://pano30.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208842/imgs/preview.jpg" /><image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled"><level tiledimagewidth="1280" tiledimageheight="1280"><cube url="http://pano30.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208842/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" /></level><level tiledimagewidth="640" tiledimageheight="640"><cube url="http://pano30.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208842/imgs/%s/l1/%v/l1_%s_%v_%h.jpg" /></level></image><image if="webvr.isenabled"><cube url="http://pano30.qncdn.720static.com/resource/prod/01eia8c79i9/a1928jsk9tw/7208842/imgs/mobile_%s.jpg" /></image></scene> -->
     <!-- 音乐图标 -->
     <layer name="sound" if="!webvr.isenabled" url="../%SWFPATH%/plugins/soundinterface.js" preload="true" rootpath=""/>
     <!-- 声音 -->

@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:48 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-04-13 16:51:50
+ * @Last Modified time: 2018-05-16 15:23:04
  */
 
 import Main from '@/views/Main.vue';
@@ -57,6 +57,15 @@ export const otherRouter = [
         path: '/affiliation/index',
 		title: '结缘榜',
 		name: 'affiliation_view', component: () => import('@/views/index/panoramic/panoramic-components/affiliation-index') 
+        // component: Other,
+        // children: [
+            // { path: 'index', title: '结缘榜', name: 'affiliation_view', component: () => import('@/views/index/panoramic/panoramic-components/affiliation-index') }
+        // ]
+	},
+	{
+        path: '/advertising',
+		title: '活动详情',
+		name: 'advertising_view', component: () => import('@/views/index/panoramic/panoramic-components/advertising.vue') 
         // component: Other,
         // children: [
             // { path: 'index', title: '结缘榜', name: 'affiliation_view', component: () => import('@/views/index/panoramic/panoramic-components/affiliation-index') }

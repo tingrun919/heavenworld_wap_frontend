@@ -7,7 +7,7 @@
 			<header-child-Comp :title="title1" :isblessing="true" :isShowRight="false" :isShowRightMore="false"></header-child-Comp>
 		</div> -->
 		<scroll ref="scroll" :scrollY="freeScroll" :scrollbar="scrollbar" :mouseWheel="mouseWheel">
-			<div class="advertising-img" v-bind:style="{backgroundImage: 'url(' + img + ')',height:viewHeightAdvertising}">
+			<div class="advertising-img" @click="toAdvertising" v-bind:style="{backgroundImage: 'url(' + img + ')',height:viewHeightAdvertising}">
 				<!-- <p>广告位文本限制一行</p> -->
 			</div>
 			<div class="score-main" v-for="n in 30" :key="n">
@@ -70,7 +70,11 @@
 			}
 		},
 		methods: {
-
+			toAdvertising(){
+				this.$router.push({
+					name: 'advertising_view'
+				});
+			}
 		}
 	}
 </script>

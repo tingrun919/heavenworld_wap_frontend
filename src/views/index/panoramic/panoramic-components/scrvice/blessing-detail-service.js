@@ -10,6 +10,8 @@ export default {
 					this.showOtherRed = res.data.data[0].prayIfmoney == 1 ? true : false
 					this.showOtherVideo = res.data.data[0].prayVideo ? true : false
 					this.showOtherAudio = res.data.data[0].prayVoice ? true : false
+					this.scnenname = res.data.data[0].prayScnenname
+					this.src = res.data.data[0].prayMainpic
 				})
 				.catch(err => {
 				});

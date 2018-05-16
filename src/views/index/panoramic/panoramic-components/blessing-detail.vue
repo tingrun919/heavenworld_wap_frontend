@@ -278,6 +278,7 @@
 				commentId: '',
 				showRed: false,
 				redDetailGrab:[],
+				scnenname:'',
 			}
 		},
 		methods: {
@@ -381,12 +382,12 @@
 			},
 			toPanoramic(){
 				let argu = { id: this.resultData.prayPanoid };
-				let args = { from: this.$store.state.app.currentPageFromIos ? 'ios' : this.$store.state.app.currentPageFromAndroid ? 'android' : '' }
+				let arg = { param: this.scnenname, from: this.$store.state.app.currentPageFromIos ? 'ios' : this.$store.state.app.currentPageFromAndroid ? 'android' : ''}
 				// console.log(this.commentList[0],1)
 				this.$router.push({
 					name: 'panoramicView',
 					params: argu,
-					query: args,
+					query: arg,
 				});
 			},
 			handleDoshare() {
