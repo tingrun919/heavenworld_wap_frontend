@@ -171,8 +171,6 @@ function playMusic() {
 }
 
 function testaaa() {
-	// return "scene_hongkong4"
-	// alert(123)
 	var param = getQueryVariable("param")
 	if (param) {
 		var krpano = document.getElementById('krpanoSWFObject');
@@ -181,7 +179,7 @@ function testaaa() {
 		var krpano = document.getElementById('krpanoSWFObject');
 		krpano.call('loadscene("get(startscene)", null, MERGE,BLEND(0.5));');
 	}
-
+	getMusciListApi();
 }
 
 function getQueryVariable(variable) {

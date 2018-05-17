@@ -65,8 +65,6 @@
 		js(testaaa();)
 		if(startactions !== null, startactions() );
 		if(autorotate.enabled,bombtimer(0));
-        js(getMusciListApi();)
-        playsound(bgsnd, 'http://media-qiniu2.720static.com/@/b80jOruOsf7/1/9de93641fafc1160a7922e4e9f00e008.mp3', 0);"
     </action>
     <action name="bombtimer"> 
               set(autorotate.enabled,true); 
