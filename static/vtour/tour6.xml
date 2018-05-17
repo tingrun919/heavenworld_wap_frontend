@@ -61,7 +61,7 @@
 		if(startactions !== null, startactions() );
 		if(autorotate.enabled,bombtimer(0));
         js(getMusciListApi();)
-        <!-- playsound(bgsnd, 'http://media-qiniu2.720static.com/@/b80jOruOsf7/1/9de93641fafc1160a7922e4e9f00e008.mp3', 0);" -->
+        playsound(bgsnd, 'http://media-qiniu2.720static.com/@/749015/1/14762537082154289.mp3', 0);"
     </action>
     <action name="bombtimer"> 
               set(autorotate.enabled,true); 
@@ -123,9 +123,9 @@ inc(frame,1,get(lastframe),0); mul(ypos,frame,frameheight); txtadd(crop,'0|',get
         <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
         <preview url="http://pano37.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413554/imgs/preview.jpg" />
         <image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
-					<level tiledimagewidth="1664" tiledimageheight="1664">
+					<!-- <level tiledimagewidth="1664" tiledimageheight="1664">
                 <cube url="http://pano37.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413554/imgs/%s/l2/%v/l2_%s_%v_%h.jpg" />
-            </level>
+            </level> -->
 			<level tiledimagewidth="768" tiledimageheight="768">
                 <cube url="http://pano37.qncdn.720static.com/resource/prod/116333eds1y/d0djOdtyzu8/10413554/imgs/%s/l1/%v/l1_%s_%v_%h.jpg" />
             </level>
