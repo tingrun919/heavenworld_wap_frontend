@@ -4,8 +4,8 @@
 <template>
 	<mt-tabbar v-model="selected">
 		<mt-tab-item id="panoramic" @click.native="handlePraise">
-			<img slot="icon" v-if="selectP" src="../../../../assets/information-img/like.png"> 
-			<img slot="icon" v-if="!selectP" src="../../../../assets/information-img/like-in.png">{{praiseCount}}人点赞
+			<img slot="icon" v-if="selectP" src="../../../../assets/information-img/like-in.png">{{count}}人点赞
+			<img slot="icon" v-if="!selectP" src="../../../../assets/information-img/like.png"> 
 		</mt-tab-item>
 		<mt-tab-item id="information" @click.native="share">
 			<img slot="icon" src="../../../../assets/information-img/share.png"> 分享
@@ -29,27 +29,19 @@
 				selected: '',
 				resultData: [],
 				selectColl:false,
-				selectP:this.$store.state.app.information.praiseState == 1 ? true : false,
+				selectP: false,
+				count:0,
 			}
 		},
 		computed: {
-			praiseCount() {
-				return this.$store.state.app.information.praiseCount
-			},
 			commentCount() {
 				return this.$store.state.app.information.commentCount
 			}
 		},
 		beforeMount() {
-			this.$nextTick(() => {
-				let setStatusI = this.$store.state.app.statusI
-				if (setStatusI == 1) {
-					this.selectColl = true
-				} else {
-					this.selectColl = false
-				}
-			})
 			setTimeout(() => {
+				this.count = this.$store.state.app.information.praiseCount
+				this.selectP = this.$store.state.app.information.praiseState == 1 ? true : false
 				let setStatusI = this.$store.state.app.statusI
 				if (setStatusI == 1) {
 					this.selectColl = true
@@ -88,7 +80,11 @@
 				this.resultData = this.$store.state.app.information
 				if (this.resultData.praiseState == 0) {
 					if (this.$store.state.app.userToken && this.$store.state.app.userId) {
-						this.handlePraiseNetWork(this.$store.state.app.userToken, this.resultData.infoId, this.$store.state.app.userId)
+						this.handlePraiseNetWork(this.$store.state.app.userToken, this.resultData.infoId, this.$store.state.app.userId).then(() => {
+							this.selectP = true
+							this.count =  new Number(this.count + 1)
+							this.resultData.praiseState = 1
+						})
 					} else {
 						Toast('请先登录！');
 					}

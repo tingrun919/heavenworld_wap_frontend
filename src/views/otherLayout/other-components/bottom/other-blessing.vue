@@ -44,14 +44,6 @@
 			}
 		},
 		beforeMount() {
-			this.$nextTick(() => {
-				let status = this.$store.state.app.status
-				if (status == 1) {
-					this.selectColl = true
-				} else {
-					this.selectColl = false
-				}
-			})
 			setTimeout(() => {
 				let status = this.$store.state.app.status
 				if (status == 1) {
@@ -59,7 +51,7 @@
 				} else {
 					this.selectColl = false
 				}
-			},2000)
+			},900)
 
 			// this.selected = this.$route.name
 			// this.$emit("handleBottombar",this.selected)
