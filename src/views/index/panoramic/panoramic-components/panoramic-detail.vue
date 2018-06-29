@@ -35,7 +35,7 @@
 						<img src="../../../../assets/panoramic-img/panoramic-blessing-close1.png" @click="handleCancelComment" width="30" height="30">
 					</div>
 					<div>
-						<img src="../../../../assets/panoramic-img/panoramic-blessing-confirm.png" @click="handleComment" width="30" height="30">
+						<img src="../../../../assets/panoramic-img/panoramic-blessing-confirm.png" @click="handleHastoken" width="30" height="30">
 					</div>
 				</div>
 				<div class="blessing-text" v-bind:style="{backgroundImage: 'url(' + dataSwipe[chioseImg].img + ')'}">
@@ -182,6 +182,7 @@
 					}
 				],
 				panoramicInfo: [],
+				token: '',
 			}
 		},
 		computed: {
@@ -206,6 +207,11 @@
 		},
 		mounted() {
 			let from = this.$route.query.from
+			let token = this.$route.query.token
+			if (!token) {
+				token = ''
+			}
+			this.$store.commit('setUserToken', token);
 			if (from == 'ios') {
 				this.$store.commit('setCurrentPageFromIos', true);
 				this.$store.commit('setCurrentPageFromAndroid', false);
@@ -240,6 +246,10 @@
 			this.$bridge.registerHandler("toAffiliation", () => {
 				this.toAffiliation()
 			})
+
+			this.$bridge.registerHandler("giveToken", (data) => {
+				this.giveToken1(data)
+			})
 			embedpano({ swf: "../../../../static/vtour/tour.swf", xml: `../../../../static/vtour/tour${this.$route.params.id}.xml`, target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true });
 		},
 		created() {
@@ -248,6 +258,7 @@
 			window.handleMusicPause = this.handleMusicPause;
 			window.handleDoshare = this.handleDoshare;
 			window.toAffiliation = this.toAffiliation;
+			window.giveToken = this.giveToken;
 		},
 		methods: {
 			getPanoramicAction(param) {
@@ -322,6 +333,27 @@
 					this.$refs.audioTag.pause()
 				}
 			},
+			handleHastoken() {
+				let from = this.$route.query.from
+				if (from == 'ios') {
+					this.$bridge.callHandler('getToken', {}, (data) => { })
+				} else if (from == 'android') {
+					android.getToken();
+				} else {
+				}
+			},
+			giveToken(token) {
+				if (token) {
+					this.token = token
+					this.handleComment()
+				}
+			},
+			giveToken1(token){
+				if (token.token) {
+					this.token = token.token
+					this.handleComment()
+				}
+			},
 			handleComment() {
 				var id = this.$route.params.id
 				var krpano = document.getElementById('krpanoSWFObject');
@@ -331,7 +363,7 @@
 				if (this.$refs.divContent.innerText.length >= 140) {
 					Toast('最大限制输入为140个字！');
 				} else {
-					this.handleAddcomment(id, ath, atv, sname, this.dataSwipe[this.chioseImg].img).then(() => {
+					this.handleAddcomment(id, ath, atv, sname, this.dataSwipe[this.chioseImg].img, this.token).then(() => {
 						this.handleBlessingAction = !this.handleBlessingAction
 						this.showRedenvelope = false;
 						this.showModel = false;
