@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-26 15:06:41 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-04-13 17:28:22
+ * @Last Modified time: 2018-06-28 14:42:24
  */
 <style scoped lang="less">
 	@import './other.less';
@@ -20,7 +20,7 @@
 		<div class="other-navbar">
 			<other-Bottom v-if="currentRouteName == 'information_view'"></other-Bottom>
 			<other-Panoramic v-if="currentRouteName == 'panoramic_view'"></other-Panoramic>
-			<other-Blessing v-if="currentRouteName == 'blessing_view'"></other-Blessing>
+			<other-Blessing v-if="currentRouteName == 'blessing_view'" @handleColl="getAAA"></other-Blessing>
 		</div>
 	</div>
 </template>
@@ -134,7 +134,9 @@
 			}
 		},
 		methods: {
-
+			getAAA(isShow){
+				console.log(isShow)
+			}
 		},
 	}
 </script>

@@ -6,11 +6,11 @@
 	<div class="blessing-detail-comment">
 		<div class="blessing-messages-list">
 			<div class="user-info">
-				<div class="user-info-left" @click="handlePush('name',item.comId)">
-					<img src="../../../../../assets/mine-icon/mine-custom.png" width="25" height="25">
+				<div class="user-info-left">
+					<img :src="item.staffPortrait" @click="handlePush('name',item.comUserid)" width="25" height="25">
 					<span>{{item.staffName}}:
 						<span v-if="item.comPcomid" style="color:#3d3d3d;">回应</span>
-						<span v-if="item.comPcomid">{{item.staffName1}}</span>
+						<span v-if="item.comPcomid" @click="handlePush('name',item.pStaffid)">{{item.staffName1}}</span>
 					</span>
 				</div>
 				<div class="user-info-right">

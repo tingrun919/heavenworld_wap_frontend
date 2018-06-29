@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:48 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-05-16 15:23:04
+ * @Last Modified time: 2018-06-29 10:35:24
  */
 
 import Main from '@/views/Main.vue';
@@ -54,7 +54,7 @@ export const otherRouter = [
         ]
 	},
 	{
-        path: '/affiliation/index',
+        path: '/affiliation/:id',
 		title: '结缘榜',
 		name: 'affiliation_view', component: () => import('@/views/index/panoramic/panoramic-components/affiliation-index') 
         // component: Other,

@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-04-16 11:25:03 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-05-16 15:07:17
+ * @Last Modified time: 2018-06-28 22:33:55
  */
 
 
@@ -76,7 +76,7 @@
 					<div class="blessing-swiper">
 						<swiper :options="swiperOption">
 							<swiper-slide v-for="(item,index) in resultPerson" :key="item.per_id" @click.native="">
-								<img src="../../../../assets/bottom-bar-icon/mine-in.png" width="50" height="50">
+								<img src="../../../../assets/history.png" width="50" height="50">
 								<p>{{item.per_usertype == 1 ? item.staff_nickname : item.per_username}}</p>
 							</swiper-slide>
 						</swiper>
@@ -112,7 +112,7 @@
 					<div class="blessing-messages-list" v-for="item in commentList" v-else>
 						<div class="user-info">
 							<div class="user-info-left">
-								<img v-lazy="item.staffPortrait1" width="25" height="25" @click="handlePush(item.cStaffid)">
+								<img v-lazy="item.staffPortrait" width="25" height="25" @click="handlePush(item.cStaffid)">
 								<span @click="handlePush(item.cStaffid)">{{item.staffNickname}}:</span>
 							</div>
 							<div class="user-info-right">
@@ -139,7 +139,7 @@
 		<mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
 			<div class="detail-btn">
 				<mt-button type="default" size="small" @click.native="handleCancelComment">取消</mt-button>
-				<mt-button type="primary" size="small" @click.native="handleComment">评论</mt-button>
+				<mt-button type="primary" size="small" @click.native="handleHastoken">评论</mt-button>
 			</div>
 			<mt-field placeholder="请输入评论内容" type="textarea" :attr="{ maxlength: 140 }" rows="6" v-model="introduction"></mt-field>
 		</mt-popup>
@@ -182,6 +182,8 @@
 				sheetVisible: false,
 				panoPicture: [],
 				introduction: '',
+				token:'',
+				status:''
 			}
 		},
 		computed: {
@@ -190,7 +192,15 @@
 			},
 		},
 		mounted() {
-			// let from = this.$route.query.from
+			let from = this.$route.query.from
+			let token = this.$store.state.app.userToken
+			if(!token){
+				token = ''
+			}
+			//获取全景信息
+			this.getSinglePanoramic(this.$route.params.id, token).then(() => {
+				this.$store.commit('setStatus', this.status);
+			})
 			// if (from == 'ios') {
 			// 	this.$store.commit('setCurrentPageFromIos', true);
 			// 	this.$store.commit('setCurrentPageFromAndroid', false);
@@ -214,6 +224,9 @@
 				method: this.toPanoramic
 			}
 			]
+			this.$bridge.registerHandler("giveToken", (data) => {
+				this.giveToken1(data)
+			})
 		},
 		watch: {
 			popupVisible() {
@@ -222,9 +235,10 @@
 				}
 			}
 		},
+		created() {
+			window.giveToken = this.giveToken;
+		},
 		beforeMount() {
-			//获取全景信息
-			this.getSinglePanoramic(this.$route.params.id)
 			//获取全景评论列表
 			this.getSinglePanoramicCommentList(this.$route.params.id, 0, '', 5)
 			//获取相关人员
@@ -261,9 +275,30 @@
 				this.commentId = id
 				this.commentType = type
 			},
+			handleHastoken(){
+				let from = this.$route.query.from
+				if (from == 'ios') {
+					this.$bridge.callHandler('getToken', {}, (data) => { })
+				} else if (from == 'android') {
+					android.getToken();
+				} else {
+				}
+			},
+			giveToken(token){
+				if(token){
+					this.token = token
+					this.handleComment()
+				}
+			},
+			giveToken1(token){
+				if (token.token) {
+					this.token = token.token
+					this.handleComment()
+				}
+			},
 			//添加评论，回复评论
 			handleComment() {
-				this.addComment('21232f297a57a5a743894a0e4a801fc55', this.$route.params.id, this.commentId, this.introduction, this.commentType).then(res => {
+				this.addComment(this.token, this.$route.params.id, this.commentId, this.introduction, this.commentType).then(res => {
 					this.handleCancelComment()
 					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
 						this.getSinglePanoramicCommentList(this.$route.params.id, 0, '', 5)
@@ -311,7 +346,7 @@
 				if (this.$store.state.app.currentPageFromIos) {
 					this.$bridge.callHandler('handlePush', { 'to': 'otherUserCenter', 'id': `${id}` }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					// android.showVideo();
+					android.otherUserCenter(`${id}`);
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}

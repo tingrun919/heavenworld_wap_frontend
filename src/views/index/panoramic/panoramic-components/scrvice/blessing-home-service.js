@@ -4,10 +4,11 @@ const api = new API()
 export default {
 	methods: {
 		//获取某个全景的信息
-		getSinglePanoramic(panoid) {
-			return api.get(`banaworld_show/nopano/selOnePano?panoid=${panoid}`)
+		getSinglePanoramic(panoid, token) {
+			return api.get(`banaworld_show/nopano/selOnePano?panoid=${panoid}&token=${token}`)
 				.then(res => {
 					this.resultData = res.data.data[0]
+					this.status = res.data.data[0].shoucang
 					this.panoPicture = this.resultData.panoPicture.split(",")
 				})
 				.catch(err => {

@@ -4,15 +4,15 @@
 <template>
 	<mt-tabbar v-model="selected">
 		<mt-tab-item id="panoramic" @click.native="handlePraise">
-			<img slot="icon" v-if="!(selected === 'panoramic')" src="../../../../assets/information-img/like.png"> 
-			<img slot="icon" v-if="selected === 'panoramic'" src="../../../../assets/information-img/like-in.png">{{praiseCount}}人点赞
+			<img slot="icon" v-if="selectP" src="../../../../assets/information-img/like.png"> 
+			<img slot="icon" v-if="!selectP" src="../../../../assets/information-img/like-in.png">{{praiseCount}}人点赞
 		</mt-tab-item>
 		<mt-tab-item id="information" @click.native="share">
 			<img slot="icon" src="../../../../assets/information-img/share.png"> 分享
 		</mt-tab-item>
-		<mt-tab-item id="find" @click.native="handleBottombar('find')">
-			<img slot="icon" v-if="!(selected === 'find')" src="../../../../assets/information-img/collection.png">
-			<img slot="icon" v-if="selected === 'find'" src="../../../../assets/information-img/collection-in.png"> 收藏
+		<mt-tab-item id="find" @click.native="handleBottombar">
+			<img slot="icon" v-if="!selectColl" src="../../../../assets/information-img/collection.png">
+			<img slot="icon" v-if="selectColl" src="../../../../assets/information-img/collection-in.png"> 收藏
 		</mt-tab-item>
 		<mt-tab-item id="mine" @click.native="handleCommentList">
 			<img slot="icon" src="../../../../assets/information-img/comment.png">{{commentCount}}人评论
@@ -28,6 +28,8 @@
 			return {
 				selected: '',
 				resultData: [],
+				selectColl:false,
+				selectP:this.$store.state.app.information.praiseState == 1 ? true : false,
 			}
 		},
 		computed: {
@@ -38,13 +40,36 @@
 				return this.$store.state.app.information.commentCount
 			}
 		},
+		beforeMount() {
+			this.$nextTick(() => {
+				let setStatusI = this.$store.state.app.statusI
+				if (setStatusI == 1) {
+					this.selectColl = true
+				} else {
+					this.selectColl = false
+				}
+			})
+			setTimeout(() => {
+				let setStatusI = this.$store.state.app.statusI
+				if (setStatusI == 1) {
+					this.selectColl = true
+				} else {
+					this.selectColl = false
+				}
+			},900)
+		},
 		methods: {
 			handleBottombar(bottombar) {
-				// this.$emit("handleBottombar",bottombar)
+				let token = this.$store.state.app.userToken
+				this.handleAddCollect(token, this.$route.params.id, 2, this.selectColl ? 0 : 1).then(() => {
+					this.selectColl = !this.selectColl
+					this.$store.commit('setStatusI', this.selectColl ? 0 : 1);
+				})
 			},
 			//跳转到评论列表
 			handleCommentList() {
-				let argu = { id: this.$route.params.id };
+				let from = this.$route.query.from
+				let argu = { id: this.$route.params.id ,from:from};
 				this.$router.push({
 					name: 'information_comment',
 					params: argu
@@ -60,16 +85,16 @@
 				}
 			},
 			handlePraise() {
-				// this.resultData = this.$store.state.app.information
-				// if (this.resultData.praiseState == 0) {
-				// 	if (this.$store.state.app.userToken && this.$store.state.app.userId) {
-				// 		this.handlePraiseNetWork(this.$store.state.app.userToken, this.resultData.infoId, this.$store.state.app.userId)
-				// 	} else {
-				// 		Toast('请先登录！');
-				// 	}
-				// } else {
-				// 	Toast('您已经点过赞啦～');
-				// }
+				this.resultData = this.$store.state.app.information
+				if (this.resultData.praiseState == 0) {
+					if (this.$store.state.app.userToken && this.$store.state.app.userId) {
+						this.handlePraiseNetWork(this.$store.state.app.userToken, this.resultData.infoId, this.$store.state.app.userId)
+					} else {
+						Toast('请先登录！');
+					}
+				} else {
+					Toast('您已经点过赞啦～');
+				}
 			}
 		}
 	}

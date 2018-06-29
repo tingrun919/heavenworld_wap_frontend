@@ -148,7 +148,7 @@
 			<mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
 				<div class="detail-btn">
 					<mt-button type="default" size="small" @click.native="handleCancelComment">取消</mt-button>
-					<mt-button type="primary" size="small" @click.native="handleComment">评论</mt-button>
+					<mt-button type="primary" size="small" @click.native="handleHastoken">评论</mt-button>
 				</div>
 				<mt-field placeholder="请输入评论内容" type="textarea" :attr="{ maxlength: 140 }" rows="6" v-model="introduction"></mt-field>
 			</mt-popup>
@@ -219,6 +219,9 @@
 			this.$bridge.registerHandler("handleCloseVideo", () => {
 				this.closeVideo()
 			})
+			this.$bridge.registerHandler("giveToken", (data) => {
+				this.giveToken1(data)
+			})
 		},
 		beforeMount() {
 			this.getBlessingOne(this.$route.params.id)
@@ -240,6 +243,7 @@
 		created() {
 			window.handleDoshare = this.handleDoshare;
 			window.handleCloseVideo = this.handleCloseVideo;
+			window.giveToken = this.giveToken;
 		},
 		data() {
 			return {
@@ -279,6 +283,7 @@
 				showRed: false,
 				redDetailGrab:[],
 				scnenname:'',
+				token:'',
 			}
 		},
 		methods: {
@@ -329,9 +334,30 @@
 				this.commentId = id
 				this.commentType = type
 			},
+			handleHastoken(){
+				let from = this.$route.query.from
+				if (from == 'ios') {
+					this.$bridge.callHandler('getToken', {}, (data) => { })
+				} else if (from == 'android') {
+					android.getToken();
+				} else {
+				}
+			},
+			giveToken(token){
+				if(token){
+					this.token = token
+					this.handleComment()
+				}
+			},
+			giveToken1(token){
+				if (token.token) {
+					this.token = token.token
+					this.handleComment()
+				}
+			},
 			//添加评论，回复评论
 			handleComment() {
-				this.addComment('21232f297a57a5a743894a0e4a801fc55', this.resultData.prayPanoid, this.commentId, this.introduction, this.commentType, this.resultData.prayId).then(res => {
+				this.addComment(this.token, this.resultData.prayPanoid, this.commentId, this.introduction, this.commentType, this.resultData.prayId).then(res => {
 					this.handleCancelComment()
 					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
 						this.getCommentList(this.$route.params.id, 1000)

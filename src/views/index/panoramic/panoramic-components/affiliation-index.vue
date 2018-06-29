@@ -7,20 +7,20 @@
 			<header-child-Comp :title="title1" :isblessing="true" :isShowRight="false" :isShowRightMore="false"></header-child-Comp>
 		</div> -->
 		<scroll ref="scroll" :scrollY="freeScroll" :scrollbar="scrollbar" :mouseWheel="mouseWheel">
-			<div class="advertising-img" @click="toAdvertising" v-bind:style="{backgroundImage: 'url(' + img + ')',height:viewHeightAdvertising}">
+			<div class="advertising-img" @click="toAdvertising" v-bind:style="{backgroundImage: 'url(' + resultValue[0].no_mainpic + ')',height:viewHeightAdvertising}">
 				<!-- <p>广告位文本限制一行</p> -->
 			</div>
-			<div class="score-main" v-for="n in 30" :key="n">
+			<div class="score-main" v-for="(item,index) in resultData" :key="index">
 				<div class="score-main-left">
-					<span>{{n}}</span>
-					<img src="../../../../assets/mine-icon/mine-custom.png" width="25" height="25">
-					<span>释星云</span>
+					<span>{{item.rowno}}</span>
+					<img :src="item.staffPortrait" width="25" height="25">
+					<span>{{item.staffNickname}}</span>
 				</div>
 				<div class="score-main-right">
-					<span>{{Math.floor(Math.random() * (10-0) + 0)*1000,}}</span>
+					<span>{{item.inIntegral}}</span>
 					<div class="score-main-right-title">
-						<span>1.2w</span>
-						<img src="../../../../assets/score-img/heart-in.png" width="15" height="15">
+						<span>{{item.staffType}}</span>
+						<img src="../../../../assets/score-img/heart-in.png" width="15" height="15" @click="handledz(item.inUserid)">
 					</div>
 				</div>
 			</div>
@@ -33,8 +33,10 @@
 	import { MessageBox } from 'mint-ui';
 	import { Toast } from 'mint-ui';
 	import img2 from '../../../../assets/view/timg8.jpg'
+	import affiliationIndexService from './scrvice/affiliation-index-service.js'
 
 	export default {
+		mixins:[affiliationIndexService],
 		components: {
 			Scroll,
 			headerChildComp,
@@ -52,7 +54,8 @@
 
 		},
 		beforeMount() {
-
+			this.getSingleAffiliation(this.$route.params.id, this.$store.state.app.userToken)
+			this.getPanoNotice()
 		},
 		watch: {
 
@@ -67,6 +70,8 @@
 				mouseWheel: true,
 				title1: '我的结缘榜',
 				img: img2,
+				resultData:[],
+				resultValue:[],
 			}
 		},
 		methods: {
@@ -74,6 +79,14 @@
 				this.$router.push({
 					name: 'advertising_view'
 				});
+			},
+			handledz(userId){
+				this.dzApi(userId).then(res => {
+					if(res.code == 100000){
+						Toast('点赞成功！')
+						this.getSingleAffiliation(this.$route.params.id, this.$store.state.app.userToken)
+					}
+				})
 			}
 		}
 	}

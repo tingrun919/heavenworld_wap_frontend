@@ -1,9 +1,5 @@
-/*
- * @Author: tarn.tianrun 
- * @Date: 2018-03-21 13:53:50 
- * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-04-16 11:34:06
- */
+/* * @Author: tarn.tianrun * @Date: 2018-03-21 13:53:50 * @Last Modified by: tarn.tianrun * @Last Modified time: 2018-06-28
+20:46:01 */
 
 <style scoped lang="less">
 	@import './information-comment.less';
@@ -33,7 +29,7 @@
 		<mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
 			<div class="detail-btn">
 				<mt-button type="default" size="small" @click.native="handleCancelComment">取消</mt-button>
-				<mt-button type="primary" size="small" @click.native="handleCommentApi">评论</mt-button>
+				<mt-button type="primary" size="small" @click.native="handleHastoken">评论</mt-button>
 			</div>
 			<mt-field placeholder="请输入评论内容" type="textarea" :attr="{ maxlength: 140 }" rows="6" v-model="introduction"></mt-field>
 		</mt-popup>
@@ -72,13 +68,20 @@
 				commentId: '',
 				commentType: '',
 				introduction: '',
+				token: '',
+				from: '',
 			}
 		},
 		created() {
 			// this.items = this.tabType
+			window.giveToken = this.giveToken;
 		},
 		beforeMount() {
+			this.from = this.$route.params.from
 			this.getInformationCommentList(this.$route.params.id)
+			this.$bridge.registerHandler("giveToken", (data) => {
+				this.giveToken1(data)
+			})
 		},
 		watch: {
 			// tabType() {
@@ -181,7 +184,9 @@
 			//type：2 -> 回复
 			clickItem(param) {
 				if (param[0] == 'name') {
-
+					this.handlePush(param[1])
+				} else if (param[0] == 'name1') {
+					this.handlePush(param[1])
 				} else {
 					this.popupVisible = true
 					this.commentId = param[1]
@@ -192,13 +197,42 @@
 			handleCancelComment() {
 				this.popupVisible = false
 			},
+			handleHastoken() {
+				if (this.from == 'ios') {
+					this.$bridge.callHandler('getToken', {}, (data) => { })
+				} else if (this.from == 'android') {
+					android.getToken();
+				} else {
+				}
+			},
+			giveToken(token) {
+				if (token) {
+					this.token = token
+					this.handleCommentApi()
+				}
+			},
+			giveToken1(token) {
+				if (token.token) {
+					this.token = token.token
+					this.handleCommentApi()
+				}
+			},
 			handleComment() {
 				this.popupVisible = true
 				this.commentId = 0
 				this.commentType = 0
 			},
+			handlePush(id) {
+				if (this.$store.state.app.currentPageFromIos) {
+					this.$bridge.callHandler('handlePush', { 'to': 'otherUserCenter', 'id': `${id}` }, (data) => { })
+				} else if (this.$store.state.app.currentPageFromAndroid) {
+					android.otherUserCenter(`${id}`);
+				} else {
+					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+				}
+			},
 			handleCommentApi() {
-				this.addComment('21232f297a57a5a743894a0e4a801fc55', this.$route.params.id, this.commentType == 1 ? this.commentId : 0, this.introduction, this.commentType).then(res => {
+				this.addComment(this.token, this.$route.params.id, this.commentType == 1 ? this.commentId : 0, this.introduction, this.commentType).then(res => {
 					this.handleCancelComment()
 					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
 						this.getInformationCommentList(this.$route.params.id)

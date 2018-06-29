@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-02-07 16:26:54 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-21 10:47:06
+ * @Last Modified time: 2018-06-28 21:35:19
  */
 
 const app = {
@@ -14,6 +14,8 @@ const app = {
 		panoramic:[],
 		userToken:'',
 		userId:'',
+		status:'',
+		statusI:'',
 	},
 	mutations: {
 		setCurrentPageName(state, name) {
@@ -36,6 +38,12 @@ const app = {
 		},
 		setUserId(state, name){
 			state.userId = name;
+		},
+		setStatus(state, name){
+			state.status = name;
+		},
+		setStatusI(state, name){
+			state.statusI = name;
 		}
 	}
 };
