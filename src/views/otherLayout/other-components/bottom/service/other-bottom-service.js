@@ -6,7 +6,7 @@ export default {
 		handlePraiseNetWork(token, praInfoid, praUserid) {
 			return api.get(`banaworld_show/info/addInformationPraise?token=${token}&praInfoid=${praInfoid}&praUserid=${praUserid}`)
 				.then(res => {
-					alert(res)
+					return res.data.data
 					// this.resultData = res.data.data
 					// Toast(res.data.message);
 				})

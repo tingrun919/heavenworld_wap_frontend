@@ -96,7 +96,7 @@
 							</transition>
 							<div class="red-info-balance">
 								<img src="../../../../assets/panoramic-img/panoramic-balance.png" width="25" height="25">
-								<span>账户余额:222.24</span>
+								<span>账户余额:{{yue}}</span>
 							</div>
 							<div class="red-info-btn">
 								<mt-button type="danger" @click="confirmRed">塞进红包</mt-button>
@@ -183,6 +183,7 @@
 				],
 				panoramicInfo: [],
 				token: '',
+				yue: '',
 			}
 		},
 		computed: {
@@ -215,6 +216,9 @@
 			if (from == 'ios') {
 				this.$store.commit('setCurrentPageFromIos', true);
 				this.$store.commit('setCurrentPageFromAndroid', false);
+				this.$bridge.callHandler('hasToken', {}, (data) => {
+					this.yue = data.yue
+				})
 			} else if (from == 'android') {
 				this.$store.commit('setCurrentPageFromAndroid', true);
 				this.$store.commit('setCurrentPageFromIos', false);
@@ -348,7 +352,7 @@
 					this.handleComment()
 				}
 			},
-			giveToken1(token){
+			giveToken1(token) {
 				if (token.token) {
 					this.token = token.token
 					this.handleComment()
@@ -363,12 +367,16 @@
 				if (this.$refs.divContent.innerText.length >= 140) {
 					Toast('最大限制输入为140个字！');
 				} else {
-					this.handleAddcomment(id, ath, atv, sname, this.dataSwipe[this.chioseImg].img, this.token).then(() => {
-						this.handleBlessingAction = !this.handleBlessingAction
-						this.showRedenvelope = false;
-						this.showModel = false;
-						panoramic.cancel_comment();
-						this.getCommentList(id, sname)
+					this.handleAddcomment(id, ath, atv, sname, this.dataSwipe[this.chioseImg].img, this.token).then(res => {
+						if (res.code == 100000) {
+							this.handleBlessingAction = !this.handleBlessingAction
+							this.showRedenvelope = false;
+							this.showModel = false;
+							panoramic.cancel_comment();
+							this.getCommentList(id, sname)
+						}else{
+							Toast(res.message)
+						}
 					})
 				}
 			},

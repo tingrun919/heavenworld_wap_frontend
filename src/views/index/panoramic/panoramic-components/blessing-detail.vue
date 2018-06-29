@@ -97,7 +97,7 @@
 						<div class="info-user" :style="viewHeightUser">
 							<div class="info-user-left">
 								<img v-lazy="resultData.staffPortrait" width="25" height="25" @click="handlePush(resultData.prayStaffid)">
-								<span @click="handlePush(resultData.prayStaffid)">{{resultData.staffNickname}}（作者）</span>
+								<span @click="handlePush(resultData.prayStaffid)">{{resultData.staffNickname}}</span>
 							</div>
 							<div class="info-user-right">
 								<span>{{resultData.prayTime}} 发表</span>
