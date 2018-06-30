@@ -254,7 +254,10 @@
 			this.$bridge.registerHandler("giveToken", (data) => {
 				this.giveToken1(data)
 			})
-			embedpano({ swf: "../../../../static/vtour/tour.swf", xml: `../../../../static/vtour/tour${this.$route.params.id}.xml`, target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true });
+			setTimeout(() => {
+				embedpano({ swf: "../../../../static/vtour/tour.swf", xml: this.panoramicInfo.panoTourxml, target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true });
+			},500)
+			// embedpano({ swf: "../../../../static/vtour/tour.swf", xml: `../../../../static/vtour/tour${this.$route.params.id}.xml`, target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true });
 		},
 		created() {
 			window.handleResultAudio = this.handleResultAudio;
