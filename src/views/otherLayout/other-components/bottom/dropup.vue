@@ -5,25 +5,20 @@
 	<div class="popover popper-dropdown" style="position: absolute;  bottom: 57px; right: 2px;">
 		<div class="popover-content dropdown-content">
 			<ul class="menu-list collapse">
-				<li class="" @click="call">
+				<li class="" @click="call" v-for="item in resultList">
 					<span>
-						<a href="#/" class="">
-								<img src="../../../../assets/panoramic-img/panoramic-phone.png" width="20" height="20"> 电话
-							</a>
-					</span>
-				</li>
-				<li class="" @click="call">
-					<span>
-						<a href="#/" class="">
-								<img src="../../../../assets/panoramic-img/panoramic-reserve.png" width="20" height="20"> 预约
-							</a>
-					</span>
-				</li>
-				<li class="" @click="map">
-					<span>
-						<a href="#/" class="">
-								<img src="../../../../assets/panoramic-img/panoramic-navigation.png" width="20" height="20"> 导航
-							</a>
+						<a href="#/" class="" v-if="item.fun_type == 1">
+							<img  src="../../../../assets/panoramic-img/panoramic-phone.png" width="20" height="20">电话
+						</a>
+						<a href="#/" class="" v-if="item.fun_type == 2">
+							<img  src="../../../../assets/panoramic-img/panoramic-navigation.png" width="20" height="20">导航
+						</a>
+						<a href="#/" class="" v-if="item.fun_type == 3">
+							<img  src="../../../../assets/panoramic-img/panoramic-reserve.png" width="20" height="20">网页
+						</a>
+						<a href="#/" class="" v-if="item.fun_type == 4">
+							<img  src="../../../../assets/panoramic-img/panoramic-reserve.png" width="20" height="20">文本信息
+						</a>
 					</span>
 				</li>
 			</ul>
@@ -36,11 +31,36 @@
 	export default {
 		data() {
 			return {
-
+				resultList: []
 			}
 		},
-		props:['panoramic'],
+		computed: {
+
+		},
+		beforeMount() {
+			this.resultList = this.list
+		},
+		props: ['panoramic', 'list'],
 		methods: {
+			type () {
+				for (let i = 0; i < this.resultList.length; i++) {
+					const element = this.resultList[i];
+					switch (element.fun_type) {
+						case 1:
+							return '电话'
+							break;
+						case 2:
+							return '导航'
+							break;
+						case 3:
+							return '网址'
+							break;
+						case 4:
+							return '文本'
+							break;
+					}
+				}
+			},
 			call() {
 				if (this.$store.state.app.currentPageFromIos) {
 					this.$bridge.callHandler('call', { 'phone': '11111111111' }, (data) => { })
