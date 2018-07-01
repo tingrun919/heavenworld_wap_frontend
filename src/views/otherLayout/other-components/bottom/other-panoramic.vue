@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-03-20 18:21:49 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-03-20 22:06:24
+ * @Last Modified time: 2018-07-01 00:57:03
  */
 
 <style scoped lang="less">
@@ -25,13 +25,15 @@
 			</mt-tab-item>
 		</mt-tabbar>
 		<transition name="fade">
-			<drop-Up v-if="show" :panoramic="panoramicinfo"></drop-Up>
+			<drop-Up v-if="show" :panoramic="panoramicinfo" :list="resultList"></drop-Up>
 		</transition>
 	</div>
 </template>
 <script>
 	import dropUp from '../bottom/dropup.vue';
+	import otherPanoramic from './service/other-panoramic.js'
 	export default {
+		mixins:[otherPanoramic],
 		components: {
 			dropUp
 		},
@@ -40,11 +42,17 @@
 				selected: 'blessing',
 				show: false,
 				showScenes: false,
+				resultList:[],
 			}
 		},
 		props: [
 			'panoramicinfo'
 		],
+		beforeMount() {
+			setTimeout(() => {
+				this.getPanoFunction(this.panoramicinfo.panoId)
+			}, 500)
+		},
 		methods: {
 			handleBlessingBottom(bottombar) {
 				this.$emit("handleBlessing", bottombar)
