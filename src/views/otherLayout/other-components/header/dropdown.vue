@@ -51,9 +51,9 @@
 		methods: {
 			share() {
 				if (this.$store.state.app.currentPageFromIos) {
-					this.$bridge.callHandler('appShare', { 'title': this.$store.state.app.panoramic.panoName, 'description': this.$store.state.app.panoramic.panoSubtitle, 'url': `http://39.107.78.100${this.$route.fullPath}` }, (data) => { })
+					this.$bridge.callHandler('appShare', { 'title': this.$store.state.app.panoramic.panoName, 'description': this.$store.state.app.panoramic.panoSubtitle, 'url': `http://www.tiantangshijie.com${this.$route.fullPath}` }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.doShare(this.$store.state.app.panoramic.panoName, this.$store.state.app.panoramic.panoSubtitle, `http://39.107.78.100${this.$route.fullPath}`);
+					android.doShare(this.$store.state.app.panoramic.panoName, this.$store.state.app.panoramic.panoSubtitle, `http://www.tiantangshijie.com${this.$route.fullPath}`);
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}
