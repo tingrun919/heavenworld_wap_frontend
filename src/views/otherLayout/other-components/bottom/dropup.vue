@@ -13,11 +13,11 @@
 						<a href="#/" class="" v-if="item.fun_type == 2">
 							<img  src="../../../../assets/panoramic-img/panoramic-navigation.png" width="20" height="20">导航
 						</a>
-						<a href="#/" class="" v-if="item.fun_type == 3">
-							<img  src="../../../../assets/panoramic-img/panoramic-reserve.png" width="20" height="20">网页
+						<a :href="item.fun_desc" class="" v-if="item.fun_type == 3">
+							<img  src="../../../../assets/panoramic-img/panoramic-int.png" width="20" height="20">网页
 						</a>
 						<a href="#/" class="" v-if="item.fun_type == 4">
-							<img  src="../../../../assets/panoramic-img/panoramic-reserve.png" width="20" height="20">文本信息
+							<img  src="../../../../assets/panoramic-img/panoramic-text.png" width="20" height="20">文本信息
 						</a>
 					</span>
 				</li>
@@ -59,6 +59,8 @@
 					} else {
 						Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 					}
+				} else if (item.fun_type == 4){
+					Toast(item.fun_desc)
 				}
 			},
 		},
