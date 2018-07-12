@@ -114,7 +114,7 @@ function getMusciList() {
 
 function getMusciListApi() {
 	var prayId = window.location.pathname
-	prayId = prayId.substr(prayId.length - 1, 1)
+	prayId = prayId.split('/')[2]
 	var audio = document.getElementById("audioMusic")
 	if (!audio) {
 		$.ajax({
