@@ -79,7 +79,7 @@
 			handlePraise() {
 				this.resultData = this.$store.state.app.information
 				if (this.resultData.praiseState == 0) {
-					if (this.$store.state.app.userToken && this.$store.state.app.userId) {
+					if (this.$store.state.app.userToken) {
 						this.handlePraiseNetWork(this.$store.state.app.userToken, this.resultData.infoId, this.$store.state.app.userId).then(() => {
 							this.selectP = true
 							this.count =  new Number(this.count + 1)

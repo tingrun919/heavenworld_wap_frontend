@@ -88,6 +88,7 @@
 			} else if (from == 'android') {
 				this.$store.commit('setCurrentPageFromAndroid', true);
 				this.$store.commit('setCurrentPageFromIos', false);
+				android.getToken();
 			} else {
 				this.$store.commit('setCurrentPageFromAndroid', false);
 				this.$store.commit('setCurrentPageFromIos', false);
@@ -123,8 +124,14 @@
 		},
 		created() {
 			window.changeFontSize = this.changeFontSize;
+			window.giveToken = this.giveToken;
 		},
 		methods: {
+			giveToken(token) {
+				if (token) {
+					this.$store.commit('setUserToken', token);
+				}
+			},
 			changeFontSize(font) {
 				this.fontSize = font
 			},

@@ -8,7 +8,7 @@ var comment_list = new Array();
 //获取某scene下的所有祈福
 function getComment() {
 	var prayId = window.location.pathname
-	prayId = prayId.substr(prayId.length - 1, 1)
+	prayId = prayId.split('/')[2]
 	var krpano = document.getElementById('krpanoSWFObject');
 	//取得当前scene
 	var s = krpano.get("scene[get(xml.scene)].name");
