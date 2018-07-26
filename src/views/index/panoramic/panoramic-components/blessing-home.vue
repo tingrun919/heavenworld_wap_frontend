@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-04-16 11:25:03 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-06-28 22:33:55
+ * @Last Modified time: 2018-07-26 11:47:22
  */
 
 
@@ -76,7 +76,7 @@
 					<div class="blessing-swiper">
 						<swiper :options="swiperOption">
 							<swiper-slide v-for="(item,index) in resultPerson" :key="item.per_id" @click.native="">
-								<img src="../../../../assets/history.png" width="50" height="50">
+								<img :src="item.per_portrait" width="50" height="50">
 								<p>{{item.per_usertype == 1 ? item.staff_nickname : item.per_username}}</p>
 							</swiper-slide>
 						</swiper>
