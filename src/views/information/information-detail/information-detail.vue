@@ -88,7 +88,7 @@
 			} else if (from == 'android') {
 				this.$store.commit('setCurrentPageFromAndroid', true);
 				this.$store.commit('setCurrentPageFromIos', false);
-				android.getToken();
+				android.getToken2();
 			} else {
 				this.$store.commit('setCurrentPageFromAndroid', false);
 				this.$store.commit('setCurrentPageFromIos', false);
@@ -125,11 +125,18 @@
 		created() {
 			window.changeFontSize = this.changeFontSize;
 			window.giveToken = this.giveToken;
+			window.giveToken2 = this.giveToken2;
 		},
 		methods: {
 			giveToken(token) {
 				if (token) {
 					this.$store.commit('setUserToken', token);
+				}
+			},
+			giveToken2(token) {
+				if (token) {
+					this.$store.commit('setUserToken', token);
+					this.token = token
 				}
 			},
 			changeFontSize(font) {

@@ -5,7 +5,7 @@
 	<mt-tabbar v-model="selected">
 		<mt-tab-item id="panoramic" @click.native="handlePraise">
 			<img slot="icon" v-if="selectP" src="../../../../assets/information-img/like-in.png">{{count}}人点赞
-			<img slot="icon" v-if="!selectP" src="../../../../assets/information-img/like.png"> 
+			<img slot="icon" v-if="!selectP" src="../../../../assets/information-img/like.png">
 		</mt-tab-item>
 		<mt-tab-item id="information" @click.native="share">
 			<img slot="icon" src="../../../../assets/information-img/share.png"> 分享
@@ -28,10 +28,13 @@
 			return {
 				selected: '',
 				resultData: [],
-				selectColl:false,
+				selectColl: false,
 				selectP: false,
-				count:0,
+				count: 0,
 			}
+		},
+		created() {
+			window.giveToken = this.giveToken;
 		},
 		computed: {
 			commentCount() {
@@ -48,20 +51,24 @@
 				} else {
 					this.selectColl = false
 				}
-			},900)
+			}, 900)
 		},
 		methods: {
 			handleBottombar(bottombar) {
 				let token = this.$store.state.app.userToken
-				this.handleAddCollect(token, this.$route.params.id, 2, this.selectColl ? 0 : 1).then(() => {
-					this.selectColl = !this.selectColl
-					this.$store.commit('setStatusI', this.selectColl ? 0 : 1);
-				})
+				if (token) {
+					this.handleAddCollect(token, this.$route.params.id, 2, this.selectColl ? 0 : 1).then(() => {
+						this.selectColl = !this.selectColl
+						this.$store.commit('setStatusI', this.selectColl ? 0 : 1);
+					})
+				} else {
+					android.getToken()
+				}
 			},
 			//跳转到评论列表
 			handleCommentList() {
 				let from = this.$route.query.from
-				let argu = { id: this.$route.params.id ,from:from};
+				let argu = { id: this.$route.params.id, from: from };
 				this.$router.push({
 					name: 'information_comment',
 					params: argu
@@ -71,9 +78,14 @@
 				if (this.$store.state.app.currentPageFromIos) {
 					this.$bridge.callHandler('appShare', { 'title': this.$store.state.app.information.infoTitle, 'description': this.$store.state.app.information.infoSubtitle, 'url': `http://www.tiantangshijie.com${this.$route.path}` }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.doShare(this.$store.state.app.information.infoTitle, this.$store.state.app.information.infoSubtitle == null ? '' : this.$store.state.app.information.infoSubtitle , `http://www.tiantangshijie.com${this.$route.path}`);
+					android.doShare(this.$store.state.app.information.infoTitle, this.$store.state.app.information.infoSubtitle == null ? '' : this.$store.state.app.information.infoSubtitle, `http://www.tiantangshijie.com${this.$route.path}`);
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+				}
+			},
+			giveToken(token) {
+				if (token) {
+					this.$store.commit('setUserToken', token);
 				}
 			},
 			handlePraise() {
@@ -82,11 +94,11 @@
 					if (this.$store.state.app.userToken) {
 						this.handlePraiseNetWork(this.$store.state.app.userToken, this.resultData.infoId, this.$store.state.app.userId).then(() => {
 							this.selectP = true
-							this.count =  new Number(this.count + 1)
+							this.count = Number(this.count) + 1
 							this.resultData.praiseState = 1
 						})
 					} else {
-						Toast('请先登录！');
+						android.getToken()
 					}
 				} else {
 					Toast('您已经点过赞啦～');
