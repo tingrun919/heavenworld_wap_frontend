@@ -48,7 +48,7 @@
 					<span>发了一个红包，金额随机</span>
 				</div>
 				<div class="red-detail-money">
-					<span>{{redDetailGrab.grab[0].grabMoney}}</span>
+					<span>{{edu}}</span>
 					<span>元</span>
 				</div>
 				<div class="red-detail-item">
@@ -57,7 +57,7 @@
 				<div class="red-detail-child">
 					<span>领取{{redDetailGrab.money[0].monNumber - redDetailGrab.money[0].monRenumber}}/{{redDetailGrab.money[0].monNumber}}个</span>
 				</div>
-				<div class="red-detail-details" v-for="item in redDetailGrab.grab">
+				<div class="red-detail-details" v-for="(item,index) in redDetailGrab.grab">
 					<div style="display:flex;align-items:center;">
 						<img :src="item.staffPortrait" width="30" height="30">
 						<div class="details-red">
@@ -66,7 +66,7 @@
 						</div>
 					</div>
 					<div>
-						<span>{{redDetailGrab.grab[0].grabMoney}}元</span>
+						<span>{{redDetailGrab.grab[index].grabMoney}}元</span>
 					</div>
 				</div>
 			</div>
@@ -122,7 +122,7 @@
 					<div class="blessing-messages-list" v-for="item in commentList" v-else>
 						<div class="user-info">
 							<div class="user-info-left">
-								<img v-lazy="item.staffPortrait1" width="25" height="25" @click="handlePush(item.cStaffid)">
+								<img v-lazy="item.staffPortrait" width="25" height="25" @click="handlePush(item.cStaffid)">
 								<span @click="handlePush(item.cStaffid)">{{item.staffNickname}}:</span>
 							</div>
 							<div class="user-info-right">
@@ -208,6 +208,7 @@
 				} else if (from == 'android') {
 					this.$store.commit('setCurrentPageFromAndroid', true);
 					this.$store.commit('setCurrentPageFromIos', false);
+					android.getToken2()
 				} else {
 					this.$store.commit('setCurrentPageFromAndroid', false);
 					this.$store.commit('setCurrentPageFromIos', false);
@@ -244,6 +245,7 @@
 			window.handleDoshare = this.handleDoshare;
 			window.handleCloseVideo = this.handleCloseVideo;
 			window.giveToken = this.giveToken;
+			window.giveToken2 = this.giveToken2;
 		},
 		data() {
 			return {
@@ -284,9 +286,16 @@
 				redDetailGrab:[],
 				scnenname:'',
 				token:'',
+				edu:'',
 			}
 		},
 		methods: {
+			giveToken2(token) {
+				if (token) {
+					this.$store.commit('setUserToken', token);
+					this.token = token
+				}
+			},
 			playAudio() {
 				if (this.$refs.audioTag.paused) {
 					this.playAudioAnimation = true
@@ -397,10 +406,11 @@
 				this.showRed = true;
 			},
 			handleRed(value) {
-				this.handleRedPackets('21232f297a57a5a743894a0e4a801fc55', this.resultData.prayId, value).then(res => {
+				this.handleRedPackets(this.token, this.resultData.prayId, value).then(res => {
 					if (res.data.code == 100000) {
-						MessageBox('提示', res.data.data)
-						this.handleRedPacketsDetail('21232f297a57a5a743894a0e4a801fc55', this.resultData.prayId)
+						// MessageBox('提示', res.data.data)
+						this.edu = res.data.data
+						this.handleRedPacketsDetail(this.token, this.resultData.prayId)
 					} else {
 						MessageBox('提示', res.data.message)
 					}

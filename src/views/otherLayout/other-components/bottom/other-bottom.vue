@@ -22,15 +22,19 @@
 <script>
 	import { Toast } from 'mint-ui';
 	import otherBottomService from './service/other-bottom-service.js'
+	import informationDetailService from '../../../information/information-detail/information-detail-service/information-detail-service.js'
+
 	export default {
-		mixins: [otherBottomService],
+		mixins: [otherBottomService, informationDetailService],
 		data() {
 			return {
 				selected: '',
+				resultValue: [],
 				resultData: [],
 				selectColl: false,
 				selectP: false,
 				count: 0,
+				token: '',
 			}
 		},
 		created() {
@@ -41,17 +45,63 @@
 				return this.$store.state.app.information.commentCount
 			}
 		},
-		beforeMount() {
+		mounted() {
 			setTimeout(() => {
-				this.count = this.$store.state.app.information.praiseCount
-				this.selectP = this.$store.state.app.information.praiseState == 1 ? true : false
-				let setStatusI = this.$store.state.app.statusI
-				if (setStatusI == 1) {
-					this.selectColl = true
+				let from = this.$route.query.from
+				if (from == 'ios') {
+					this.$store.commit('setCurrentPageFromIos', true);
+					this.$store.commit('setCurrentPageFromAndroid', false);
+					this.$bridge.callHandler('hasToken', {}, (data) => {
+						this.token = data.token
+						this.getInformationDetail(this.$route.params.id, data.token).then(() => {
+							this.count = this.resultData.praiseCount
+							this.selectP = this.resultData.praiseState == 1 ? true : false
+							let setStatusI = this.resultData.collectState
+							if (setStatusI == 1) {
+								this.selectColl = true
+							} else {
+								this.selectColl = false
+							}
+						})
+					})
+				} else if (from == 'android') {
+					this.$store.commit('setCurrentPageFromAndroid', true);
+					this.$store.commit('setCurrentPageFromIos', false);
+					android.getToken2();
 				} else {
-					this.selectColl = false
+					this.$store.commit('setCurrentPageFromAndroid', false);
+					this.$store.commit('setCurrentPageFromIos', false);
 				}
-			}, 900)
+			}, 500)
+		},
+		beforeMount() {
+			// setTimeout(() => {
+			// 	this.count = this.$store.state.app.information.praiseCount
+			// 	alert(this.count)
+			// 	this.selectP = this.$store.state.app.information.praiseState == 1 ? true : false
+			// 	let setStatusI = this.$store.state.app.statusI
+			// 	if (setStatusI == 1) {
+			// 		this.selectColl = true
+			// 	} else {
+			// 		this.selectColl = false
+			// 	}
+			// }, 1000)
+			let from = this.$route.query.from
+			if (from == 'android') {
+				setTimeout(() => {
+					let token = this.$store.state.app.userToken
+					this.getInformationDetail(this.$route.params.id, token).then(() => {
+						this.count = this.resultData.praiseCount
+						this.selectP = this.resultData.praiseState == 1 ? true : false
+						let setStatusI = this.resultData.collectState
+						if (setStatusI == 1) {
+							this.selectColl = true
+						} else {
+							this.selectColl = false
+						}
+					})
+				}, 600)
+			}
 		},
 		methods: {
 			handleBottombar(bottombar) {
@@ -89,16 +139,29 @@
 				}
 			},
 			handlePraise() {
-				this.resultData = this.$store.state.app.information
-				if (this.resultData.praiseState == 0) {
+				this.resultValue = this.$store.state.app.information
+				if (this.resultValue.praiseState == 0) {
 					if (this.$store.state.app.userToken) {
-						this.handlePraiseNetWork(this.$store.state.app.userToken, this.resultData.infoId, this.$store.state.app.userId).then(() => {
+						this.handlePraiseNetWork(this.$store.state.app.userToken, this.resultValue.infoId, this.$store.state.app.userId).then(() => {
 							this.selectP = true
 							this.count = Number(this.count) + 1
-							this.resultData.praiseState = 1
+							this.resultValue.praiseState = 1
 						})
 					} else {
-						android.getToken()
+						let from = this.$route.query.from
+						if (from == 'ios') {
+							this.$store.commit('setCurrentPageFromIos', true);
+							this.$store.commit('setCurrentPageFromAndroid', false);
+							this.$bridge.callHandler('clickZan', {}, (data) => {
+							})
+						} else if (from == 'android') {
+							this.$store.commit('setCurrentPageFromAndroid', true);
+							this.$store.commit('setCurrentPageFromIos', false);
+							android.getToken()
+						} else {
+							this.$store.commit('setCurrentPageFromAndroid', false);
+							this.$store.commit('setCurrentPageFromIos', false);
+						}
 					}
 				} else {
 					Toast('您已经点过赞啦～');

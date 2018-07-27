@@ -222,6 +222,7 @@
 			} else if (from == 'android') {
 				this.$store.commit('setCurrentPageFromAndroid', true);
 				this.$store.commit('setCurrentPageFromIos', false);
+				android.getMoney()
 			} else {
 				this.$store.commit('setCurrentPageFromAndroid', false);
 				this.$store.commit('setCurrentPageFromIos', false);
@@ -256,7 +257,7 @@
 			})
 			setTimeout(() => {
 				embedpano({ swf: "../../../../static/vtour/tour.swf", xml: this.panoramicInfo.panoTourxml, target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true });
-			},500)
+			}, 500)
 			// embedpano({ swf: "../../../../static/vtour/tour.swf", xml: `../../../../static/vtour/tour${this.$route.params.id}.xml`, target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true });
 		},
 		created() {
@@ -266,6 +267,7 @@
 			window.handleDoshare = this.handleDoshare;
 			window.toAffiliation = this.toAffiliation;
 			window.giveToken = this.giveToken;
+			window.giveMoney = this.giveMoney;
 		},
 		methods: {
 			getPanoramicAction(param) {
@@ -280,6 +282,9 @@
 			// handleEdit() {
 			// 	panoramic.show_comment();
 			// },
+			giveMoney(yue) {
+				this.yue = yue
+			},
 			changeRed() {
 				if (this.redinfo == '手气红包') {
 					this.redinfo = "口令红包"
@@ -367,6 +372,7 @@
 				var ath = $("#comment-athv").attr("data-ath")
 				var atv = $("#comment-athv").attr("data-atv")
 				var sname = krpano.get("scene[get(xml.scene)].name");
+
 				if (this.$refs.divContent.innerText.length >= 140) {
 					Toast('最大限制输入为140个字！');
 				} else {
@@ -377,11 +383,27 @@
 							this.showModel = false;
 							panoramic.cancel_comment();
 							this.getCommentList(id, sname)
-						}else{
+							this.yue = this.yue - this.redNumber
+							var from = this.$route.query.from
+							if (from == 'ios') {
+								this.$store.commit('setCurrentPageFromIos', true);
+								this.$store.commit('setCurrentPageFromAndroid', false);
+								var s = this.yue - this.redNumber
+								this.$bridge.callHandler('updateMoney', { 'red': s}, (data) => {})
+							} else if (from == 'android') {
+								this.$store.commit('setCurrentPageFromAndroid', true);
+								this.$store.commit('setCurrentPageFromIos', false);
+								android.updateMoney(this.yue - this.redNumber)
+							} else {
+								this.$store.commit('setCurrentPageFromAndroid', false);
+								this.$store.commit('setCurrentPageFromIos', false);
+							}
+						} else {
 							Toast(res.message)
 						}
 					})
 				}
+
 			},
 			handleCancelComment() {
 				//隐藏祈福功能
@@ -399,8 +421,21 @@
 				this.$refs.divContent.focus();
 			},
 			confirmRed() {
-				this.changeRedenvelope();
-				this.showOtherRed = true;
+				if (Number(this.redNumber) > Number(this.yue)) {
+					Toast('输入金额大于可用余额，请充值！');
+					let from = this.$route.query.from
+					if (from == 'ios') {
+						this.$bridge.callHandler('toRecharge', {}, (data) => {
+						})
+					} else if (from == 'android') {
+						android.toRecharge()
+					} else {
+
+					}
+				} else {
+					this.changeRedenvelope();
+					this.showOtherRed = true;
+				}
 			},
 			blessingAction() {
 				var prayId = $("#blessingDetail").attr("data-prayid");
