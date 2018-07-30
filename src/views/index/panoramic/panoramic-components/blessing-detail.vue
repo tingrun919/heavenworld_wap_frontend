@@ -96,7 +96,7 @@
 						</div>
 						<div class="info-user" :style="viewHeightUser">
 							<div class="info-user-left">
-								<img v-lazy="resultData.staffPortrait" width="25" height="25" @click="handlePush(resultData.prayStaffid)">
+								<img :src="resultData.staffPortrait" width="25" height="25" @click="handlePush(resultData.prayStaffid)">
 								<span @click="handlePush(resultData.prayStaffid)">{{resultData.staffNickname}}</span>
 							</div>
 							<div class="info-user-right">
@@ -122,7 +122,7 @@
 					<div class="blessing-messages-list" v-for="item in commentList" v-else>
 						<div class="user-info">
 							<div class="user-info-left">
-								<img v-lazy="item.staffPortrait" width="25" height="25" @click="handlePush(item.cStaffid)">
+								<img :src="item.staffPortrait" width="25" height="25" @click="handlePush(item.cStaffid)">
 								<span @click="handlePush(item.cStaffid)">{{item.staffNickname}}:</span>
 							</div>
 							<div class="user-info-right">

@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-04-16 11:25:03 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-07-26 11:47:22
+ * @Last Modified time: 2018-07-30 10:14:39
  */
 
 
@@ -112,7 +112,7 @@
 					<div class="blessing-messages-list" v-for="item in commentList" v-else>
 						<div class="user-info">
 							<div class="user-info-left">
-								<img v-lazy="item.staffPortrait" width="25" height="25" @click="handlePush(item.cStaffid)">
+								<img :src="item.staffPortrait" width="25" height="25" @click="handlePush(item.cStaffid)">
 								<span @click="handlePush(item.cStaffid)">{{item.staffNickname}}:</span>
 							</div>
 							<div class="user-info-right">
