@@ -8,9 +8,9 @@
 			<div class="user-info">
 				<div class="user-info-left">
 					<img :src="item.staffPortrait" @click="handlePush('name',item.comUserid)" width="25" height="25">
-					<span>{{item.staffName}}:
+					<span>{{item.staffNickname}}:
 						<span v-if="item.comPcomid" style="color:#3d3d3d;">回应</span>
-						<span v-if="item.comPcomid" @click="handlePush('name',item.pStaffid)">{{item.staffName1}}</span>
+						<span v-if="item.comPcomid" @click="handlePush('name',item.pStaffid)">{{item.staffNickname1}}</span>
 					</span>
 				</div>
 				<div class="user-info-right">

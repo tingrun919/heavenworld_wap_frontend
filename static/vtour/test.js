@@ -148,6 +148,9 @@ function playMusic() {
 	// myAudio.play();
 	if (isplay) {
 		myAudio.play()
+		document.addEventListener("WeixinJSBridgeReady", function () {
+			myAudio.play();
+		}, false);
 	} else {
 		// var krpano = document.getElementById('krpanoSWFObject');
 		// var name = 'soundico'
@@ -167,6 +170,9 @@ function playMusic() {
 		}
 		myAudio.src = arr[index];
 		myAudio.play();
+		document.addEventListener("WeixinJSBridgeReady", function () {
+			myAudio.play();
+		}, false);
 	}
 }
 
