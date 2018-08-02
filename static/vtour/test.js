@@ -147,10 +147,19 @@ function playMusic() {
 	myAudio.addEventListener('ended', playEndedHandler, false);
 	// myAudio.play();
 	if (isplay) {
-		myAudio.play()
-		document.addEventListener("WeixinJSBridgeReady", function () {
+		myAudio.play();
+		if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+			WeixinJSBridge.invoke('getNetworkType', {}, function (res) {
+				myAudio.play();
+			});
+		}
+		// 其他应用在click/touch时触发播放
+		document.addEventListener('click', function () {
 			myAudio.play();
-		}, false);
+		})  
+		document.addEventListener('touchstart', function () {
+			myAudio.play();
+		})
 	} else {
 		// var krpano = document.getElementById('krpanoSWFObject');
 		// var name = 'soundico'
@@ -170,9 +179,18 @@ function playMusic() {
 		}
 		myAudio.src = arr[index];
 		myAudio.play();
-		document.addEventListener("WeixinJSBridgeReady", function () {
+		if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+			WeixinJSBridge.invoke('getNetworkType', {}, function (res) {
+				myAudio.play();
+			});
+		}
+		// 其他应用在click/touch时触发播放
+		document.addEventListener('click', function () {
 			myAudio.play();
-		}, false);
+		})  
+		document.addEventListener('touchstart', function () {
+			myAudio.play();
+		})
 	}
 }
 

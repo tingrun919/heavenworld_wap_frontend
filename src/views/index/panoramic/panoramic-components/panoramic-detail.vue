@@ -127,6 +127,8 @@
 	import img6 from '../../../../assets/view/timg6.jpeg'
 	import img7 from '../../../../assets/view/timg7.jpeg'
 	import { Toast } from 'mint-ui';
+	import { MessageBox } from 'mint-ui';
+
 
 	import panoramicService from './scrvice/panoramic-detail-service.js'
 
@@ -244,6 +246,10 @@
 				document.getElementById("audioMusic").pause();
 			})
 
+			this.$bridge.registerHandler("handleMusicStart", () => {
+				document.getElementById("audioMusic").play();
+			})
+
 			this.$bridge.registerHandler("handleDoshare", () => {
 				this.handleDoshare()
 			})
@@ -264,6 +270,7 @@
 			window.handleResultAudio = this.handleResultAudio;
 			window.handleResultVideo = this.handleResultVideo;
 			window.handleMusicPause = this.handleMusicPause;
+			window.handleMusicStart = this.handleMusicStart;
 			window.handleDoshare = this.handleDoshare;
 			window.toAffiliation = this.toAffiliation;
 			window.giveToken = this.giveToken;
@@ -389,7 +396,7 @@
 								this.$store.commit('setCurrentPageFromIos', true);
 								this.$store.commit('setCurrentPageFromAndroid', false);
 								var s = this.yue - this.redNumber
-								this.$bridge.callHandler('updateMoney', { 'red': s}, (data) => {})
+								this.$bridge.callHandler('updateMoney', { 'red': s }, (data) => { })
 							} else if (from == 'android') {
 								this.$store.commit('setCurrentPageFromAndroid', true);
 								this.$store.commit('setCurrentPageFromIos', false);
@@ -422,16 +429,18 @@
 			},
 			confirmRed() {
 				if (Number(this.redNumber) > Number(this.yue)) {
-					Toast('输入金额大于可用余额，请充值！');
-					let from = this.$route.query.from
-					if (from == 'ios') {
-						this.$bridge.callHandler('toRecharge', {}, (data) => {
-						})
-					} else if (from == 'android') {
-						android.toRecharge()
-					} else {
+					MessageBox.confirm('输入金额大于可用余额，请充值！').then(action => {
+						let from = this.$route.query.from
+						if (from == 'ios') {
+							this.$bridge.callHandler('toRecharge', {}, (data) => {
+							})
+						} else if (from == 'android') {
+							android.toRecharge()
+						} else {
 
-					}
+						}
+					});
+
 				} else {
 					this.changeRedenvelope();
 					this.showOtherRed = true;
@@ -460,6 +469,9 @@
 			},
 			handleMusicPause() {
 				document.getElementById("audioMusic").pause();
+			},
+			handleMusicStart() {
+				document.getElementById("audioMusic").play();
 			},
 			handleDoshare() {
 				var krpano = document.getElementById('krpanoSWFObject');
