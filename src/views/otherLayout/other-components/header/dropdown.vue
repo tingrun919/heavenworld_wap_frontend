@@ -55,20 +55,20 @@
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.doShare(this.$store.state.app.panoramic.panoName, this.$store.state.app.panoramic.panoSubtitle, `http://www.tiantangshijie.com${this.$route.fullPath}`);
 				} else {
-					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 				}
 			},
 			reload() {
 				location.reload();
 			},
-			cancel(){
-				this.$emit("handleCancel",false)
+			cancel() {
+				this.$emit("handleCancel", false)
 			},
-			toAffiliation(){
-					this.$router.push({
-						name: 'affiliation_view'
-					});
-				}
+			toAffiliation() {
+				this.$router.push({
+					name: 'affiliation_view'
+				});
+			}
 		},
 
 

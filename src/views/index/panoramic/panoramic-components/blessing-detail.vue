@@ -17,7 +17,7 @@
 	<div>
 		<div class="blessing-detail-main" :style="{height:viewHeight}">
 			<!-- <div class="other-header"> -->
-				<!-- <header-child-Comp :title="resultData.staffNickname" :isblessing="true" :isShowRight="false" :isShowRightMore="true"></header-child-Comp> -->
+			<!-- <header-child-Comp :title="resultData.staffNickname" :isblessing="true" :isShowRight="false" :isShowRightMore="true"></header-child-Comp> -->
 			<!-- </div> -->
 			<div class="v-shadow" v-if="showVideos">
 				<img src="../../../../assets/panoramic-img/panoramic-blessing-close.png" @click="closeVideo" width="20" height="20">
@@ -25,8 +25,8 @@
 			<div class="v-shadow-red" v-if="showRed" @click="showRed = false">
 			</div>
 			<div class="v-video" v-show="showVideos">
-				<video v-if="resultData.prayVideo" playsinline webkit-playsinline id="videoPlay" ref="videoTag" controls="controls" :poster="icon" autoplay="autoplay"
-				 :width="viewWidthVideo" :height="viewHeight">
+				<video v-if="resultData.prayVideo" playsinline webkit-playsinline id="videoPlay" ref="videoTag" controls="controls" :poster="icon"
+				 autoplay="autoplay" :width="viewWidthVideo" :height="viewHeight">
 					<!-- <source src="https://banaworld.oss-cn-beijing.aliyuncs.com/video/20180411/344794581523429664513.mp4" type="video/mp4" /> -->
 					<!-- <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" /> -->
 					<source :src="resultData.prayVideo" type="video/mp4" />
@@ -283,10 +283,10 @@
 				commentType: 1,
 				commentId: '',
 				showRed: false,
-				redDetailGrab:[],
-				scnenname:'',
-				token:'',
-				edu:'',
+				redDetailGrab: [],
+				scnenname: '',
+				token: '',
+				edu: '',
 			}
 		},
 		methods: {
@@ -321,7 +321,7 @@
 				this.showVideos = false;
 				this.$bridge.callHandler('isShowVideo', { 'isOpen': '1' }, (data) => { })
 			},
-			handleCloseVideo(){
+			handleCloseVideo() {
 				this.$refs.videoTag.currentTime = 0;
 				this.$refs.videoTag.pause()
 				this.showVideos = false;
@@ -332,7 +332,9 @@
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.otherUserCenter(`${id}`);
 				} else {
-					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => {
+						window.location.href = "https://www.pgyer.com/Tpka"
+					});
 				}
 			},
 			//打开评论窗口
@@ -343,7 +345,7 @@
 				this.commentId = id
 				this.commentType = type
 			},
-			handleHastoken(){
+			handleHastoken() {
 				let from = this.$route.query.from
 				if (from == 'ios') {
 					this.$bridge.callHandler('getToken', {}, (data) => { })
@@ -352,13 +354,13 @@
 				} else {
 				}
 			},
-			giveToken(token){
-				if(token){
+			giveToken(token) {
+				if (token) {
 					this.token = token
 					this.handleComment()
 				}
 			},
-			giveToken1(token){
+			giveToken1(token) {
 				if (token.token) {
 					this.token = token.token
 					this.handleComment()
@@ -416,9 +418,9 @@
 					}
 				})
 			},
-			toPanoramic(){
+			toPanoramic() {
 				let argu = { id: this.resultData.prayPanoid };
-				let arg = { param: this.scnenname, from: this.$store.state.app.currentPageFromIos ? 'ios' : this.$store.state.app.currentPageFromAndroid ? 'android' : ''}
+				let arg = { param: this.scnenname, from: this.$store.state.app.currentPageFromIos ? 'ios' : this.$store.state.app.currentPageFromAndroid ? 'android' : '' }
 				// console.log(this.commentList[0],1)
 				this.$router.push({
 					name: 'panoramicView',
@@ -428,11 +430,13 @@
 			},
 			handleDoshare() {
 				if (this.$store.state.app.currentPageFromIos) {
-					this.$bridge.callHandler('appShare', { 'title': this.$store.state.app.panoramic.panoName, 'description': this.title+"给你分享了一个祈福", 'url': `http://www.tiantangshijie.com${this.$route.fullPath}`,'param': '' }, (data) => { })
+					this.$bridge.callHandler('appShare', { 'title': this.$store.state.app.panoramic.panoName, 'description': this.title + "给你分享了一个祈福", 'url': `http://www.tiantangshijie.com${this.$route.fullPath}`, 'param': '' }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.doShare(this.$store.state.app.panoramic.panoName, this.title+"给你分享了一个祈福", `http://www.tiantangshijie.com${this.$route.fullPath}`, '');
+					android.doShare(this.$store.state.app.panoramic.panoName, this.title + "给你分享了一个祈福", `http://www.tiantangshijie.com${this.$route.fullPath}`, '');
 				} else {
-					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => {
+						window.location.href = "https://www.pgyer.com/Tpka"
+					});
 				}
 			},
 		}

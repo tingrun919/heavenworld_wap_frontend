@@ -49,7 +49,7 @@
 					} else if (this.$store.state.app.currentPageFromAndroid) {
 						android.call(item.fun_desc);
 					} else {
-						Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+						MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 					}
 				} else if (item.fun_type == 2) {
 					if (this.$store.state.app.currentPageFromIos) {
@@ -57,9 +57,9 @@
 					} else if (this.$store.state.app.currentPageFromAndroid) {
 						android.navigation(this.panoramic.panoAddress, this.panoramic.panoLongitude, this.panoramic.panoDimension);
 					} else {
-						Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+						MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 					}
-				} else if (item.fun_type == 4){
+				} else if (item.fun_type == 4) {
 					Toast(item.fun_desc)
 				}
 			},

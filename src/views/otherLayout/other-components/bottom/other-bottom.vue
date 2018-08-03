@@ -130,7 +130,7 @@
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.doShare(this.$store.state.app.information.infoTitle, this.$store.state.app.information.infoSubtitle == null ? '' : this.$store.state.app.information.infoSubtitle, `http://www.tiantangshijie.com${this.$route.path}`);
 				} else {
-					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 				}
 			},
 			giveToken(token) {

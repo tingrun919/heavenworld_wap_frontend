@@ -1,9 +1,5 @@
-/*
- * @Author: tarn.tianrun 
- * @Date: 2018-04-16 11:25:03 
- * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-07-30 10:14:39
- */
+/* * @Author: tarn.tianrun * @Date: 2018-04-16 11:25:03 * @Last Modified by: tarn.tianrun * @Last Modified time: 2018-07-30
+10:14:39 */
 
 
 <style scoped lang="less">
@@ -31,6 +27,7 @@
 		background: #FF6600;
 		opacity: 1;
 	}
+
 	.mint-field.is-textarea .mint-cell-value {
 		margin-bottom: 10px;
 		padding: 5px;
@@ -182,8 +179,8 @@
 				sheetVisible: false,
 				panoPicture: [],
 				introduction: '',
-				token:'',
-				status:''
+				token: '',
+				status: ''
 			}
 		},
 		computed: {
@@ -194,7 +191,7 @@
 		mounted() {
 			let from = this.$route.query.from
 			let token = this.$store.state.app.userToken
-			if(!token){
+			if (!token) {
 				token = ''
 			}
 			//获取全景信息
@@ -275,7 +272,7 @@
 				this.commentId = id
 				this.commentType = type
 			},
-			handleHastoken(){
+			handleHastoken() {
 				let from = this.$route.query.from
 				if (from == 'ios') {
 					this.$bridge.callHandler('getToken', {}, (data) => { })
@@ -284,13 +281,13 @@
 				} else {
 				}
 			},
-			giveToken(token){
-				if(token){
+			giveToken(token) {
+				if (token) {
 					this.token = token
 					this.handleComment()
 				}
 			},
-			giveToken1(token){
+			giveToken1(token) {
 				if (token.token) {
 					this.token = token.token
 					this.handleComment()
@@ -328,7 +325,7 @@
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.navigation(this.resultData.panoAddress, this.resultData.panoLongitude, this.resultData.panoDimension);
 				} else {
-					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 				}
 			},
 			//分享
@@ -338,7 +335,7 @@
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.doShare(this.resultData.panoName, this.resultData.panoSubtitle, `http://www.tiantangshijie.com/panoramicView/${this.resultData.panoId}`);
 				} else {
-					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 				}
 			},
 			//跳转到个人中心
@@ -348,7 +345,7 @@
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.otherUserCenter(`${id}`);
 				} else {
-					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 				}
 			}
 		},

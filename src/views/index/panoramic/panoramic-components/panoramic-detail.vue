@@ -318,7 +318,7 @@
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.showVoice();
 				} else {
-					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 				}
 			},
 			changeVideo() {
@@ -327,7 +327,7 @@
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.showVideo();
 				} else {
-					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 				}
 			},
 			playVideo() {
@@ -481,7 +481,7 @@
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.doShare(this.panoramicInfo.panoName, this.panoramicInfo.panoSubtitle, `http://www.tiantangshijie.com/panoramicView/${this.panoramicInfo.panoId}`, s);
 				} else {
-					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 				}
 			},
 			toAffiliation() {

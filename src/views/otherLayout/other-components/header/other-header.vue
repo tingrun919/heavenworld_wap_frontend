@@ -1,9 +1,5 @@
-/*
- * @Author: tarn.tianrun 
- * @Date: 2018-04-04 14:30:43 
- * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-07-05 10:39:11
- */
+/* * @Author: tarn.tianrun * @Date: 2018-04-04 14:30:43 * @Last Modified by: tarn.tianrun * @Last Modified time: 2018-07-05
+10:39:11 */
 
 <style scoped lang="less">
 	@import "./other-header.less";
@@ -46,12 +42,12 @@
 			isShowRightDetail: Boolean,
 			isShowRightMore: Boolean,
 		},
-		computed:{
-			isTitle:function(){
+		computed: {
+			isTitle: function () {
 				var arg = '';
-				if(this.$route.name == 'blessingdetail'){
-					return arg = '的祈福'	
-				}else{
+				if (this.$route.name == 'blessingdetail') {
+					return arg = '的祈福'
+				} else {
 					return arg
 				}
 			}
@@ -96,11 +92,11 @@
 			//分享
 			share() {
 				if (this.$store.state.app.currentPageFromIos) {
-					this.$bridge.callHandler('appShare', { 'title': this.$store.state.app.panoramic.panoName, 'description': this.title+"给你分享了一个祈福", 'url': `http://www.tiantangshijie.com${this.$route.fullPath}` }, (data) => { })
+					this.$bridge.callHandler('appShare', { 'title': this.$store.state.app.panoramic.panoName, 'description': this.title + "给你分享了一个祈福", 'url': `http://www.tiantangshijie.com${this.$route.fullPath}` }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.doShare(this.$store.state.app.panoramic.panoName, this.title+"给你分享了一个祈福", `http://www.tiantangshijie.com${this.$route.fullPath}`);
+					android.doShare(this.$store.state.app.panoramic.panoName, this.title + "给你分享了一个祈福", `http://www.tiantangshijie.com${this.$route.fullPath}`);
 				} else {
-					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 				}
 			},
 		}

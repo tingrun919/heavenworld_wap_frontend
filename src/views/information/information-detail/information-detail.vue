@@ -149,7 +149,7 @@
 				} else if (this.$store.state.app.currentPageFromAndroid) {
 					android.otherUserCenter(`${id}`);
 				} else {
-					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 				}
 			}
 		}
