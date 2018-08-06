@@ -52,10 +52,14 @@
 			</div>
 		</div>
 		<div class="commit" :style="{ height: isHeight }">
-			<div class="commit-top">最新评论</div>
+			<div class="commit-top">
+				<div class="c-t-inner">
+					评论（{{ commitNum }}人）
+				</div>
+			</div>
 			<!-- <scroll v-if="items.length > 0" :data="items"></scroll> -->
 			<!-- <scroll-For-Information-Comment @pushComment="pushItem" :item='item' v-if="currentRoute == 'information_view'"></scroll-For-Information-Comment> -->
-			<ul>
+			<ul class="commit-detail">
 				<li v-for="(item, index) in items" :key="index">
 					<scroll-For-Information-Comment :item='item' :isShow="false" v-if="currentRoute == 'information_view'"></scroll-For-Information-Comment>
 				</li>
@@ -65,7 +69,7 @@
 				<img src="../../../assets/nodata.png" :width="viewHeightImgNodata" :height="viewHeightImgNodata">
 			</div>
 			<div class="addCommit">
-				<mt-button type="primary" size="small" @click="addCommit" style="width: 100%; height: 100%">添加评论</mt-button>
+				<mt-button type="primary" size="small" @click="addCommit" style="width: 25%;border-radius: 50px;">立即评论</mt-button>
 			</div>
 		</div>
 	</div>
@@ -138,6 +142,7 @@
 			this.$Lazyload.config({ error: '../../../../../../static/picture.png' });
 			this.getInformationCommentList(this.$route.params.id).then(() => {
 				let len = this.items.length;
+				this.commitNum = len;
 				if(len > 3) {
 					let list = [];
 					for(let i=2; i >= 0; i--){
@@ -148,9 +153,11 @@
 				}
 				if(len !== 0) {
 					for(let i=0; i < len; i++) {
-						this.isHeight += 20;
+						this.isHeight += 94;
 					}
-					this.isHeight += '%';
+					this.isHeight += 'px';
+				}else {
+					// this.isHeight = '40%';
 				}
 				
 			})
@@ -168,7 +175,8 @@
 				fontSize: 18,
 				token: '',
 				items: [],
-				isHeight: '35%'
+				commitNum: 0
+				// isHeight: '35%'
 			}
 		},
 		created() {
