@@ -51,7 +51,7 @@
 					<span v-if="resultData.infoReadnum > 1000">+</span>阅读</span>
 			</div>
 		</div>
-		<div class="commit" :style="{ height: isHeight }">
+		<div class="commit">
 			<div class="commit-top">
 				<div class="c-t-inner">
 					评论（{{ commitNum }}人）
@@ -69,7 +69,7 @@
 				<img src="../../../assets/nodata.png" :width="viewHeightImgNodata" :height="viewHeightImgNodata">
 			</div>
 			<div class="addCommit">
-				<mt-button type="primary" size="small" @click="addCommit" style="width: 25%;border-radius: 50px;">立即评论</mt-button>
+				<mt-button type="primary" size="small" @click="addCommit" style="width: 25%; margin-right: 25px; border-radius: 50px;">立即评论</mt-button>
 			</div>
 		</div>
 	</div>
@@ -145,8 +145,8 @@
 				this.commitNum = len;
 				if(len > 3) {
 					let list = [];
-					for(let i=2; i >= 0; i--){
-						list.push(this.items[len-i-1]);
+					for(let i=0; i <= 2; i++){
+						list.push(this.items[i]);
 					}
 					this.items = list;
 					len = 3;
@@ -210,7 +210,16 @@
 				}
 			},
 			addCommit () {
-				this.$router.push(`/comment/${this.$route.params.id}?pageFrom=detailPages`)
+				let from = this.$route.query.from;
+				let pages = 'detailPages';
+				let id = this.$route.params.id;
+				let argu = { id: this.$route.params.id, from: from, pageFrom: pages };
+				this.$router.push({
+					name: `information_comment`,
+					params: argu
+				})
+
+				// this.$router.push(`/comment/${this.$route.params.id}?pageFrom=detailPages&from=${from}&id=${id}`)
 			}
 		}
 	}
