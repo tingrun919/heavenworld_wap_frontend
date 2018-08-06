@@ -75,6 +75,15 @@
 		created() {
 			// this.items = this.tabType
 			window.giveToken = this.giveToken;
+
+
+			var from = this.$route.query.pageFrom;
+			console.log(from);
+			if(from === "detailPages") {
+				this.popupVisible = true
+			}
+
+
 		},
 		beforeMount() {
 			this.from = this.$route.params.from
