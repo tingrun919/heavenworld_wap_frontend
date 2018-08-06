@@ -51,6 +51,27 @@
 					<span v-if="resultData.infoReadnum > 1000">+</span>阅读</span>
 			</div>
 		</div>
+		<div class="commit" :style="{ height: isHeight }">
+			<div class="commit-top">
+				<div class="c-t-inner">
+					评论（{{ commitNum }}人）
+				</div>
+			</div>
+			<!-- <scroll v-if="items.length > 0" :data="items"></scroll> -->
+			<!-- <scroll-For-Information-Comment @pushComment="pushItem" :item='item' v-if="currentRoute == 'information_view'"></scroll-For-Information-Comment> -->
+			<ul class="commit-detail">
+				<li v-for="(item, index) in items" :key="index">
+					<scroll-For-Information-Comment :item='item' :isShow="false" v-if="currentRoute == 'information_view'"></scroll-For-Information-Comment>
+				</li>
+			</ul>
+			
+			<div class="blessing-messages-list-nodata" v-if="items.length <= 0">
+				<img src="../../../assets/nodata.png" :width="viewHeightImgNodata" :height="viewHeightImgNodata">
+			</div>
+			<div class="addCommit">
+				<mt-button type="primary" size="small" @click="addCommit" style="width: 25%;border-radius: 50px;">立即评论</mt-button>
+			</div>
+		</div>
 	</div>
 	<!-- </scroll> -->
 </template>
@@ -58,13 +79,16 @@
 <script>
 	import informationDetailService from './information-detail-service/information-detail-service.js'
 	import Scroll from '../../index/scroll/scroll.vue'
+	import scrollForInformationComment from '../../index/scroll/scroll-components/scroll-information-comment/scroll-information-comment.vue'
 	import { Indicator } from 'mint-ui';
+	import informationCommentService from '../service/informationCommentService.js'
 
 	export default {
-		mixins: [informationDetailService],
+		mixins: [informationDetailService,informationCommentService],
 		components: {
 			//otherBottom
-			Scroll
+			Scroll,
+			scrollForInformationComment
 		},
 		computed: {
 			viewHeight: function () {
@@ -73,6 +97,15 @@
 			viewWidthVideo: function () {
 				return (window.innerWidth) + 'px'
 			},
+			viewHeightImgNodata: function () {
+				return window.innerHeight / 5
+			},
+			currentRoute() {
+				return this.$route.name
+			}
+		},
+		watch: {
+			
 		},
 		mounted() {
 			let from = this.$route.query.from
@@ -106,7 +139,28 @@
 					Indicator.close();
 				})
 			}, 500)
-			this.$Lazyload.config({ error: '../../../../../../static/picture.png' })
+			this.$Lazyload.config({ error: '../../../../../../static/picture.png' });
+			this.getInformationCommentList(this.$route.params.id).then(() => {
+				let len = this.items.length;
+				this.commitNum = len;
+				if(len > 3) {
+					let list = [];
+					for(let i=2; i >= 0; i--){
+						list.push(this.items[len-i-1]);
+					}
+					this.items = list;
+					len = 3;
+				}
+				if(len !== 0) {
+					for(let i=0; i < len; i++) {
+						this.isHeight += 94;
+					}
+					this.isHeight += 'px';
+				}else {
+					// this.isHeight = '40%';
+				}
+				
+			})
 		},
 		data() {
 			return {
@@ -119,7 +173,10 @@
 				},
 				showVideos: false,
 				fontSize: 18,
-				token: ''
+				token: '',
+				items: [],
+				commitNum: 0
+				// isHeight: '35%'
 			}
 		},
 		created() {
@@ -151,6 +208,9 @@
 				} else {
 					Toast('此项功能为客户端专享，赶紧前往下载体验吧~');
 				}
+			},
+			addCommit () {
+				this.$router.push(`/comment/${this.$route.params.id}?pageFrom=detailPages`)
 			}
 		}
 	}

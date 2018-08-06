@@ -23,7 +23,7 @@
 				</span>
 			</div>
 			<div class="message-reply">
-				<span @click="handlePush('comment',item.comId)">回应</span>
+				<span @click="handlePush('comment',item.comId)" v-if="isShow">回应</span>
 			</div>
 		</div>
 	</div>
@@ -34,12 +34,24 @@
 			item: {
 				type: Object,
 			},
+			isShow: {
+				type: Boolean,
+				default: true
+			}
 		},
 		methods: {
 			handlePush(arg1, arg2) {
 				var param = [arg1, arg2]
 				this.$emit('pushComment', param)
-			},
+			}
+		},
+		created() {
+			
+			var from = this.$route.query.pageFrom;
+			console.log(from);
+			if(from === "detailPages") {
+				this.handlePush('comment', this.item.comId);
+			}
 		}
 	}
 </script>
