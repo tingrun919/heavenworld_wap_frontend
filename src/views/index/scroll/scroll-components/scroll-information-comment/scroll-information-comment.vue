@@ -50,7 +50,9 @@
 			var from = this.$route.query.pageFrom;
 			console.log(from);
 			if(from === "detailPages") {
+				
 				this.handlePush('comment', this.item.comId);
+
 			}
 		}
 	}

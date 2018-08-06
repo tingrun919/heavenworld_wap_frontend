@@ -76,14 +76,13 @@
 			// this.items = this.tabType
 			window.giveToken = this.giveToken;
 
-
-			var from = this.$route.query.pageFrom;
-			console.log(from);
+			var from = this.$route.params.pageFrom;
+			let id = this.$route.params.id;
 			if(from === "detailPages") {
 				this.popupVisible = true
+				this.commentId = id
+				this.commentType = 1
 			}
-
-
 		},
 		beforeMount() {
 			this.from = this.$route.params.from
