@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-03-20 18:21:49 
  * @Last Modified by: tarn.tianrun
- * @Last Modified time: 2018-07-01 00:57:03
+ * @Last Modified time: 2018-08-06 18:31:34
  */
 
 <style scoped lang="less">
@@ -61,6 +61,7 @@
 				this.show = !this.show
 			},
 			toIndex() {
+				document.getElementById("audioMusic").pause();
 				let argu = { id: this.$route.params.id };
 				if (this.$store.state.app.currentPageFromAndroid) {
 					let args = { from: 'android' }

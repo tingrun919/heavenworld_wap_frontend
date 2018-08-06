@@ -153,13 +153,6 @@ function playMusic() {
 				myAudio.play();
 			});
 		}
-		// 其他应用在click/touch时触发播放
-		document.addEventListener('click', function () {
-			myAudio.play();
-		})  
-		document.addEventListener('touchstart', function () {
-			myAudio.play();
-		})
 	} else {
 		// var krpano = document.getElementById('krpanoSWFObject');
 		// var name = 'soundico'
@@ -184,13 +177,6 @@ function playMusic() {
 				myAudio.play();
 			});
 		}
-		// 其他应用在click/touch时触发播放
-		document.addEventListener('click', function () {
-			myAudio.play();
-		})  
-		document.addEventListener('touchstart', function () {
-			myAudio.play();
-		})
 	}
 }
 
