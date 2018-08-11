@@ -64,7 +64,7 @@
 					<scroll-For-Information-Comment :item='item' :isShow="false" v-if="currentRoute == 'information_view'"></scroll-For-Information-Comment>
 				</li>
 			</ul>
-			
+
 			<div class="blessing-messages-list-nodata" v-if="items.length <= 0">
 				<img src="../../../assets/nodata.png" :width="viewHeightImgNodata" :height="viewHeightImgNodata">
 			</div>
@@ -82,9 +82,10 @@
 	import scrollForInformationComment from '../../index/scroll/scroll-components/scroll-information-comment/scroll-information-comment.vue'
 	import { Indicator } from 'mint-ui';
 	import informationCommentService from '../service/informationCommentService.js'
+	import { MessageBox } from 'mint-ui';
 
 	export default {
-		mixins: [informationDetailService,informationCommentService],
+		mixins: [informationDetailService, informationCommentService],
 		components: {
 			//otherBottom
 			Scroll,
@@ -105,7 +106,7 @@
 			}
 		},
 		watch: {
-			
+
 		},
 		mounted() {
 			let from = this.$route.query.from
@@ -143,23 +144,23 @@
 			this.getInformationCommentList(this.$route.params.id).then(() => {
 				let len = this.items.length;
 				this.commitNum = len;
-				if(len > 3) {
+				if (len > 3) {
 					let list = [];
-					for(let i=0; i <= 2; i++){
+					for (let i = 0; i <= 2; i++) {
 						list.push(this.items[i]);
 					}
 					this.items = list;
 					len = 3;
 				}
-				if(len !== 0) {
-					for(let i=0; i < len; i++) {
+				if (len !== 0) {
+					for (let i = 0; i < len; i++) {
 						this.isHeight += 94;
 					}
 					this.isHeight += 'px';
-				}else {
+				} else {
 					// this.isHeight = '40%';
 				}
-				
+
 			})
 		},
 		data() {
@@ -209,17 +210,19 @@
 					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 				}
 			},
-			addCommit () {
+			addCommit() {
 				let from = this.$route.query.from;
-				let pages = 'detailPages';
-				let id = this.$route.params.id;
-				let argu = { id: this.$route.params.id, from: from, pageFrom: pages };
-				this.$router.push({
-					name: `information_comment`,
-					params: argu
-				})
-
-				// this.$router.push(`/comment/${this.$route.params.id}?pageFrom=detailPages&from=${from}&id=${id}`)
+				if (from != 'ios' || from != 'android') {
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
+				} else {
+					let pages = 'detailPages';
+					let id = this.$route.params.id;
+					let argu = { id: this.$route.params.id, from: from, pageFrom: pages };
+					this.$router.push({
+						name: `information_comment`,
+						params: argu
+					})
+				}
 			}
 		}
 	}

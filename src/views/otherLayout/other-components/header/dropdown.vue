@@ -41,6 +41,7 @@
 </template>
 <script>
 	import { Toast } from 'mint-ui';
+	import { MessageBox } from 'mint-ui';
 
 	export default {
 		data() {

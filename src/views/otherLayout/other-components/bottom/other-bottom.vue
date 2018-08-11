@@ -21,6 +21,7 @@
 </template>
 <script>
 	import { Toast } from 'mint-ui';
+	import { MessageBox } from 'mint-ui';
 	import otherBottomService from './service/other-bottom-service.js'
 	import informationDetailService from '../../../information/information-detail/information-detail-service/information-detail-service.js'
 
@@ -112,17 +113,33 @@
 						this.$store.commit('setStatusI', this.selectColl ? 0 : 1);
 					})
 				} else {
-					android.getToken()
+					let from = this.$route.query.from
+					if (from == 'ios') {
+						this.$store.commit('setCurrentPageFromIos', true);
+						this.$store.commit('setCurrentPageFromAndroid', false);
+					} else if (from == 'android') {
+						this.$store.commit('setCurrentPageFromAndroid', true);
+						this.$store.commit('setCurrentPageFromIos', false);
+						android.getToken()
+					} else {
+						this.$store.commit('setCurrentPageFromAndroid', false);
+						this.$store.commit('setCurrentPageFromIos', false);
+						MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
+					}
 				}
 			},
 			//跳转到评论列表
 			handleCommentList() {
 				let from = this.$route.query.from
-				let argu = { id: this.$route.params.id, from: from };
-				this.$router.push({
-					name: 'information_comment',
-					params: argu
-				})
+				if (from != 'ios' || from != 'android') {
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
+				} else {
+					let argu = { id: this.$route.params.id, from: from };
+					this.$router.push({
+						name: 'information_comment',
+						params: argu
+					})
+				}
 			},
 			share() {
 				if (this.$store.state.app.currentPageFromIos) {
@@ -161,6 +178,7 @@
 						} else {
 							this.$store.commit('setCurrentPageFromAndroid', false);
 							this.$store.commit('setCurrentPageFromIos', false);
+							MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 						}
 					}
 				} else {

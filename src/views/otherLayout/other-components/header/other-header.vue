@@ -25,6 +25,7 @@
 <script>
 	import dropDown from '../header/dropdown.vue';
 	import { Toast } from 'mint-ui';
+	import { MessageBox } from 'mint-ui';
 
 	export default {
 		data() {
