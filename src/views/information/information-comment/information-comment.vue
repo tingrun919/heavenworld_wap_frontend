@@ -240,10 +240,11 @@
 				}
 			},
 			URLencode(sStr) {
-				return escape(sStr).replace(/\+/g, '%2B').replace(/\"/g, '%22').replace(/\'/g, '%27').replace(/\//g, '%2F');
+				return sStr.replace(/\+/g, '%2B');
 			},
 			handleCommentApi() {
-				this.addComment(this.token, this.$route.params.id, this.commentType == 1 ? this.commentId : 0, this.URLencode(this.introduction), this.commentType).then(res => {
+				var s = this.URLencode(this.introduction)
+				this.addComment(this.token, this.$route.params.id, this.commentType == 1 ? this.commentId : 0, s, this.commentType).then(res => {
 					this.handleCancelComment()
 					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
 						this.getInformationCommentList(this.$route.params.id)

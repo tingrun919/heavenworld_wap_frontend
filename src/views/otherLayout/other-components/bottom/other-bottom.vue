@@ -115,8 +115,10 @@
 				} else {
 					let from = this.$route.query.from
 					if (from == 'ios') {
-						this.$store.commit('setCurrentPageFromIos', true);
+						this.$store.commit('setCurrentPageFromIos', true);							this.$bridge.callHandler('clickZan', {}, (data) => {
+							})
 						this.$store.commit('setCurrentPageFromAndroid', false);
+
 					} else if (from == 'android') {
 						this.$store.commit('setCurrentPageFromAndroid', true);
 						this.$store.commit('setCurrentPageFromIos', false);

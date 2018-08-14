@@ -367,12 +367,14 @@
 				}
 			},
 			URLencode(sStr) {
-				return escape(sStr).replace(/\+/g, '%2B').replace(/\"/g, '%22').replace(/\'/g, '%27').replace(/\//g, '%2F');
+				return sStr.replace(/\+/g, '%2B');
 			},
 			//添加评论，回复评论
 			handleComment() {
-				this.addComment(this.token, this.resultData.prayPanoid, this.commentId, this.URLencode(this.introduction), this.commentType, this.resultData.prayId).then(res => {
+				var s = this.URLencode(this.introduction)
+				this.addComment(this.token, this.resultData.prayPanoid, this.commentId, s, this.commentType, this.resultData.prayId).then(res => {
 					this.handleCancelComment()
+					alert(res.data.message)
 					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
 						this.getCommentList(this.$route.params.id, 1000)
 					})
@@ -433,9 +435,9 @@
 			},
 			handleDoshare() {
 				if (this.$store.state.app.currentPageFromIos) {
-					this.$bridge.callHandler('appShare', { 'title': this.$store.state.app.panoramic.panoName, 'description': this.title + "给你分享了一个祈福", 'url': `http://www.tiantangshijie.com${this.$route.fullPath}`, 'param': '' }, (data) => { })
+					this.$bridge.callHandler('appShare', { 'title': this.$store.state.app.panoramic.panoName, 'description': this.title + "给你分享了一个祈福", 'url': `http://www.tiantangshijie.com${this.$route.path}`, 'param': '' }, (data) => { })
 				} else if (this.$store.state.app.currentPageFromAndroid) {
-					android.doShare(this.$store.state.app.panoramic.panoName, this.title + "给你分享了一个祈福", `http://www.tiantangshijie.com${this.$route.fullPath}`, '');
+					android.doShare(this.$store.state.app.panoramic.panoName, this.title + "给你分享了一个祈福", `http://www.tiantangshijie.com${this.$route.path}`, '');
 				} else {
 					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => {
 						window.location.href = "https://www.pgyer.com/Tpka"

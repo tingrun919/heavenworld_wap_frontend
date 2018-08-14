@@ -294,11 +294,12 @@
 				}
 			},
 			URLencode(sStr) {
-				return escape(sStr).replace(/\+/g, '%2B').replace(/\"/g, '%22').replace(/\'/g, '%27').replace(/\//g, '%2F');
+				return sStr.replace(/\+/g, '%2B');
 			},
 			//添加评论，回复评论
 			handleComment() {
-				this.addComment(this.token, this.$route.params.id, this.commentId, this.URLencode(this.introduction), this.commentType).then(res => {
+				var s = this.URLencode(this.introduction)
+				this.addComment(this.token, this.$route.params.id, this.commentId, s, this.commentType).then(res => {
 					this.handleCancelComment()
 					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
 						this.getSinglePanoramicCommentList(this.$route.params.id, 0, '', 5)
