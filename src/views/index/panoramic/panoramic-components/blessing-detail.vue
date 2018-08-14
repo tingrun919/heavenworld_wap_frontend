@@ -366,9 +366,12 @@
 					this.handleComment()
 				}
 			},
+			URLencode(sStr) {
+				return escape(sStr).replace(/\+/g, '%2B').replace(/\"/g, '%22').replace(/\'/g, '%27').replace(/\//g, '%2F');
+			},
 			//添加评论，回复评论
 			handleComment() {
-				this.addComment(this.token, this.resultData.prayPanoid, this.commentId, this.introduction, this.commentType, this.resultData.prayId).then(res => {
+				this.addComment(this.token, this.resultData.prayPanoid, this.commentId, this.URLencode(this.introduction), this.commentType, this.resultData.prayId).then(res => {
 					this.handleCancelComment()
 					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
 						this.getCommentList(this.$route.params.id, 1000)

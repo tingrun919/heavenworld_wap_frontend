@@ -239,8 +239,11 @@
 					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 				}
 			},
+			URLencode(sStr) {
+				return escape(sStr).replace(/\+/g, '%2B').replace(/\"/g, '%22').replace(/\'/g, '%27').replace(/\//g, '%2F');
+			},
 			handleCommentApi() {
-				this.addComment(this.token, this.$route.params.id, this.commentType == 1 ? this.commentId : 0, this.introduction, this.commentType).then(res => {
+				this.addComment(this.token, this.$route.params.id, this.commentType == 1 ? this.commentId : 0, this.URLencode(this.introduction), this.commentType).then(res => {
 					this.handleCancelComment()
 					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
 						this.getInformationCommentList(this.$route.params.id)
