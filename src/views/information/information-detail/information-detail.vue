@@ -211,10 +211,8 @@
 				}
 			},
 			addCommit() {
-				let from = this.$route.query.from;
-				if (from != 'ios' || from != 'android') {
-					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
-				} else {
+				let from = this.$route.query.from
+				if (from == 'ios') {
 					let pages = 'detailPages';
 					let id = this.$route.params.id;
 					let argu = { id: this.$route.params.id, from: from, pageFrom: pages };
@@ -222,6 +220,16 @@
 						name: `information_comment`,
 						params: argu
 					})
+				} else if (from == 'android') {
+					let pages = 'detailPages';
+					let id = this.$route.params.id;
+					let argu = { id: this.$route.params.id, from: from, pageFrom: pages };
+					this.$router.push({
+						name: `information_comment`,
+						params: argu
+					})
+				}else {
+					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 				}
 			}
 		}

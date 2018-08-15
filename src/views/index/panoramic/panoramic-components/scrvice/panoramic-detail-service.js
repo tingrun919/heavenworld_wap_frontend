@@ -4,7 +4,7 @@ import * as panoramic from '../../../../../../static/vtour/panoramic.js'
 
 export default {
 	methods: {
-		getCommentList(id,sname) {
+		getCommentList(id, sname) {
 			return api.get(`banaworld_show/nopano/selListPray?panoid=${id}&scenename=${sname}`)
 				.then(res => {
 					panoramic.show_comment_list(res.data.data);
@@ -33,6 +33,14 @@ export default {
 			return api.get(`banaworld_show/nopano/selOnePano?panoid=${id}`)
 				.then(res => {
 					this.panoramicInfo = res.data.data[0]
+				})
+				.catch(err => {
+				});
+		},
+		getStencil(token) {
+			return api.get(`banaworld_show/pano/panoTemplet?token=${token}&panoid=1`)
+				.then(res => {
+					this.dataSwipe = res.data.data
 				})
 				.catch(err => {
 				});

@@ -38,7 +38,7 @@
 						<img src="../../../../assets/panoramic-img/panoramic-blessing-confirm.png" @click="handleHastoken" width="30" height="30">
 					</div>
 				</div>
-				<div class="blessing-text" v-bind:style="{backgroundImage: 'url(' + dataSwipe[chioseImg].img + ')'}">
+				<div class="blessing-text" v-if="dataSwipe" v-bind:style="{backgroundImage: 'url(' + dataSwipe[chioseImg].tem_url + ')'}">
 					<div contenteditable ref="divContent" class="blessing-text-enter"></div>
 					<!-- @focus="handleEdit" @click="playAudio"  @click="playVideo"-->
 					<div class="blessing-other">
@@ -67,9 +67,9 @@
 				<transition name="slide-fade">
 					<div class="blessing-model" v-if="showModel">
 						<swiper :options="swiperOption">
-							<swiper-slide v-for="(item,index) in dataSwipe" :key="item.id" @click.native="choiseModel(index)">
-								<img v-bind:class="{ ischiose : index == chioseImg }" :src="item.img" width="100" height="100">
-								<span>{{item.name}}</span>
+							<swiper-slide v-for="(item,index) in dataSwipe" :key="item.tem_id" @click.native="choiseModel(index)">
+								<img v-bind:class="{ ischiose : index == chioseImg }" :src="item.tem_url" width="100" height="100">
+								<!-- <span>{{item.name}}</span> -->
 							</swiper-slide>
 						</swiper>
 					</div>
@@ -166,22 +166,23 @@
 				redQuantity: '',
 				redNumber: '',
 				redCheck: '',
+				imgs:[],
 				dataSwipe: [
-					{
-						id: 1, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-9686b0a6f66ccff4.jpeg'
-					}, {
-						id: 2, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-dbe5da109cfa2389.jpeg'
-					}, {
-						id: 3, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-e1cfba899cdddb5f.jpeg'
-					}, {
-						id: 4, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-788433c7bb874a1d.jpeg'
-					}, {
-						id: 5, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-21c3295a3eb3be6f.jpeg'
-					}, {
-						id: 6, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-300bcacca29feed0.jpeg'
-					}, {
-						id: 7, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-9b012987f0e41a94.jpeg'
-					}
+					// {
+					// 	id: 1, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-9686b0a6f66ccff4.jpeg'
+					// }, {
+					// 	id: 2, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-dbe5da109cfa2389.jpeg'
+					// }, {
+					// 	id: 3, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-e1cfba899cdddb5f.jpeg'
+					// }, {
+					// 	id: 4, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-788433c7bb874a1d.jpeg'
+					// }, {
+					// 	id: 5, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-21c3295a3eb3be6f.jpeg'
+					// }, {
+					// 	id: 6, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-300bcacca29feed0.jpeg'
+					// }, {
+					// 	id: 7, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-9b012987f0e41a94.jpeg'
+					// }
 				],
 				panoramicInfo: [],
 				token: '',
@@ -211,6 +212,7 @@
 		mounted() {
 			let from = this.$route.query.from
 			let token = this.$route.query.token
+			this.getStencil(token)
 			if (!token) {
 				token = ''
 			}
@@ -286,9 +288,6 @@
 					panoramic.show_comment();
 				}
 			},
-			// handleEdit() {
-			// 	panoramic.show_comment();
-			// },
 			giveMoney(yue) {
 				this.yue = yue
 			},
@@ -383,7 +382,7 @@
 				if (this.$refs.divContent.innerText.length >= 140) {
 					Toast('最大限制输入为140个字！');
 				} else {
-					this.handleAddcomment(id, ath, atv, sname, this.dataSwipe[this.chioseImg].img, this.token).then(res => {
+					this.handleAddcomment(id, ath, atv, sname, this.dataSwipe[this.chioseImg].tem_url, this.token).then(res => {
 						if (res.code == 100000) {
 							this.handleBlessingAction = !this.handleBlessingAction
 							this.showRedenvelope = false;

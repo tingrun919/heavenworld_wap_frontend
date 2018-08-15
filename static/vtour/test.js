@@ -142,10 +142,8 @@ function playMusic() {
 	var currenttime = 0;
 	myAudio.id = "audioMusic"
 	myAudio.preload = true;
-	// myAudio.controls = true;
 	myAudio.src = arr[index];
 	myAudio.addEventListener('ended', playEndedHandler, false);
-	// myAudio.play();
 	if (isplay) {
 		myAudio.play();
 		if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
@@ -154,11 +152,8 @@ function playMusic() {
 			});
 		}
 	} else {
-		// var krpano = document.getElementById('krpanoSWFObject');
-		// var name = 'soundico'
 		myAudio.pause();
 		myAudio.currentTime = currenttime;
-		// krpano.set('layer[soundico].crop;', "0|70|62|62");
 	}
 
 	document.getElementById("audioBox").appendChild(myAudio);
