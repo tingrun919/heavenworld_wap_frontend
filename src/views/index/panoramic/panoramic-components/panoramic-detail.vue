@@ -166,7 +166,7 @@
 				redQuantity: '',
 				redNumber: '',
 				redCheck: '',
-				imgs:[],
+				imgs: [],
 				dataSwipe: [
 					// {
 					// 	id: 1, name: '祈福模版', img: 'https://upload-images.jianshu.io/upload_images/3134274-9686b0a6f66ccff4.jpeg'
@@ -244,16 +244,36 @@
 				}
 				// this.showVideos = true;
 			})
-			this.$bridge.registerHandler("handleMusicPause", () => {
-				document.getElementById("audioMusic").pause();
-			})
+			// this.$bridge.registerHandler("handleMusicPause", () => {
+			// 	document.getElementById("audioMusic").pause();
+			// })
 
-			this.$bridge.registerHandler("handleMusicStart", () => {
-				document.getElementById("audioMusic").play();
+			this.$bridge.registerHandler("handleMusic", () => {
+				var audio = document.getElementById("audioMusic")
+				var play = $("#comment-athv").attr("data-play")
+				if (play == 'true') {
+					if (audio.paused) {
+						audio.play()
+					}
+				}
 			})
 
 			this.$bridge.registerHandler("handleDoshare", () => {
 				this.handleDoshare()
+			})
+
+			this.$bridge.registerHandler("handleMusichandle", (data) => {
+				var audio = document.getElementById("audioMusic")
+				var play = $("#comment-athv").attr("data-play")
+				if (data == 'backend') {
+					audio.pause()
+				} else if (data == 'active') {
+					if (play == 'true') {
+						if (audio.paused) {
+							audio.play()
+						}
+					}
+				}
 			})
 
 			this.$bridge.registerHandler("toAffiliation", () => {
@@ -271,14 +291,40 @@
 		created() {
 			window.handleResultAudio = this.handleResultAudio;
 			window.handleResultVideo = this.handleResultVideo;
-			window.handleMusicPause = this.handleMusicPause;
-			window.handleMusicStart = this.handleMusicStart;
+			// window.handleMusicPause = this.handleMusicPause;
+			// window.handleMusicStart = this.handleMusicStart;
 			window.handleDoshare = this.handleDoshare;
 			window.toAffiliation = this.toAffiliation;
 			window.giveToken = this.giveToken;
 			window.giveMoney = this.giveMoney;
+			window.handleMusichandle = this.handleMusichandle;
+			window.handleMusic = this.handleMusic;
 		},
 		methods: {
+			handleMusic() {
+				var audio = document.getElementById("audioMusic")
+				var play = $("#comment-athv").attr("data-play")
+				if (play == 'true') {
+					if (audio.paused) {
+						audio.play()
+					} else {
+						audio.pause()
+					}
+				}
+			},
+			handleMusichandle(data) {
+				var audio = document.getElementById("audioMusic")
+				var play = $("#comment-athv").attr("data-play")
+				if (data == 'backend') {
+					audio.pause()
+				} else if (data == 'active') {
+					if (play == 'true') {
+						if (audio.paused) {
+							audio.play()
+						}
+					}
+				}
+			},
 			getPanoramicAction(param) {
 				//点击祈福
 				if (param == 'blessing') {
@@ -466,12 +512,12 @@
 				this.videoDuration = duration
 				this.showOtherVideo = true
 			},
-			handleMusicPause() {
-				document.getElementById("audioMusic").pause();
-			},
-			handleMusicStart() {
-				document.getElementById("audioMusic").play();
-			},
+			// handleMusicPause() {
+			// 	document.getElementById("audioMusic").pause();
+			// },
+			// handleMusicStart() {
+			// 	document.getElementById("audioMusic").play();
+			// },
 			handleDoshare() {
 				var krpano = document.getElementById('krpanoSWFObject');
 				var s = krpano.get("scene[get(xml.scene)].name");

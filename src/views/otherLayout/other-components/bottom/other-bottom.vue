@@ -107,7 +107,7 @@
 		methods: {
 			handleBottombar(bottombar) {
 				let token = this.$store.state.app.userToken
-				if (token) {
+				if (this.token) {
 					this.handleAddCollect(token, this.$route.params.id, 2, this.selectColl ? 0 : 1).then(() => {
 						this.selectColl = !this.selectColl
 						this.$store.commit('setStatusI', this.selectColl ? 0 : 1);
@@ -115,8 +115,9 @@
 				} else {
 					let from = this.$route.query.from
 					if (from == 'ios') {
-						this.$store.commit('setCurrentPageFromIos', true);							this.$bridge.callHandler('clickZan', {}, (data) => {
-							})
+						this.$store.commit('setCurrentPageFromIos', true); 
+						this.$bridge.callHandler('clickZan', {}, (data) => {
+						})
 						this.$store.commit('setCurrentPageFromAndroid', false);
 
 					} else if (from == 'android') {
@@ -145,7 +146,7 @@
 						name: 'information_comment',
 						params: argu
 					})
-				}else {
+				} else {
 					MessageBox.confirm('此项功能为客户端专享，赶紧前往下载体验吧~').then(action => { window.location.href = "https://www.pgyer.com/Tpka" });
 				}
 			},
@@ -166,7 +167,7 @@
 			handlePraise() {
 				this.resultValue = this.$store.state.app.information
 				if (this.resultValue.praiseState == 0) {
-					if (this.$store.state.app.userToken) {
+					if (this.token) {
 						this.handlePraiseNetWork(this.$store.state.app.userToken, this.resultValue.infoId, this.$store.state.app.userId).then(() => {
 							this.selectP = true
 							this.count = Number(this.count) + 1

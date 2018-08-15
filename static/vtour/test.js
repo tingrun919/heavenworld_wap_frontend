@@ -104,15 +104,18 @@ function getMusciList() {
 	if (audio.paused) {
 		audio.currentTime = currenttime
 		audio.play()
+		$("#comment-athv").attr("data-play", 'true')
 		isplay = true
 	} else {
 		audio.pause()
 		isplay = false
+		$("#comment-athv").attr("data-play", 'false')
 		currenttime = audio.currentTime
 	}
 }
 
 function getMusciListApi() {
+	$("#comment-athv").attr("data-play", 'true')
 	var prayId = window.location.pathname
 	prayId = prayId.split('/')[2]
 	var audio = document.getElementById("audioMusic")
