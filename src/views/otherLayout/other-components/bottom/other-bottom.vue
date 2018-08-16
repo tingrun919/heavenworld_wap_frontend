@@ -91,6 +91,7 @@
 			if (from == 'android') {
 				setTimeout(() => {
 					let token = this.$store.state.app.userToken
+					this.token = token
 					this.getInformationDetail(this.$route.params.id, token).then(() => {
 						this.count = this.resultData.praiseCount
 						this.selectP = this.resultData.praiseState == 1 ? true : false
@@ -162,6 +163,11 @@
 			giveToken(token) {
 				if (token) {
 					this.$store.commit('setUserToken', token);
+				}
+			},
+			giveToken2(token) {
+				if (token) {
+					this.token = token
 				}
 			},
 			handlePraise() {

@@ -374,7 +374,6 @@
 				var s = this.URLencode(this.introduction)
 				this.addComment(this.token, this.resultData.prayPanoid, this.commentId, s, this.commentType, this.resultData.prayId).then(res => {
 					this.handleCancelComment()
-					alert(res.data.message)
 					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
 						this.getCommentList(this.$route.params.id, 1000)
 					})

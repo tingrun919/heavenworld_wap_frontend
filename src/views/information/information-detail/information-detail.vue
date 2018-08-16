@@ -109,6 +109,9 @@
 
 		},
 		mounted() {
+			this.$bridge.registerHandler("informationVideoPause", () => {
+				this.$refs.videoTag.pause()
+			})
 			let from = this.$route.query.from
 			if (from == 'ios') {
 				this.$store.commit('setCurrentPageFromIos', true);
@@ -184,8 +187,12 @@
 			window.changeFontSize = this.changeFontSize;
 			window.giveToken = this.giveToken;
 			window.giveToken2 = this.giveToken2;
+			window.informationVideoPause = this.informationVideoPause;
 		},
 		methods: {
+			informationVideoPause(){
+				this.$refs.videoTag.pause()
+			},
 			giveToken(token) {
 				if (token) {
 					this.$store.commit('setUserToken', token);
