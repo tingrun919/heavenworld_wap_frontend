@@ -18,8 +18,7 @@
 </style>
 <template>
 	<div class="scroll-list-wrap" :style="{height:viewHeight}" slot="demo">
-		<scroll ref="scroll" v-if="items.length > 0" :data="items" :scrollbar="scrollbarObj" :pullDownRefresh="pullDownRefreshObj"
-		 :pullUpLoad="pullUpLoadObj" :startY="parseInt(startY)" @push="clickItem" @pullingDown="onPullingDown" @pullingUp="onPullingUp">
+		<scroll ref="scroll" v-if="items.length > 0" :data="items" :scrollbar="scrollbarObj" :startY="parseInt(startY)" @push="clickItem">
 		</scroll>
 		<div class="blessing-messages-list-nodata" v-if="items.length <= 0">
 			<img src="../../../assets/nodata.png" :width="viewHeightImgNodata" :height="viewHeightImgNodata">
@@ -78,7 +77,7 @@
 
 			var from = this.$route.params.pageFrom;
 			let id = this.$route.params.id;
-			if(from === "detailPages") {
+			if (from === "detailPages") {
 				this.popupVisible = true
 				this.commentId = id
 				this.commentType = 1
@@ -243,13 +242,17 @@
 				return sStr.replace(/\+/g, '%2B');
 			},
 			handleCommentApi() {
-				var s = this.URLencode(this.introduction)
-				this.addComment(this.token, this.$route.params.id, this.commentType == 1 ? this.commentId : 0, s, this.commentType).then(res => {
-					this.handleCancelComment()
-					MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
-						this.getInformationCommentList(this.$route.params.id)
+				if (s.length <= 0) {
+					MessageBox.alert('提示', '请输入评论内容！')
+				} else {
+					var s = this.URLencode(this.introduction)
+					this.addComment(this.token, this.$route.params.id, this.commentType == 1 ? this.commentId : 0, s, this.commentType).then(res => {
+						this.handleCancelComment()
+						MessageBox.alert('提示', res.data.code == 100000 ? '评论成功!' : '评论失败!请联系系统管理员!').then(() => {
+							this.getInformationCommentList(this.$route.params.id)
+						})
 					})
-				})
+				}
 			}
 		}
 	}
